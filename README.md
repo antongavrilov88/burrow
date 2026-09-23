@@ -160,7 +160,7 @@ If you'd rather not do it at all: one price, your server, ready in about an hour
 
 ## Who's behind this
 
-I'm Anton Gavrilov, a frontend engineer. I built this for my parents, then for a friend, then wrote it down so Claude could do it for anyone. Built in public: [Telegram (RU)](https://t.me/{{TG_CHANNEL}}) · [LinkedIn](https://linkedin.com/in/{{LINKEDIN}}).
+I'm Anton Gavrilov, a frontend engineer. I built this for my parents, then for a friend, then wrote it down so Claude could do it for anyone. Built in public: [Telegram (RU)](https://t.me/bepatientlikeme) · [LinkedIn](https://linkedin.com/in/agavrilov88).
 
 ## License
 

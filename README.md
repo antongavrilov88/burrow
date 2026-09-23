@@ -154,7 +154,7 @@ The skill's instructions are written in Russian, because that is who it was buil
 
 ## Stuck? Want it done for you?
 
-The skill and this guide are free and stay free. If you get stuck, open an issue or message me on Telegram: [@{{TG_HANDLE}}](https://t.me/{{TG_HANDLE}}).
+The skill and this guide are free and stay free. If you get stuck, open an issue or message me on Telegram: [@bepatientlikeme](https://t.me/bepatientlikeme).
 
 If you'd rather not do it at all: one price, your server, ready in about an hour — [burrow site](https://antongavrilov88.github.io/burrow/). The server stays yours; I never hold your card or your account.
 

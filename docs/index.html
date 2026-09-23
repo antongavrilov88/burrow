@@ -50,8 +50,11 @@ p{margin:0 0 1em}
 strong{font-weight:700}
 code{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1px solid var(--line);padding:.1em .4em;border-radius:5px}
 
-/* header */
-.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px}
+/* header — sticky bar, full-width so the backdrop covers the page at any viewport */
+.bar{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+@supports (backdrop-filter:blur(1px)){.bar{background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
+[id]{scroll-margin-top:84px}
 .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:-.02em;text-decoration:none;color:var(--ink)}
 .brand svg{width:26px;height:26px;color:var(--accent)}
 .tools{display:flex;align-items:center;gap:8px}
@@ -144,7 +147,7 @@ section{padding-block:56px;border-top:1px solid var(--line)}
 .bub{max-width:80%;padding:11px 14px;border-radius:14px;font-size:14.5px;line-height:1.5}
 .bub.a{align-self:flex-start;background:var(--accent-soft);border:1px solid var(--accent-line);color:var(--ink);border-bottom-left-radius:5px}
 .bub.u{align-self:flex-end;background:var(--surface);border:1px solid var(--line-2);color:var(--ink-2);border-bottom-right-radius:5px}
-.price{border:1px solid var(--line);border-radius:16px;background:var(--surface-2);padding:24px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow);position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px)}
+.price{border:1px solid var(--line);border-radius:16px;background:var(--surface-2);padding:24px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow);position:sticky;top:calc(env(safe-area-inset-top,0px) + 86px)}
 .price .k{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
 .price .n{font-size:clamp(44px,5.4vw,62px);font-weight:800;letter-spacing:-.05em;line-height:1;font-variant-numeric:tabular-nums}
 .price .guar{font-size:15.5px;font-weight:700;color:var(--ink);margin:0}
@@ -195,11 +198,13 @@ footer a{color:var(--ink-2)}
   .bub{max-width:92%}
   section{padding-block:40px}
   h1{font-size:clamp(34px,9vw,44px)}
+  .top{padding-block:10px}
+  [id]{scroll-margin-top:72px}
 }
 </style>
 </head><body>
 
-<header class="wrap top">
+<div class="bar"><header class="wrap top">
   <a class="brand" href="#top" aria-label="Burrow">
     <svg viewBox="0 0 26 26" aria-hidden="true"><path d="M2 20c0-7 5-13 11-13s11 6 11 13H2z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 20c0-3.5 2.2-6.5 5-6.5s5 3 5 6.5" fill="currentColor"/><path d="M1 20h24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
     Burrow
@@ -223,7 +228,7 @@ footer a{color:var(--ink-2)}
       <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
     </button>
   </div>
-</header>
+</header></div>
 
 <main id="top">
 

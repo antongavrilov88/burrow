@@ -1,222 +1,241 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="Burrow — a free Claude skill that turns a $6 server you rent into a personal VPN. Your server, your keys, nothing to block.">
-<title>Burrow</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-</head><body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
 :root{
   color-scheme:light;
-  --bg:#EEF1EE; --paper:#F8F9F7; --ink:#121A16; --ink-2:#3E4A44; --mute:#71807A;
-  --line:#CFD8D2; --line-2:#B4C0B9;
-  --moss:#2E7048; --moss-ink:#215736; --moss-soft:#DCEBE0;
-  --loam:#5A3E2B; --loam-soft:#EFE4DB;
-  --display:'Instrument Serif',Georgia,'Times New Roman',serif;
-  --body:'IBM Plex Sans','Helvetica Neue',Arial,sans-serif;
-  --mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+  --bg:#FFFFFF; --surface:#F9FAFB; --surface-2:#FFFFFF; --ink:#101828; --ink-2:#475467; --mute:#667085;
+  --line:#E4E7EC; --line-2:#D0D5DD;
+  --accent:#0F6E7A; --accent-ink:#0B535C; --accent-soft:#E6F4F1; --accent-line:#B9DFD9; --on-accent:#FFFFFF;
+  --you:#B54708; --good:#12B76A;
+  --shadow:0 12px 32px -20px rgba(16,24,40,.25);
+  --body:'Manrope','Helvetica Neue',Arial,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
     color-scheme:dark;
-    --bg:#0F1512; --paper:#161D19; --ink:#E8ECE9; --ink-2:#B6C1BB; --mute:#83918A;
-    --line:#26312B; --line-2:#37453E;
-    --moss:#4FA86E; --moss-ink:#7DC996; --moss-soft:#1A2F22;
-    --loam:#C9A78E; --loam-soft:#2A2119;
+    --bg:#0E1116; --surface:#141821; --surface-2:#0E1116; --ink:#EDF0F3; --ink-2:#9AA3AF; --mute:#6B7684;
+    --line:#1F2530; --line-2:#2A3240;
+    --accent:#F2B84B; --accent-ink:#FFD07A; --accent-soft:#1C1A12; --accent-line:#3A3320; --on-accent:#0E1116;
+    --you:#C9A06A; --good:#4ADE80;
+    --shadow:0 12px 32px -20px rgba(0,0,0,.6);
   }
 }
 :root[data-theme="dark"]{
   color-scheme:dark;
-  --bg:#0F1512; --paper:#161D19; --ink:#E8ECE9; --ink-2:#B6C1BB; --mute:#83918A;
-  --line:#26312B; --line-2:#37453E;
-  --moss:#4FA86E; --moss-ink:#7DC996; --moss-soft:#1A2F22;
-  --loam:#C9A78E; --loam-soft:#2A2119;
+  --bg:#0E1116; --surface:#141821; --surface-2:#0E1116; --ink:#EDF0F3; --ink-2:#9AA3AF; --mute:#6B7684;
+  --line:#1F2530; --line-2:#2A3240;
+  --accent:#F2B84B; --accent-ink:#FFD07A; --accent-soft:#1C1A12; --accent-line:#3A3320; --on-accent:#0E1116;
+  --you:#C9A06A; --good:#4ADE80;
+  --shadow:0 12px 32px -20px rgba(0,0,0,.6);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto} *{transition:none!important}}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
-.wrap{max-width:1040px;margin:0 auto;padding-inline:20px}
-a{color:var(--moss-ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
-a:hover{color:var(--moss)}
-a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--moss);outline-offset:3px;border-radius:3px}
-h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.05;text-wrap:balance;margin:0;letter-spacing:-.01em}
-h1{font-size:clamp(44px,7vw,84px)}
-h1 em{font-style:italic;color:var(--moss-ink)}
-h2{font-size:clamp(32px,4.2vw,46px);margin-bottom:18px}
-h3{font-size:26px;margin-bottom:8px}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:20px}
+a{color:var(--accent-ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{color:var(--accent)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+h1,h2,h3{margin:0;font-weight:800;letter-spacing:-.03em;line-height:1.1;text-wrap:balance}
+h1{font-size:clamp(38px,5.4vw,62px);line-height:1.05}
+h2{font-size:clamp(28px,3.4vw,38px);margin-bottom:12px}
+h3{font-size:22px;margin-bottom:6px;letter-spacing:-.02em}
 p{margin:0 0 1em}
-.lede{font-size:clamp(18px,2vw,21px);color:var(--ink-2);max-width:620px}
-.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:14px}
-.mono{font-family:var(--mono)}
-strong{font-weight:600}
-code{font-family:var(--mono);font-size:.88em;background:var(--paper);border:1px solid var(--line);padding:.1em .4em;border-radius:4px}
+.lede{font-size:clamp(17px,1.6vw,19px);color:var(--ink-2);max-width:560px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:12px}
+strong{font-weight:700}
+code{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1px solid var(--line);padding:.1em .4em;border-radius:5px}
 
-/* top bar */
-.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px;border-bottom:1px solid var(--line)}
-.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:24px;text-decoration:none;color:var(--ink)}
-.brand svg{width:26px;height:26px}
-.lang{display:flex;border:1px solid var(--line-2);border-radius:999px;overflow:hidden}
-.lang button{background:none;border:0;padding:6px 12px;font:500 13px var(--mono);color:var(--mute);cursor:pointer;letter-spacing:.04em}
-.lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+/* header */
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:-.02em;text-decoration:none;color:var(--ink)}
+.brand svg{width:26px;height:26px;color:var(--accent)}
+.tools{display:flex;align-items:center;gap:8px}
+.nav{display:flex;gap:22px;font-size:14px;font-weight:600;color:var(--ink-2);margin-right:14px}
+.nav a{color:inherit;text-decoration:none}
+.nav a:hover{color:var(--ink)}
+.langwrap{position:relative;display:flex;align-items:center}
+.langwrap svg{position:absolute;left:10px;width:16px;height:16px;color:var(--mute);pointer-events:none}
+.lang{appearance:none;-webkit-appearance:none;font:600 13px var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line-2);border-radius:8px;padding:8px 30px 8px 32px;cursor:pointer;min-height:40px}
+.langwrap::after{content:"";position:absolute;right:12px;width:7px;height:7px;border-right:1.5px solid var(--mute);border-bottom:1.5px solid var(--mute);transform:translateY(-2px) rotate(45deg);pointer-events:none}
+.theme{width:40px;height:40px;border-radius:8px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.theme svg{width:17px;height:17px}
+.theme .moon{display:none}
+:root[data-theme="dark"] .theme .sun{display:none}
+:root[data-theme="dark"] .theme .moon{display:block}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .theme .sun{display:none}
+  :root:not([data-theme="light"]) .theme .moon{display:block}
+}
 
 /* hero */
-.hero{padding-block:72px 56px;border-bottom:1px solid var(--line)}
-.hero .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
-.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:8px;font:500 16px var(--body);text-decoration:none;border:1px solid transparent;cursor:pointer;transition:transform .12s ease,background .12s ease}
+.hero{padding-block:56px 44px;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+.pill{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:var(--accent-soft);border:1px solid var(--accent-line);color:var(--accent-ink);font-size:13px;font-weight:700;margin-bottom:18px}
+.pill i{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 22px;border-radius:10px;font:700 15px var(--body);text-decoration:none;border:1px solid transparent;cursor:pointer;transition:transform .12s ease,background .12s ease;min-height:48px}
 .btn:hover{transform:translateY(-1px)}
-.btn.primary{background:var(--moss);color:#fff;border-color:var(--moss)}
-.btn.primary:hover{background:var(--moss-ink);color:#fff}
-.btn.ghost{background:var(--paper);color:var(--ink);border-color:var(--line-2)}
+.btn.primary{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.btn.primary:hover{background:var(--accent-ink);color:var(--on-accent)}
+.btn.ghost{background:var(--surface-2);color:var(--ink);border-color:var(--line-2)}
 .btn.ghost:hover{border-color:var(--ink)}
-.btn small{font:400 12px var(--mono);opacity:.75}
-.hero .fine{margin-top:22px;font-family:var(--mono);font-size:13px;color:var(--mute)}
+.btn small{font:500 12px var(--mono);opacity:.75}
+.fine{margin-top:18px;font-family:var(--mono);font-size:12.5px;color:var(--mute)}
+.panel{border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:20px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow)}
+.panel .ph{display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:14px}
+.panel .ph span:last-child{font-family:var(--mono);font-size:12px;color:var(--good);font-weight:500}
+.dev{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;font-weight:600;font-size:14px}
+.dev span:last-child{font-family:var(--mono);font-size:12px;color:var(--ink-2);font-weight:400}
+.qr{display:flex;align-items:center;gap:14px;padding:14px;border:1px dashed var(--line-2);border-radius:10px}
+.qr i{width:60px;height:60px;border-radius:6px;flex:none;background:
+  repeating-linear-gradient(0deg,var(--ink) 0 4px,var(--surface) 4px 8px),
+  repeating-linear-gradient(90deg,var(--ink) 0 4px,var(--surface) 4px 8px);background-blend-mode:multiply}
+.qr b{display:block;font-size:14px}
+.qr span{font-size:12px;color:var(--ink-2)}
 
-/* sections */
-section{padding-block:64px;border-bottom:1px solid var(--line)}
-section:last-of-type{border-bottom:0}
+/* how */
+.how{padding-block:8px 56px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{padding:22px;border:1px solid var(--line);border-radius:14px;background:var(--surface-2);display:flex;flex-direction:column;gap:8px}
+.card.b{background:var(--accent-soft);border-color:var(--accent-line)}
+.card .k{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--you)}
+.card.b .k{color:var(--accent-ink)}
+.card b{font-size:18px;font-weight:700}
+.card p{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.55}
 
-/* how it works: honest split */
-.split{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line-2);border-radius:12px;overflow:hidden;background:var(--paper)}
-.split > div{padding:26px 24px 22px;border-right:1px solid var(--line)}
-.split > div:last-child{border-right:0}
-.who{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;display:inline-block;padding:4px 10px;border-radius:999px;margin-bottom:14px}
-.who.you{background:var(--loam-soft);color:var(--loam)}
-.who.burrow{background:var(--moss-soft);color:var(--moss-ink)}
-.split h3{font-size:24px}
-.split p{color:var(--ink-2);font-size:15.5px;margin:0}
-.split ul{margin:10px 0 0;padding-left:18px;color:var(--ink-2);font-size:15.5px}
-.split li{margin-bottom:4px}
-.time{font-family:var(--mono);font-size:12.5px;color:var(--mute);margin-top:16px;padding-top:12px;border-top:1px dashed var(--line)}
+section{padding-block:56px;border-top:1px solid var(--line)}
 
-/* why own server */
+/* why */
 .why{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:start}
-.why .prose{max-width:560px;color:var(--ink-2)}
-.why .prose p{font-size:17px}
-.claims{display:grid;gap:0;border-top:1px solid var(--line-2)}
-.claim{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
-.claim b{font-family:var(--mono);font-weight:500;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);padding-top:3px}
-.claim span{font-size:15.5px;color:var(--ink)}
+.why .prose{color:var(--ink-2);max-width:540px;font-size:16.5px}
+.claims{border-top:1px solid var(--line-2)}
+.claim{display:grid;grid-template-columns:140px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.claim b{font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);padding-top:4px}
+.claim span{font-size:15px}
 .claim span i{font-style:normal;color:var(--mute)}
 
 /* do it for me */
-.dfm{display:grid;grid-template-columns:1.15fr 1fr;gap:36px;align-items:start}
-.steps{border:1px solid var(--line-2);border-radius:12px;background:var(--paper);overflow:hidden}
-.steps .head{padding:16px 20px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
-.step{display:grid;grid-template-columns:28px 1fr auto;gap:14px;align-items:start;padding:14px 20px;border-bottom:1px solid var(--line);cursor:pointer}
-.step:last-child{border-bottom:0}
-.step:hover{background:color-mix(in srgb,var(--moss-soft) 40%,transparent)}
-.step input{width:20px;height:20px;margin:3px 0 0;accent-color:var(--moss);cursor:pointer}
-.step .t{font-weight:500}
-.step .d{font-size:14px;color:var(--mute);margin-top:2px}
-.step .v{font-family:var(--mono);font-size:13px;color:var(--mute);padding-top:3px;font-variant-numeric:tabular-nums}
-.step.done .t{text-decoration:line-through;color:var(--mute)}
-.step.done .v{color:var(--moss-ink)}
-.price{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);border:1px solid var(--line-2);border-radius:12px;background:var(--paper);padding:26px 24px}
-.price .big{font-family:var(--display);font-size:clamp(64px,8vw,96px);line-height:1;font-variant-numeric:tabular-nums;color:var(--ink);transition:color .2s}
-.price .big.zero{color:var(--moss-ink)}
-.price .big sup{font-size:.4em;vertical-align:top;margin-top:.35em;display:inline-block;color:var(--mute)}
-.price .sub{color:var(--ink-2);margin-top:8px;font-size:15.5px;min-height:3.2em}
-.price .rule{font-family:var(--mono);font-size:12.5px;color:var(--mute);border-top:1px dashed var(--line);padding-top:12px;margin-top:16px}
-.price .btn{width:100%;justify-content:center;margin-top:16px}
+.dfm{margin-top:24px;padding:40px;border-radius:20px;background:var(--surface);border:1px solid var(--line)}
+.dfm .grid{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:start;margin-top:22px}
+.stages{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:12px;background:var(--surface-2);overflow:hidden}
+.stage{display:grid;grid-template-columns:22px 1fr auto;gap:14px;align-items:center;text-align:left;padding:14px 18px;border:0;border-bottom:1px solid var(--line);background:transparent;cursor:pointer;font-family:inherit;color:var(--ink-2);min-height:52px;width:100%}
+.stage:last-child{border-bottom:0}
+.stage:hover{background:var(--surface)}
+.stage .dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--line-2);background:transparent}
+.stage .t{font-size:15px;font-weight:500}
+.stage .tag{font-family:var(--mono);font-size:12px;color:var(--mute)}
+.stage.passed .dot{border-color:var(--accent);background:var(--accent)}
+.stage.passed .t{color:var(--mute)}
+.stage.active{background:var(--accent-soft)}
+.stage.active .dot{border-color:var(--accent);box-shadow:inset 0 0 0 3px var(--surface-2);background:var(--accent)}
+.stage.active .t{color:var(--ink);font-weight:700}
+.stage.active .tag{color:var(--accent-ink)}
+.price{border:1px solid var(--line);border-radius:16px;background:var(--surface-2);padding:24px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow);position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px)}
+.price .k{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.price .big{display:flex;align-items:baseline;gap:10px}
+.price .n{font-size:clamp(56px,7vw,76px);font-weight:800;letter-spacing:-.05em;line-height:1;font-variant-numeric:tabular-nums;transition:color .2s}
+.price .n.zero{color:var(--accent-ink)}
+.price .was{font-size:15px;color:var(--mute);text-decoration:line-through}
+.bar{height:6px;border-radius:999px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent);border-radius:999px;transition:width .25s ease}
+.price .sub{font-size:14.5px;color:var(--ink-2);line-height:1.55;min-height:4.6em}
+.price ul{list-style:none;margin:0;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--ink-2)}
+.price ul li::before{content:"✓ ";color:var(--accent-ink)}
+.price .btn{width:100%;margin-top:6px}
 
 /* form */
-.form{margin-top:36px;border:1px solid var(--line-2);border-radius:12px;background:var(--paper);padding:26px 24px}
-.form h3{font-size:28px}
-.form .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;margin-top:18px}
+.form{margin-top:24px;border:1px solid var(--line);border-radius:16px;background:var(--surface-2);padding:26px 24px}
+.form p{color:var(--ink-2);margin:0}
+.form .fg{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;margin-top:18px}
 .f{display:flex;flex-direction:column;gap:6px}
-.f label{font:500 13px var(--mono);letter-spacing:.04em;color:var(--mute);text-transform:uppercase}
-.f input,.f select,.f textarea{font:16px var(--body);color:var(--ink);background:var(--bg);border:1px solid var(--line-2);border-radius:8px;padding:11px 12px;width:100%}
+.f label{font:500 12px var(--mono);letter-spacing:.06em;color:var(--mute);text-transform:uppercase}
+.f input,.f select,.f textarea{font:15px var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line-2);border-radius:8px;padding:11px 12px;width:100%;min-height:44px}
 .f textarea{min-height:76px;resize:vertical}
 .f.full{grid-column:1/-1}
 .out{margin-top:18px;display:grid;gap:12px}
-.out pre{margin:0;white-space:pre-wrap;font:14px/1.5 var(--mono);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:14px;color:var(--ink-2)}
+.out pre{margin:0;white-space:pre-wrap;font:13.5px/1.5 var(--mono);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px;color:var(--ink-2)}
 .out .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-.out .note{font-size:13.5px;color:var(--mute)}
-.toast{font:500 13px var(--mono);color:var(--moss-ink)}
+.out .note{font-size:13px;color:var(--mute)}
+.toast{font:500 13px var(--mono);color:var(--accent-ink)}
 .toast:empty{display:none}
 
 /* who */
-.who-block{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
-.who-block .prose{color:var(--ink-2);max-width:560px}
-.links{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:10px;font-family:var(--mono);font-size:14px}
-.sig{font-family:var(--display);font-size:30px;font-style:italic;margin-top:8px}
+.who{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.who .prose{color:var(--ink-2);max-width:540px;font-size:16.5px}
+.links{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:8px;font-weight:600;font-size:14px}
+.sig{font-weight:800;font-size:22px;margin-top:10px;letter-spacing:-.02em}
 
-footer{padding-block:28px 60px;font-family:var(--mono);font-size:12.5px;color:var(--mute);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;border-top:1px solid var(--line)}
+footer{padding-block:24px 56px;font-family:var(--mono);font-size:12.5px;color:var(--mute);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;border-top:1px solid var(--line)}
 
-@media (max-width:880px){
-  .split{grid-template-columns:1fr}
-  .split > div{border-right:0;border-bottom:1px solid var(--line)}
-  .split > div:last-child{border-bottom:0}
-  .why,.dfm,.who-block{grid-template-columns:1fr;gap:28px}
+@media (max-width:900px){
+  .hero,.why,.who,.dfm .grid,.form .fg{grid-template-columns:1fr}
+  .hero{gap:28px;padding-block:36px 32px}
+  .how{grid-template-columns:1fr}
+  .nav{display:none}
   .price{position:static}
-  .form .grid{grid-template-columns:1fr}
   .claim{grid-template-columns:1fr;gap:4px}
-  section{padding-block:48px}
-  .hero{padding-block:52px 44px}
+  .dfm{padding:24px 18px}
+  section{padding-block:44px}
 }
 </style>
+</head><body>
+
 
 <header class="wrap top">
   <a class="brand" href="#top" aria-label="Burrow">
-    <svg viewBox="0 0 26 26" aria-hidden="true"><path d="M2 20c0-7 5-13 11-13s11 6 11 13H2z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 20c0-3.5 2.2-6.5 5-6.5s5 3 5 6.5" fill="currentColor"/><path d="M1 20h24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    <svg viewBox="0 0 26 26" aria-hidden="true"><path d="M2 20c0-7 5-13 11-13s11 6 11 13H2z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 20c0-3.5 2.2-6.5 5-6.5s5 3 5 6.5" fill="currentColor"/><path d="M1 20h24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
     Burrow
   </a>
-  <div class="lang" role="group" aria-label="Language">
-    <button type="button" data-lang="en" aria-pressed="true">EN</button>
-    <button type="button" data-lang="ru" aria-pressed="false">RU</button>
+  <div class="tools">
+    <nav class="nav" aria-label="Sections">
+      <a href="#how" data-i18n="nav.how">How it works</a>
+      <a href="#why" data-i18n="nav.why">Why your own server</a>
+      <a href="#do-it-for-me" data-i18n="nav.dfm">Do it for me</a>
+    </nav>
+    <div class="langwrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/></svg>
+      <select class="lang" id="lang" aria-label="Language">
+        <option value="en">English</option>
+        <option value="ru">Русский</option>
+      </select>
+    </div>
+    <button class="theme" id="theme" type="button" aria-label="Toggle dark mode">
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
   </div>
 </header>
 
 <main id="top">
 
-<section class="wrap hero">
-  <div class="eyebrow" data-i18n="hero.eyebrow">Free skill for Claude · MIT · your server, your keys</div>
-  <h1 data-i18n="hero.h1">Your own VPN in <em>five minutes.</em><br>No shared servers, no company to block.</h1>
-  <p class="lede" data-i18n="hero.lede">Burrow turns a $6 server you rent into a personal VPN that looks like an ordinary website to anyone inspecting the wire. You create the server. Claude sets it up. You scan a QR. Nothing in between belongs to anyone but you.</p>
-  <div class="cta">
-    <a class="btn primary" href="https://github.com/{{GITHUB_REPO}}" target="_blank" rel="noopener"><span data-i18n="hero.btn1">Get the free skill</span> <small>GitHub</small></a>
-    <a class="btn ghost" href="#do-it-for-me"><span data-i18n="hero.btn2">Do it for me</span> <small data-i18n="hero.btn2s">from $15 · your server</small></a>
+<section class="wrap hero" style="border-top:0">
+  <div>
+    <span class="pill"><i></i><span data-i18n="hero.pill">Free &amp; open source · MIT</span></span>
+    <h1 data-i18n="hero.h1">Your own VPN in five minutes. No shared servers, no company to block.</h1>
+    <p class="lede" style="margin-top:16px" data-i18n="hero.lede">Burrow is a Claude skill that sets up a personal VPN on a $6 server you rent — disguised as an ordinary website, with a panel where you add devices by QR. Nothing in between belongs to anyone but you.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/{{GITHUB_REPO}}" target="_blank" rel="noopener"><span data-i18n="hero.btn1">Get the free skill</span> <small>GitHub</small></a>
+      <a class="btn ghost" href="#do-it-for-me"><span data-i18n="hero.btn2">Do it for me</span> <small data-i18n="hero.btn2s">from $15 · your server</small></a>
+    </div>
+    <p class="fine" data-i18n="hero.fine">5 min of clicking · 10 min unattended install · a DNS wait that's usually short</p>
   </div>
-  <p class="fine" data-i18n="hero.fine">Honest fine print: five minutes of your clicking, ten minutes of the server installing itself, and a DNS wait that's usually short and occasionally isn't.</p>
+  <div class="panel" aria-hidden="true">
+    <div class="ph"><span data-i18n="panel.h">Devices</span><span data-i18n="panel.ok">● tunnel healthy</span></div>
+    <div class="dev"><span data-i18n="panel.d1">Mom · iPhone</span><span data-i18n="panel.d1s">online · 1.8 GB today</span></div>
+    <div class="dev"><span data-i18n="panel.d2">Dad · TV</span><span data-i18n="panel.d2s">online · 6.2 GB today</span></div>
+    <div class="dev"><span data-i18n="panel.d3">Laptop</span><span data-i18n="panel.d3s">last seen 2 h ago</span></div>
+    <div class="qr"><i></i><div><b data-i18n="panel.new">+ New device</b><span data-i18n="panel.news">Scan with the WireGuard app</span></div></div>
+  </div>
 </section>
 
-<section class="wrap" id="how">
-  <div class="eyebrow" data-i18n="how.eyebrow">How it works</div>
-  <h2 data-i18n="how.h2">Three parts. Two are yours, one is Claude's.</h2>
-  <div class="split">
-    <div>
-      <span class="who you" data-i18n="how.you">You</span>
-      <h3 data-i18n="how.c1.h">Create the server</h3>
-      <p data-i18n="how.c1.p">A hosting account with your own card, a $6 Ubuntu server, and a cheap domain you don't care about. Claude tells you what to click, one step at a time, and why.</p>
-      <ul>
-        <li data-i18n="how.c1.l1">DigitalOcean, Hetzner, Vultr — any Ubuntu 24.04 VPS</li>
-        <li data-i18n="how.c1.l2">Domain from any registrar (~$10/year)</li>
-      </ul>
-      <div class="time" data-i18n="how.c1.t">~5 min of clicking · the only part that needs your card</div>
-    </div>
-    <div>
-      <span class="who burrow" data-i18n="how.burrow">Burrow (Claude)</span>
-      <h3 data-i18n="how.c2.h">Sets it up</h3>
-      <p data-i18n="how.c2.p">Generates the keys on your machine, builds a self-contained installer, creates the server through your account, points the domain, gets real certificates, and verifies the whole thing works before telling you it does.</p>
-      <ul>
-        <li data-i18n="how.c2.l1">VLESS + XHTTP + REALITY on port 443 — reads as HTTPS</li>
-        <li data-i18n="how.c2.l2">WireGuard for devices, web panel, watchdog, push alerts</li>
-      </ul>
-      <div class="time" data-i18n="how.c2.t">~10 min unattended · then you revoke the API token</div>
-    </div>
-    <div>
-      <span class="who you" data-i18n="how.you">You</span>
-      <h3 data-i18n="how.c3.h">Scan a QR</h3>
-      <p data-i18n="how.c3.p">Install the official WireGuard app, open your panel, add a device, scan. Add your mother's phone the same way, from another country, without touching it.</p>
-      <ul>
-        <li data-i18n="how.c3.l1">iOS, Android, macOS, Windows, TVs and routers</li>
-        <li data-i18n="how.c3.l2">Panel is reachable only from inside the VPN</li>
-      </ul>
-      <div class="time" data-i18n="how.c3.t">~1 min per device · repeat forever, free</div>
-    </div>
-  </div>
-</section>
+<div class="wrap how" id="how">
+  <div class="card"><span class="k" data-i18n="how.k1">You · ~5 min</span><b data-i18n="how.h1">Create the server</b><p data-i18n="how.p1">Hosting account on your card, a $6 Ubuntu server, a cheap domain. Claude tells you what to click, one step at a time, and why.</p></div>
+  <div class="card b"><span class="k" data-i18n="how.k2">Burrow (Claude) · ~10 min</span><b data-i18n="how.h2">Sets it up</b><p data-i18n="how.p2">Keys on your machine, installer built, server created through your account, domain pointed, real certificates, watchdog — verified before it says "done". Then you revoke the token it borrowed.</p></div>
+  <div class="card"><span class="k" data-i18n="how.k3">You · ~1 min per device</span><b data-i18n="how.h3">Scan a QR</b><p data-i18n="how.p3">Install the official WireGuard app, open your panel, add a device, scan. Your parents' phones the same way, from another country, without touching them.</p></div>
+</div>
 
 <section class="wrap" id="why">
   <div class="why">
@@ -241,69 +260,77 @@ footer{padding-block:28px 60px;font-family:var(--mono);font-size:12.5px;color:va
 
 <section class="wrap" id="do-it-for-me">
   <div class="eyebrow" data-i18n="dfm.eyebrow">Do it for me</div>
-  <h2 data-i18n="dfm.h2">Tick what you've already done. The price falls with every step.</h2>
-  <p class="lede" style="margin-bottom:28px" data-i18n="dfm.lede">Everything here you can do yourself for free — the skill teaches it. If you'd rather hand it over, I finish from wherever you stopped, on your server, usually within an hour. You always keep the account, the card and the keys.</p>
+  <h2 data-i18n="dfm.h2">Got stuck? Tell me where, and I finish the rest.</h2>
+  <p class="lede" data-i18n="dfm.lede">Every step is free to do yourself — the skill teaches it. If you'd rather hand it over, pick the last step you completed. I do what's left on your server, usually within an hour, and you pay only for that. Your account, card and keys stay yours.</p>
 
   <div class="dfm">
-    <div class="steps" id="steps">
-      <div class="head" data-i18n="dfm.head">Your progress so far</div>
-      <label class="step"><input type="checkbox" id="s1" data-v="4"><div><div class="t" data-i18n="dfm.s1">Hosting account with a payment method</div><div class="d" data-i18n="dfm.s1d">DigitalOcean, Hetzner, Vultr or similar — on your card, in your name</div></div><div class="v">−$4</div></label>
-      <label class="step"><input type="checkbox" id="s2" data-v="10"><div><div class="t" data-i18n="dfm.s2">A server exists</div><div class="d" data-i18n="dfm.s2d">Ubuntu 24.04, any size; the $6 one is enough</div></div><div class="v">−$10</div></label>
-      <label class="step"><input type="checkbox" id="s3" data-v="3"><div><div class="t" data-i18n="dfm.s3">A domain is bought</div><div class="d" data-i18n="dfm.s3d">Cheap and neutral — it's the cover story</div></div><div class="v">−$3</div></label>
-      <label class="step"><input type="checkbox" id="s4" data-v="3"><div><div class="t" data-i18n="dfm.s4">Domain points at the server</div><div class="d" data-i18n="dfm.s4d">Nameservers delegated, or three A-records added</div></div><div class="v">−$3</div></label>
-      <label class="step"><input type="checkbox" id="s5" data-v="5"><div><div class="t" data-i18n="dfm.s5">Installer ran without errors</div><div class="d" data-i18n="dfm.s5d">Panel opens, certificate is real, verify passes</div></div><div class="v">−$5</div></label>
-      <label class="step"><input type="checkbox" id="s6" data-v="4"><div><div class="t" data-i18n="dfm.s6">First device connected</div><div class="d" data-i18n="dfm.s6d">QR scanned, youtube.com opens through the tunnel</div></div><div class="v">−$4</div></label>
+    <div class="eyebrow" style="margin-bottom:6px" data-i18n="dfm.q">Where are you right now?</div>
+    <div class="grid">
+      <div class="stages" id="stages" role="radiogroup" aria-label="Your current step">
+        <button class="stage" type="button" role="radio" data-i="0"><span class="dot"></span><span class="t" data-i18n="st.0">I have nothing yet</span><span class="tag"></span></button>
+        <button class="stage" type="button" role="radio" data-i="1"><span class="dot"></span><span class="t" data-i18n="st.1">Hosting account with a card</span><span class="tag"></span></button>
+        <button class="stage" type="button" role="radio" data-i="2"><span class="dot"></span><span class="t" data-i18n="st.2">A server exists</span><span class="tag"></span></button>
+        <button class="stage" type="button" role="radio" data-i="3"><span class="dot"></span><span class="t" data-i18n="st.3">A domain is bought</span><span class="tag"></span></button>
+        <button class="stage" type="button" role="radio" data-i="4"><span class="dot"></span><span class="t" data-i18n="st.4">Domain points at the server</span><span class="tag"></span></button>
+        <button class="stage" type="button" role="radio" data-i="5"><span class="dot"></span><span class="t" data-i18n="st.5">Installer finished</span><span class="tag"></span></button>
+        <button class="stage" type="button" role="radio" data-i="6"><span class="dot"></span><span class="t" data-i18n="st.6">Device connected, but something's off</span><span class="tag"></span></button>
+      </div>
+      <aside class="price" aria-live="polite">
+        <span class="k" data-i18n="price.k">What's left · you pay</span>
+        <div class="big"><span class="n" id="price">$29</span><span class="was" id="was"></span></div>
+        <div class="bar"><i id="bar"></i></div>
+        <span class="k" id="barLabel" style="text-transform:none;letter-spacing:0"></span>
+        <p class="sub" id="priceSub"></p>
+        <ul>
+          <li data-i18n="price.l1">One flat price, paid after it works</li>
+          <li data-i18n="price.l2">Your server, your account, your keys</li>
+          <li data-i18n="price.l3">Usually done within an hour</li>
+        </ul>
+        <a class="btn primary" href="#takeover" id="cta" data-i18n="price.btn">Take over from here</a>
+      </aside>
     </div>
 
-    <aside class="price" aria-live="polite">
-      <div class="eyebrow" data-i18n="price.eyebrow">To finish from here</div>
-      <div class="big" id="price"><sup>$</sup>29</div>
-      <p class="sub" id="priceSub" data-i18n="price.sub0">Full setup on a server you create. I never touch your card or open accounts in your name — that part is always yours.</p>
-      <div class="rule" data-i18n="price.rule">One flat price · paid after it works · your server stays yours</div>
-      <a class="btn primary" href="#takeover" data-i18n="price.btn">Take over from here</a>
-    </aside>
-  </div>
-
-  <div class="form" id="takeover">
-    <h3 data-i18n="form.h">Take over from here</h3>
-    <p style="color:var(--ink-2);margin:0" data-i18n="form.p">Fill this in and it writes the message for you. Send it to me on Telegram and I'll reply with the next step — usually within a few hours.</p>
-    <form id="tf" novalidate>
-      <div class="grid">
-        <div class="f"><label for="tg" data-i18n="form.tg">Your Telegram</label><input id="tg" name="tg" placeholder="@handle" autocomplete="off"></div>
-        <div class="f"><label for="prov" data-i18n="form.prov">Hosting provider</label>
-          <select id="prov" name="prov">
-            <option value="" data-i18n="form.prov0">Not chosen yet</option>
-            <option>DigitalOcean</option><option>Hetzner</option><option>Vultr</option><option>Aeza</option><option>Timeweb</option>
-            <option value="other" data-i18n="form.provx">Other</option>
-          </select></div>
-        <div class="f"><label for="stepsel" data-i18n="form.step">Where you stopped</label>
-          <select id="stepsel" name="step">
-            <option value="0" data-i18n="form.st0">Haven't started</option>
-            <option value="1" data-i18n="form.st1">Have a hosting account</option>
-            <option value="2" data-i18n="form.st2">Server exists</option>
-            <option value="3" data-i18n="form.st3">Domain bought</option>
-            <option value="4" data-i18n="form.st4">Domain points at server</option>
-            <option value="5" data-i18n="form.st5">Installer ran</option>
-            <option value="6" data-i18n="form.st6">Device connected, something's off</option>
-          </select></div>
-        <div class="f"><label for="who" data-i18n="form.who">Who is it for</label><input id="who" name="who" data-i18n-ph="form.whoph" placeholder="e.g. parents in one country, me in another"></div>
-        <div class="f full"><label for="msg" data-i18n="form.msg">Anything else</label><textarea id="msg" name="msg" data-i18n-ph="form.msgph" placeholder="Where it broke, what the error said, when you're free"></textarea></div>
-      </div>
-      <div class="out">
-        <pre id="preview" aria-label="Message preview"></pre>
-        <div class="row">
-          <button class="btn primary" type="submit" data-i18n="form.copy">Copy message</button>
-          <a class="btn ghost" href="https://t.me/{{TG_HANDLE}}" target="_blank" rel="noopener"><span data-i18n="form.open">Open Telegram</span> <small>@{{TG_HANDLE}}</small></a>
-          <span class="toast" id="toast"></span>
+    <div class="form" id="takeover">
+      <h3 data-i18n="form.h">Take over from here</h3>
+      <p data-i18n="form.p">Fill this in and it writes the message for you. Send it to me on Telegram and I'll reply with the next step — usually within a few hours.</p>
+      <form id="tf" novalidate>
+        <div class="fg">
+          <div class="f"><label for="tg" data-i18n="form.tg">Your Telegram</label><input id="tg" name="tg" placeholder="@handle" autocomplete="off"></div>
+          <div class="f"><label for="prov" data-i18n="form.prov">Hosting provider</label>
+            <select id="prov" name="prov">
+              <option value="" data-i18n="form.prov0">Not chosen yet</option>
+              <option>DigitalOcean</option><option>Hetzner</option><option>Vultr</option><option>Aeza</option><option>Timeweb</option>
+              <option value="other" data-i18n="form.provx">Other</option>
+            </select></div>
+          <div class="f"><label for="who" data-i18n="form.who">Who is it for</label><input id="who" name="who" data-i18n-ph="form.whoph" placeholder="e.g. parents in one country, me in another"></div>
+          <div class="f"><label for="stepsel" data-i18n="form.step">Where you stopped</label>
+            <select id="stepsel" name="step">
+              <option value="0" data-i18n="st.0">I have nothing yet</option>
+              <option value="1" data-i18n="st.1">Hosting account with a card</option>
+              <option value="2" data-i18n="st.2">A server exists</option>
+              <option value="3" data-i18n="st.3">A domain is bought</option>
+              <option value="4" data-i18n="st.4">Domain points at the server</option>
+              <option value="5" data-i18n="st.5">Installer finished</option>
+              <option value="6" data-i18n="st.6">Device connected, but something's off</option>
+            </select></div>
+          <div class="f full"><label for="msg" data-i18n="form.msg">Anything else</label><textarea id="msg" name="msg" data-i18n-ph="form.msgph" placeholder="Where it broke, what the error said, when you're free"></textarea></div>
         </div>
-        <div class="note" data-i18n="form.note">No form is submitted anywhere — the text above is the whole thing. Paste it to @{{TG_HANDLE}} on Telegram, or email {{EMAIL}}.</div>
-      </div>
-    </form>
+        <div class="out">
+          <pre id="preview" aria-label="Message preview"></pre>
+          <div class="row">
+            <button class="btn primary" type="submit" data-i18n="form.copy">Copy message</button>
+            <a class="btn ghost" href="https://t.me/{{TG_HANDLE}}" target="_blank" rel="noopener"><span data-i18n="form.open">Open Telegram</span> <small>@{{TG_HANDLE}}</small></a>
+            <span class="toast" id="toast"></span>
+          </div>
+          <div class="note" data-i18n="form.note">No form is submitted anywhere — the text above is the whole thing. Paste it to @{{TG_HANDLE}} on Telegram, or email {{EMAIL}}.</div>
+        </div>
+      </form>
+    </div>
   </div>
 </section>
 
 <section class="wrap" id="who">
-  <div class="who-block">
+  <div class="who">
     <div>
       <div class="eyebrow" data-i18n="who.eyebrow">Who's behind this</div>
       <h2 data-i18n="who.h2">One engineer, one family, one friend who asked.</h2>
@@ -331,23 +358,18 @@ footer{padding-block:28px 60px;font-family:var(--mono);font-size:12.5px;color:va
 
 <script>
 (function(){
-  var RU = {
-    "hero.eyebrow":"Бесплатный скилл для Claude · MIT · ваш сервер, ваши ключи",
-    "hero.h1":"Свой VPN за <em>пять минут.</em><br>Без общих серверов и без компании, которую можно заблокировать.",
-    "hero.lede":"Burrow превращает сервер за $6, который вы арендуете, в личный VPN, который снаружи выглядит как обычный сайт. Сервер создаёте вы. Настраивает Claude. Вы сканируете QR. Ничего между этими шагами не принадлежит никому, кроме вас.",
+  /* ---------- i18n: add a language = add a dict + an <option> ---------- */
+  var DICT = { ru: {
+    "nav.how":"Как это работает","nav.why":"Почему свой сервер","nav.dfm":"Сделайте за меня",
+    "hero.pill":"Бесплатно и открыто · MIT",
+    "hero.h1":"Свой VPN за пять минут. Без общих серверов и без компании, которую можно заблокировать.",
+    "hero.lede":"Burrow — это скилл для Claude, который поднимает личный VPN на сервере за $6, который вы арендуете: снаружи — обычный сайт, внутри — панель, где устройства добавляются по QR. Ничего между этими шагами не принадлежит никому, кроме вас.",
     "hero.btn1":"Забрать бесплатный скилл","hero.btn2":"Сделайте за меня","hero.btn2s":"от $15 · на вашем сервере",
-    "hero.fine":"Честно: пять минут вашего кликанья, десять минут сервер ставит себя сам, и ожидание DNS — обычно короткое, иногда нет.",
-    "how.eyebrow":"Как это работает","how.h2":"Три части. Две ваши, одна — Claude.",
-    "how.you":"Вы","how.burrow":"Burrow (Claude)",
-    "how.c1.h":"Создаёте сервер","how.c1.p":"Аккаунт у хостера на вашу карту, Ubuntu-сервер за $6 и дешёвый домен, который не жалко. Claude говорит, что нажать, по одному шагу, и объясняет зачем.",
-    "how.c1.l1":"DigitalOcean, Hetzner, Vultr — любой VPS с Ubuntu 24.04","how.c1.l2":"Домен у любого регистратора (~$10 в год)",
-    "how.c1.t":"~5 минут кликов · единственная часть, где нужна ваша карта",
-    "how.c2.h":"Настраивает","how.c2.p":"Генерирует ключи на вашей машине, собирает самодостаточный установщик, создаёт сервер через ваш аккаунт, направляет домен, получает настоящие сертификаты и проверяет, что всё работает, прежде чем сказать, что работает.",
-    "how.c2.l1":"VLESS + XHTTP + REALITY на 443 порту — выглядит как HTTPS","how.c2.l2":"WireGuard для устройств, веб-панель, сторож, пуш-уведомления",
-    "how.c2.t":"~10 минут без вас · потом вы отзываете API-ключ",
-    "how.c3.h":"Сканируете QR","how.c3.p":"Ставите официальное приложение WireGuard, открываете панель, добавляете устройство, сканируете. Телефон мамы — так же, из другой страны, не трогая его.",
-    "how.c3.l1":"iOS, Android, macOS, Windows, телевизоры и роутеры","how.c3.l2":"Панель доступна только изнутри VPN",
-    "how.c3.t":"~1 минута на устройство · сколько угодно раз, бесплатно",
+    "hero.fine":"5 минут кликов · 10 минут установка без вас · ожидание DNS, обычно короткое",
+    "panel.h":"Устройства","panel.ok":"● туннель в порядке","panel.d1":"Мама · iPhone","panel.d1s":"онлайн · 1,8 ГБ сегодня","panel.d2":"Папа · ТВ","panel.d2s":"онлайн · 6,2 ГБ сегодня","panel.d3":"Ноутбук","panel.d3s":"был 2 ч назад","panel.new":"+ Новое устройство","panel.news":"Отсканируйте в приложении WireGuard",
+    "how.k1":"Вы · ~5 мин","how.h1":"Создаёте сервер","how.p1":"Аккаунт у хостера на вашу карту, Ubuntu-сервер за $6, дешёвый домен. Claude говорит, что нажать, по одному шагу, и объясняет зачем.",
+    "how.k2":"Burrow (Claude) · ~10 мин","how.h2":"Настраивает","how.p2":"Ключи на вашей машине, установщик, сервер через ваш аккаунт, домен, настоящие сертификаты, сторож — и проверка, прежде чем сказать «готово». Потом вы отзываете ключ, который он одалживал.",
+    "how.k3":"Вы · ~1 мин на устройство","how.h3":"Сканируете QR","how.p3":"Ставите официальное приложение WireGuard, открываете панель, добавляете устройство, сканируете. Телефоны родителей — так же, из другой страны, не трогая их.",
     "why.eyebrow":"Почему свой сервер","why.h2":"У любого VPN, который вам продавали, есть что заблокировать. У вашего — нечего.",
     "why.p1":"Коммерческие VPN делят один IP между тысячами незнакомых людей. Когда адрес попадает под блокировку, гаснут все сразу, а следом исчезает и приложение из магазина. Это не ошибка конкретного сервиса — это форма бизнеса.",
     "why.p2":"Свой сервер — один IP, которым пользуются только ваши люди, за доменом, на который никому нет причины смотреть. Нет компании, на которую можно надавить, нет приложения, которое можно удалить, нет подписки, которую можно отменить. Если адрес всё же заблокируют — новый сервер за пятнадцать минут, и дома никому ничего менять не надо.",
@@ -357,98 +379,115 @@ footer{padding-block:28px 60px;font-family:var(--mono);font-size:12.5px;color:va
     "why.k3":"У кого ключи","why.v3":"У вас. Сгенерированы на вашей машине, лежат в файле, который храните вы. У Burrow нет бэкенда, где могло бы что-то храниться.",
     "why.k4":"Если заблокируют","why.v4":"Новый сервер, тот же домен, ~15 минут. Устройства дома переподключаются сами. <i>(В схеме с двумя серверами.)</i>",
     "why.k5":"Честные пределы","why.v5":"Сети с жёсткими белыми списками могут резать всё зарубежное, и никакой протокол это не лечит. Burrow скажет, когда помочь не может.",
-    "dfm.eyebrow":"Сделайте за меня","dfm.h2":"Отметьте, что уже сделали. Цена падает с каждым шагом.",
-    "dfm.lede":"Всё, что здесь перечислено, можно сделать самому и бесплатно — скилл этому учит. Если хочется отдать — я дозаканчиваю с того места, где вы остановились, на вашем сервере, обычно за час. Аккаунт, карта и ключи всегда остаются у вас.",
-    "dfm.head":"Что уже есть",
-    "dfm.s1":"Аккаунт у хостера с привязанной картой","dfm.s1d":"DigitalOcean, Hetzner, Vultr или похожий — на вашу карту, на ваше имя",
-    "dfm.s2":"Сервер существует","dfm.s2d":"Ubuntu 24.04, любой размер; за $6 хватает",
-    "dfm.s3":"Домен куплен","dfm.s3d":"Дешёвый и нейтральный — это легенда прикрытия",
-    "dfm.s4":"Домен смотрит на сервер","dfm.s4d":"NS делегированы или добавлены три A-записи",
-    "dfm.s5":"Установщик отработал без ошибок","dfm.s5d":"Панель открывается, сертификат настоящий, проверка проходит",
-    "dfm.s6":"Первое устройство подключено","dfm.s6d":"QR отсканирован, youtube.com открывается через туннель",
-    "price.eyebrow":"Доделать с этого места","price.sub0":"Полная установка на сервере, который создаёте вы. Я не касаюсь вашей карты и не завожу аккаунты на ваше имя — это всегда ваша часть.",
-    "price.rule":"Одна цена · оплата после того, как заработало · сервер остаётся вашим","price.btn":"Передать с этого места",
+    "dfm.eyebrow":"Сделайте за меня","dfm.h2":"Застряли? Скажите где — и я доделаю остальное.",
+    "dfm.lede":"Каждый шаг можно сделать самому и бесплатно — скилл этому учит. Если хочется отдать — выберите последний шаг, который вы завершили. Остальное я делаю на вашем сервере, обычно за час, и платите вы только за это. Аккаунт, карта и ключи остаются у вас.",
+    "dfm.q":"Где вы сейчас?",
+    "st.0":"У меня ещё ничего нет","st.1":"Есть аккаунт у хостера с картой","st.2":"Сервер существует","st.3":"Домен куплен","st.4":"Домен смотрит на сервер","st.5":"Установщик отработал","st.6":"Устройство подключено, но что-то не так",
+    "price.k":"Осталось · вы платите","price.l1":"Одна цена, оплата после того, как заработало","price.l2":"Ваш сервер, ваш аккаунт, ваши ключи","price.l3":"Обычно готово за час","price.btn":"Передать с этого места",
     "form.h":"Передать с этого места","form.p":"Заполните — и сообщение напишется само. Отправьте его мне в Telegram, отвечу следующим шагом — обычно в течение нескольких часов.",
-    "form.tg":"Ваш Telegram","form.prov":"Хостер","form.prov0":"Ещё не выбран","form.provx":"Другой",
-    "form.step":"Где остановились","form.st0":"Ещё не начинал(а)","form.st1":"Есть аккаунт у хостера","form.st2":"Сервер есть","form.st3":"Домен куплен","form.st4":"Домен смотрит на сервер","form.st5":"Установщик отработал","form.st6":"Устройство подключено, но что-то не так",
-    "form.who":"Для кого","form.whoph":"например: родители в одной стране, я в другой",
-    "form.msg":"Что ещё","form.msgph":"Где сломалось, что написала ошибка, когда вам удобно",
+    "form.tg":"Ваш Telegram","form.prov":"Хостер","form.prov0":"Ещё не выбран","form.provx":"Другой","form.who":"Для кого","form.whoph":"например: родители в одной стране, я в другой",
+    "form.step":"Где остановились","form.msg":"Что ещё","form.msgph":"Где сломалось, что написала ошибка, когда вам удобно",
     "form.copy":"Скопировать сообщение","form.open":"Открыть Telegram",
     "form.note":"Никакая форма никуда не отправляется — текст выше и есть всё. Вставьте его @{{TG_HANDLE}} в Telegram или напишите на {{EMAIL}}.",
     "who.eyebrow":"Кто за этим стоит","who.h2":"Один инженер, одна семья и один друг, который попросил.",
     "who.p1":"Я Антон Гаврилов, фронтенд-инженер. Собрал эту схему для родителей, когда все приложения, что мы пробовали, перестали работать; потом повторил для друга; потом записал всю процедуру так, чтобы Claude мог сделать это для кого угодно — включая людей, которые не знают, что такое сервер.",
     "who.p2":"Скилл бесплатный и останется бесплатным — это способ узнать, что такое вообще существует. Платная часть — только моё время для тех, кто не хочет делать сам. Я не держу ничьи серверы, не храню карты и не хочу ваших ключей.",
-    "who.p3":"Делаю это публично. Что узнаю по дороге — пишу здесь:",
-    "who.tg":"Telegram-канал",
+    "who.p3":"Делаю это публично. Что узнаю по дороге — пишу здесь:","who.tg":"Telegram-канал",
     "foot.l":"сервер всегда ваш","foot.r":"Не юридическая консультация. Проверьте правила там, где живёте вы и ваши близкие."
-  };
-  var EN = {};
-  var nodes = document.querySelectorAll('[data-i18n],[data-i18n-ph]');
+  }};
+  var S = { en: {
+      here:"you are here", done:"done", of:"of $29 total", pct:"% done by you",
+      s0:"Full setup on a server you create. I never touch your card or open accounts in your name — that part is always yours.",
+      s6:"You built it all — nothing to pay. Send me the last 20 lines of the install log and we'll find it together.",
+      s2:"Server exists — I take it from here: domain, install, first device, verification, and a plain-words handout.",
+      s1:"I do the remaining steps on your server and hand you a working panel plus a handout for whoever will use it.",
+      cta:"Take over from here", ask:"Ask a question instead", other:"other", none:"not chosen yet",
+      copied:"Copied — now paste it in Telegram.", select:"Select and copy the text above.",
+      msg:["Hi Anton — I'd like to hand over my Burrow setup.","Telegram: ","Provider: ","Stopped at: ","For: ","Calculator price: $","Details: "]
+    }, ru: {
+      here:"вы здесь", done:"сделано", of:"из $29", pct:"% сделано вами",
+      s0:"Полная установка на сервере, который создаёте вы. Я не касаюсь вашей карты и не завожу аккаунты на ваше имя — это всегда ваша часть.",
+      s6:"Вы сделали всё сами — платить не за что. Пришлите последние 20 строк лога установки, найдём вместе.",
+      s2:"Сервер уже есть — дальше моё: домен, установка, первое устройство, проверка и памятка простыми словами.",
+      s1:"Доделываю оставшиеся шаги на вашем сервере и отдаю работающую панель плюс памятку для тех, кто будет пользоваться.",
+      cta:"Передать с этого места", ask:"Лучше задать вопрос", other:"другой", none:"ещё не выбран",
+      copied:"Скопировано — вставьте в Telegram.", select:"Выделите и скопируйте текст выше.",
+      msg:["Привет, Антон! Хочу передать настройку Burrow.","Telegram: ","Хостер: ","Остановился на: ","Для кого: ","Цена по калькулятору: $","Детали: "]
+    }};
+  var EN = {}, nodes = document.querySelectorAll('[data-i18n],[data-i18n-ph]');
   nodes.forEach(function(n){
-    if(n.hasAttribute('data-i18n')) EN[n.getAttribute('data-i18n')] = n.innerHTML;
-    if(n.hasAttribute('data-i18n-ph')) EN[n.getAttribute('data-i18n-ph')] = n.getAttribute('placeholder');
+    var k = n.getAttribute('data-i18n'); if(k && EN[k]==null) EN[k] = n.innerHTML;
+    var p = n.getAttribute('data-i18n-ph'); if(p) EN[p] = n.getAttribute('placeholder');
   });
-  var lang = 'en';
+  DICT.en = EN;
+  var lang = 'en', langSel = document.getElementById('lang');
   function setLang(l){
-    lang = l; var D = l==='ru'?RU:EN;
+    if(!DICT[l]) l = 'en';
+    lang = l; var D = DICT[l];
     nodes.forEach(function(n){
-      var k = n.getAttribute('data-i18n'); if(k && D[k]!=null) n.innerHTML = D[k];
-      var p = n.getAttribute('data-i18n-ph'); if(p && D[p]!=null) n.setAttribute('placeholder', D[p]);
+      var k = n.getAttribute('data-i18n'); if(k){ n.innerHTML = D[k]!=null ? D[k] : EN[k]; }
+      var p = n.getAttribute('data-i18n-ph'); if(p){ n.setAttribute('placeholder', D[p]!=null ? D[p] : EN[p]); }
     });
-    document.documentElement.lang = l;
-    document.querySelectorAll('.lang button').forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-lang')===l)); });
+    document.documentElement.lang = l; langSel.value = l;
     try{ localStorage.setItem('burrow.lang', l); }catch(e){}
-    updatePrice(); preview();
+    render();
   }
-  document.querySelectorAll('.lang button').forEach(function(b){ b.addEventListener('click', function(){ setLang(b.getAttribute('data-lang')); }); });
+  langSel.addEventListener('change', function(){ setLang(langSel.value); });
 
-  // price
-  var FULL = 29, boxes = Array.prototype.slice.call(document.querySelectorAll('#steps input'));
-  var priceEl = document.getElementById('price'), subEl = document.getElementById('priceSub');
-  function t(en, ru){ return lang==='ru'?ru:en; }
-  function updatePrice(){
-    var left = FULL, done = 0;
-    boxes.forEach(function(b){ b.closest('.step').classList.toggle('done', b.checked); if(b.checked){ left -= +b.getAttribute('data-v'); done++; } });
-    priceEl.innerHTML = '<sup>$</sup>' + left;
-    priceEl.classList.toggle('zero', left===0);
-    var s;
-    if(done===0) s = t(EN['price.sub0'], RU['price.sub0']);
-    else if(left===0) s = t("You've done all of it. Nothing to pay — if something's still off, message me anyway and we'll look together.","Вы сделали всё сами. Платить не за что — если что-то всё же не так, напишите, посмотрим вместе.");
-    else if(boxes[0].checked && boxes[1].checked) s = t("Server already exists — I take it from here: domain, install, first device, verification.","Сервер уже есть — дальше моё: домен, установка, первое устройство, проверка.");
-    else s = t("I finish the remaining steps on your server and hand you a working panel plus a plain-words handout.","Доделываю оставшиеся шаги на вашем сервере и отдаю работающую панель и памятку простыми словами.");
-    subEl.textContent = s;
-    // sync the form's step select to highest contiguous ticked step
-    var sel = document.getElementById('stepsel'), n = 0;
-    for(var i=0;i<boxes.length;i++){ if(boxes[i].checked) n=i+1; else break; }
-    sel.value = String(n);
-  }
-  boxes.forEach(function(b){ b.addEventListener('change', updatePrice); });
+  /* ---------- theme ---------- */
+  var root = document.documentElement, themeBtn = document.getElementById('theme');
+  function isDark(){ var t = root.getAttribute('data-theme'); if(t) return t==='dark'; return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; }
+  themeBtn.addEventListener('click', function(){ var next = isDark() ? 'light' : 'dark'; root.setAttribute('data-theme', next); try{ localStorage.setItem('burrow.theme', next); }catch(e){} });
+  try{ var st = localStorage.getItem('burrow.theme'); if(st==='dark'||st==='light') root.setAttribute('data-theme', st); }catch(e){}
 
-  // form → message
+  /* ---------- calculator ---------- */
+  var CUM = [0,4,14,17,20,25,29], stage = 0;
+  var stagesEl = document.getElementById('stages'), btns = Array.prototype.slice.call(stagesEl.querySelectorAll('.stage'));
+  var priceEl = document.getElementById('price'), wasEl = document.getElementById('was'), barEl = document.getElementById('bar'), barLabel = document.getElementById('barLabel'), subEl = document.getElementById('priceSub'), ctaEl = document.getElementById('cta');
   var f = document.getElementById('tf'), pre = document.getElementById('preview'), toast = document.getElementById('toast');
+  function t(k){ return (S[lang]||S.en)[k]; }
+  function render(){
+    var price = 29 - CUM[stage], done = 29 - price;
+    btns.forEach(function(b, i){
+      b.classList.toggle('active', i===stage); b.classList.toggle('passed', i<stage);
+      b.setAttribute('aria-checked', String(i===stage));
+      b.querySelector('.tag').textContent = i===stage ? t('here') : (i<stage ? t('done') : '');
+    });
+    priceEl.textContent = '$' + price; priceEl.classList.toggle('zero', price===0);
+    wasEl.textContent = stage===0 ? '' : '$29';
+    barEl.style.width = Math.round(100*done/29) + '%';
+    barLabel.textContent = stage===0 ? t('of') : (Math.round(100*done/29) + t('pct'));
+    subEl.textContent = stage===0 ? t('s0') : (stage===6 ? t('s6') : (stage>=2 ? t('s2') : t('s1')));
+    ctaEl.textContent = stage===6 ? t('ask') : t('cta');
+    f.stepsel.value = String(stage);
+    preview();
+  }
+  btns.forEach(function(b){ b.addEventListener('click', function(){ stage = +b.getAttribute('data-i'); render(); }); });
+  f.stepsel.addEventListener('change', function(){ stage = +f.stepsel.value; render(); });
+
+  /* ---------- form → message ---------- */
   function preview(){
-    var tg = f.tg.value.trim(), prov = f.prov.value, st = f.stepsel.options[f.stepsel.selectedIndex].text, who = f.who.value.trim(), msg = f.msg.value.trim();
-    var left = FULL; boxes.forEach(function(b){ if(b.checked) left -= +b.getAttribute('data-v'); });
-    var provTxt = prov ? (prov==='other'? t('other','другой') : prov) : t('not chosen yet','ещё не выбран');
-    var lines = lang==='ru'
-      ? ["Привет, Антон! Хочу передать настройку Burrow.", "Telegram: " + (tg||'—'), "Хостер: " + provTxt, "Остановился на: " + st, "Для кого: " + (who||'—'), "Цена по калькулятору: $" + left, msg ? "Детали: " + msg : ""]
-      : ["Hi Anton — I'd like to hand over my Burrow setup.", "Telegram: " + (tg||'—'), "Provider: " + provTxt, "Stopped at: " + st, "For: " + (who||'—'), "Calculator price: $" + left, msg ? "Details: " + msg : ""];
+    var m = t('msg'), tg = f.tg.value.trim(), prov = f.prov.value, who = f.who.value.trim(), msg = f.msg.value.trim();
+    var st = f.stepsel.options[f.stepsel.selectedIndex].text;
+    var provTxt = prov ? (prov==='other' ? t('other') : prov) : t('none');
+    var lines = [m[0], m[1] + (tg||'—'), m[2] + provTxt, m[3] + st, m[4] + (who||'—'), m[5] + (29 - CUM[stage]), msg ? m[6] + msg : ''];
     pre.textContent = lines.filter(Boolean).join('\n');
   }
   f.addEventListener('input', preview);
-  f.addEventListener('change', preview);
   f.addEventListener('submit', function(e){
     e.preventDefault();
     var text = pre.textContent;
-    function ok(){ toast.textContent = t('Copied — now paste it in Telegram.','Скопировано — вставьте в Telegram.'); setTimeout(function(){ toast.textContent=''; }, 4000); }
-    function fallback(){ var r = document.createRange(); r.selectNodeContents(pre); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); toast.textContent = t('Select and copy the text above.','Выделите и скопируйте текст выше.'); }
+    function ok(){ toast.textContent = t('copied'); setTimeout(function(){ toast.textContent=''; }, 4000); }
+    function fallback(){ var r = document.createRange(); r.selectNodeContents(pre); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); toast.textContent = t('select'); }
     if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(ok, fallback); } else fallback();
   });
 
-  // initial language: #ru anchor, then saved, then EN
-  var initial = 'en';
-  if(location.hash==='#ru') initial='ru';
-  else { try{ var s = localStorage.getItem('burrow.lang'); if(s==='ru'||s==='en') initial=s; }catch(e){} }
+  /* ---------- initial language: #xx anchor → saved → browser → en ---------- */
+  var initial = 'en', h = (location.hash||'').slice(1);
+  if(DICT[h]) initial = h;
+  else { var saved = null; try{ saved = localStorage.getItem('burrow.lang'); }catch(e){}
+    if(saved && DICT[saved]) initial = saved;
+    else { var nl = (navigator.language||'').slice(0,2).toLowerCase(); if(DICT[nl]) initial = nl; } }
   setLang(initial);
 })();
 </script>

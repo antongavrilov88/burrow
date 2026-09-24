@@ -168,9 +168,12 @@ Walked the page at 390×844.
 - Sticky header is 61 px at phone width; anchors carry `scroll-margin-top: 72px`,
   so headings land below it.
 - Both paths, the word "free" and "$29" are above the fold: the paid card's
-  heading bottom sits at 785 px of an 844 px viewport. Tight. Any further growth
-  in the H1 or lede will push the price under the fold — this is the constraint to
-  protect in future copy edits.
+  heading bottom sits at 775 px of an 844 px viewport, and at 772 px of 800 px at
+  1280. Tight at both. Any further growth in the H1 or lede pushes the price under
+  the fold — this is the constraint to protect in future copy edits, and it caught
+  a regression during this very review: the first rewrite of the hero lede added a
+  line and dropped "$29" below 800 px at 1280. The lede was shortened rather than
+  the constraint relaxed.
 - Tap targets: all buttons ≥ 44 px tall.
 
 ---

@@ -107,18 +107,19 @@ code{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1p
 .paths{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
 .path{display:flex;flex-direction:column;gap:6px;padding:18px;border:1px solid var(--line-2);border-radius:14px;background:var(--surface)}
 .path.free{background:var(--accent-soft);border:2px solid var(--accent);padding:17px;box-shadow:var(--shadow)}
-.path .pk{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.path .pk{display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-height:26px;font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
 .path.free .pk{color:var(--accent-ink)}
-.path .amt{display:flex;align-items:baseline;gap:8px;font-size:32px;font-weight:800;letter-spacing:-.035em;line-height:1;margin:1px 0}
-.path.free .amt{font-size:40px;color:var(--accent-ink)}
+.path .amt{display:flex;align-items:baseline;align-content:flex-start;gap:8px 8px;min-height:62px;font-size:36px;font-weight:800;letter-spacing:-.035em;line-height:1;margin:1px 0}
+.path.free .amt{color:var(--accent-ink)}
+.path .amt{flex-wrap:wrap}
 .path .amt small{font:500 12px var(--mono);letter-spacing:0;color:var(--mute);text-transform:uppercase}
 .path.free .amt small{color:var(--ink-2)}
-.path b{font-size:15.5px;font-weight:700;letter-spacing:-.01em;line-height:1.35}
+.path b{font-size:15.5px;font-weight:700;letter-spacing:-.01em;line-height:1.35;min-height:2.7em}
 .path p{margin:0;font-size:14px;color:var(--ink-2);line-height:1.5}
 .path .btn{margin-top:auto;width:100%;padding:12px 18px;min-height:48px}
 .path .need{margin:0;font-size:13px;color:var(--mute);line-height:1.45}
 .path.free .need{color:var(--ink-2)}
-.cmd{display:block;margin-top:8px;padding:9px 11px;font:500 11.5px var(--mono);color:var(--ink-2);background:var(--surface);border:1px solid var(--line-2);border-radius:8px;overflow-x:auto;white-space:nowrap}
+.cmd{display:block;margin-top:4px;padding:9px 11px;font:500 11.5px var(--mono);color:var(--ink-2);background:var(--surface);border:1px solid var(--line-2);border-radius:8px;overflow-x:auto;white-space:nowrap}
 .soon{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.04em;text-transform:none;padding:2px 8px;border-radius:999px;border:1px solid var(--line-2);color:var(--ink-2)}
 
 /* what gets installed — progressive disclosure for the technical reader */
@@ -142,7 +143,7 @@ code{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1p
 .bridge a{font-weight:700}
 
 /* section 4: the same split, as a comparison */
-.cmp{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:stretch}
 .col{display:flex;flex-direction:column;gap:12px;padding:24px;border:1px solid var(--line);border-radius:16px;background:var(--surface-2)}
 .col.free{border:2px solid var(--accent);padding:23px;box-shadow:var(--shadow)}
 .col.free .colh .amt{color:var(--accent-ink)}
@@ -150,14 +151,14 @@ code{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1p
 .colh b{font-size:21px;font-weight:800;letter-spacing:-.02em}
 .colh .amt{margin-left:auto;font-size:30px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .col.paid .colh .amt{color:var(--accent-ink)}
-.colw{margin:0;font-size:14px;color:var(--ink-2);line-height:1.5}
+.colw{margin:0;min-height:42px;font-size:14px;color:var(--ink-2);line-height:1.5}
 .rows{margin:0;display:flex;flex-direction:column;border-top:1px solid var(--line)}
-.rows>div{display:grid;grid-template-columns:118px 1fr;gap:14px;padding:11px 0;border-bottom:1px solid var(--line)}
+.rows>div{display:grid;grid-template-columns:118px 1fr;gap:14px;align-content:start;min-height:110px;padding:11px 0;border-bottom:1px solid var(--line)}
 .rows dt{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);padding-top:3px}
 .rows dd{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.5}
 .col .sub{margin:0;font-size:14px;color:var(--ink-2);line-height:1.55}
 .col .fine{margin-top:2px}
-.col .btn{width:100%;margin-top:4px}
+.col .btn{width:100%;margin-top:auto}
 .col .handle{font:500 12.5px var(--mono);color:var(--mute);text-align:center;margin-top:-6px}
 .panel{border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:20px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow)}
 .panel .ph{display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:14px}
@@ -248,6 +249,8 @@ footer a{color:var(--ink-2)}
   /* a phone cannot run the install command, so the paid path leads here */
   .cmd{display:none}
   .path.paid{order:-1}
+  /* the min-heights exist to line up side-by-side columns; stacked, they only waste space */
+  .path .pk,.path .amt,.path b,.colw,.rows>div{min-height:0}
   footer .fl{flex-direction:column;gap:0}
   footer .fl a,.links a{display:inline-flex;align-items:center;min-height:44px}
   .links{gap:0 18px}
@@ -301,12 +304,12 @@ footer a{color:var(--ink-2)}
         <b data-i18n="path.free.h">The skill and the full guide</b>
         <p data-i18n="path.free.p">For developers and anyone comfortable in a terminal. Use a server you have, or let the skill create one.</p>
         <p class="need" data-i18n="path.free.need">Needs Claude Code on your machine. No Claude Code? <a href="#agent">The other path is for you.</a></p>
-        <a class="btn primary" href="https://github.com/antongavrilov88/burrow" target="_blank" rel="noopener"><span data-i18n="hero.btn1">Get the free skill</span> <small>GitHub</small></a>
         <code class="cmd">git clone …/burrow ~/.claude/skills/burrow</code>
+        <a class="btn primary" href="https://github.com/antongavrilov88/burrow" target="_blank" rel="noopener"><span data-i18n="hero.btn1">Get the free skill</span> <small>GitHub</small></a>
       </div>
       <div class="path paid">
-        <span class="pk"><span data-i18n="path.paid.k">Have it done</span> <span class="soon" data-i18n="path.paid.soon">Opens in November</span></span>
-        <div class="amt">$29 <small data-i18n="path.paid.amts">one time</small></div>
+        <span class="pk" data-i18n="path.paid.k">Have it done</span>
+        <div class="amt">$29 <small data-i18n="path.paid.amts">one time</small> <span class="soon" data-i18n="path.paid.soon">Opens in November</span></div>
         <b data-i18n="path.paid.h">Done for you, or your money back</b>
         <p data-i18n="path.paid.p">A few minutes of your time at the start. After that you close the tab and come back to a VPN that has been tested working.</p>
         <a class="btn ghost" href="#agent" data-i18n="hero.btn2">Set it up for me</a>
@@ -418,7 +421,7 @@ footer a{color:var(--ink-2)}
         <p class="colw" data-i18n="cmp.paid.w">$29 once, nothing after. The moment you send the invite, it stops being your job.</p>
         <dl class="rows">
           <div><dt data-i18n="cmp.k1">What you do</dt><dd data-i18n="cmp.paid.v1">Three steps nobody can do for you: create the hosting account, <a href="#card">add your card</a>, invite Burrow to it — then remove that invite at the end.</dd></div>
-          <div><dt data-i18n="cmp.k2">What Burrow does</dt><dd data-i18n="cmp.paid.v2">Server, domain, install, certificates, watchdog, panel, your first device and QR, a handout in plain words — then walks you through removing its access yourself — you should not have to take my word for it.</dd></div>
+          <div><dt data-i18n="cmp.k2">What Burrow does</dt><dd data-i18n="cmp.paid.v2">Server, domain, install, certificates, monitoring, panel, your first device and QR, plain-English notes to pass on. Then it walks you through removing its access yourself.</dd></div>
           <div><dt data-i18n="cmp.k3">Time</dt><dd data-i18n="cmp.paid.v3">Your part is a few minutes. The rest happens without you.</dd></div>
           <div><dt data-i18n="cmp.k4">Guarantee</dt><dd data-i18n="price.guar">It is not finished until it has been tested working. If it cannot be, you get your money back.</dd></div>
         </dl>

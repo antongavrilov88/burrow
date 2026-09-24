@@ -108,11 +108,15 @@ code{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1p
 
 /* hero: the two paths, equally weighted */
 .paths{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
-.path{display:flex;flex-direction:column;gap:7px;padding:18px;border:1px solid var(--line);border-radius:14px;background:var(--surface-2)}
-.path.paid{background:var(--accent-soft);border-color:var(--accent-line)}
-.path .pk{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--you)}
-.path.paid .pk{color:var(--accent-ink)}
-.path b{font-size:17px;font-weight:700;letter-spacing:-.015em;line-height:1.3}
+.path{display:flex;flex-direction:column;gap:6px;padding:18px;border:1px solid var(--line);border-radius:14px;background:var(--surface-2)}
+.path.free{background:var(--accent-soft);border:2px solid var(--accent);padding:17px;box-shadow:var(--shadow)}
+.path .pk{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.path.free .pk{color:var(--accent-ink)}
+.path .amt{display:flex;align-items:baseline;gap:8px;font-size:32px;font-weight:800;letter-spacing:-.035em;line-height:1;margin:1px 0}
+.path.free .amt{font-size:40px;color:var(--accent-ink)}
+.path .amt small{font:500 12px var(--mono);letter-spacing:0;color:var(--mute);text-transform:uppercase}
+.path.free .amt small{color:var(--ink-2)}
+.path b{font-size:15.5px;font-weight:700;letter-spacing:-.01em;line-height:1.35}
 .path p{margin:0;font-size:14px;color:var(--ink-2);line-height:1.5}
 .path .btn{margin-top:auto;width:100%;padding:12px 18px;min-height:44px}
 .soon{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.04em;text-transform:none;padding:2px 8px;border-radius:999px;border:1px dashed var(--line-2);color:var(--ink-2)}
@@ -140,7 +144,8 @@ code{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1p
 /* section 4: the same split, as a comparison */
 .cmp{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
 .col{display:flex;flex-direction:column;gap:12px;padding:24px;border:1px solid var(--line);border-radius:16px;background:var(--surface-2)}
-.col.paid{background:var(--surface-2);border-color:var(--accent-line);box-shadow:var(--shadow)}
+.col.free{border:2px solid var(--accent);padding:23px;box-shadow:var(--shadow)}
+.col.free .colh .amt{color:var(--accent-ink)}
 .colh{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
 .colh b{font-size:21px;font-weight:800;letter-spacing:-.02em}
 .colh .amt{margin-left:auto;font-size:30px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
@@ -281,16 +286,18 @@ footer a{color:var(--ink-2)}
     <h1 data-i18n="hero.h1">Your own VPN in five minutes. No shared servers, no company in the middle.</h1>
     <p class="lede" style="margin-top:16px" data-i18n="hero.lede">A Claude skill turns a $6 server you rent into a VPN only your people use — no address shared with strangers, and banking apps that reject commercial VPNs keep working.</p>
     <div class="paths">
-      <div class="path">
+      <div class="path free">
         <span class="pk" data-i18n="path.free.k">Do it yourself</span>
-        <b data-i18n="path.free.h">Free skill, full guide, always</b>
-        <p data-i18n="path.free.p">For developers and anyone at home in a terminal. Bring a server or let the skill create one; you run the steps, Claude talks you through them. Never charged.</p>
+        <div class="amt"><span data-i18n="path.free.amt">Free</span> <small data-i18n="path.free.amts">forever</small></div>
+        <b data-i18n="path.free.h">The skill and the full guide</b>
+        <p data-i18n="path.free.p">For developers and anyone at home in a terminal. Bring a server or let the skill make one.</p>
         <a class="btn primary" href="https://github.com/antongavrilov88/burrow" target="_blank" rel="noopener"><span data-i18n="hero.btn1">Get the free skill</span> <small>GitHub</small></a>
       </div>
       <div class="path paid">
         <span class="pk"><span data-i18n="path.paid.k">Have it done</span> <span class="soon" data-i18n="path.paid.soon">Opens in November</span></span>
-        <b data-i18n="path.paid.h">$29 — the agent sets it up on your server, verified or refunded</b>
-        <p data-i18n="path.paid.p">For everyone else. A chat walks you through the three steps only you can do, then does the rest itself.</p>
+        <div class="amt">$29 <small data-i18n="path.paid.amts">one time</small></div>
+        <b data-i18n="path.paid.h">The agent sets it up, verified or refunded</b>
+        <p data-i18n="path.paid.p">For everyone else. A chat walks you through your three steps, then does the rest itself.</p>
         <a class="btn ghost" href="#agent" data-i18n="hero.btn2">Set it up for me</a>
       </div>
     </div>
@@ -383,7 +390,7 @@ footer a{color:var(--ink-2)}
   <div class="dfm">
     <div class="cmp">
 
-      <div class="col">
+      <div class="col free">
         <div class="colh"><b data-i18n="cmp.free.h">Yourself</b><span class="amt">$0</span></div>
         <p class="colw" data-i18n="cmp.free.w">Free forever, no account, no sign-up. Install the skill and start.</p>
         <dl class="rows">
@@ -395,7 +402,7 @@ footer a{color:var(--ink-2)}
         <a class="btn ghost" href="https://github.com/antongavrilov88/burrow" target="_blank" rel="noopener"><span data-i18n="cmp.free.btn">Get the free skill</span> <small>GitHub</small></a>
       </div>
 
-      <div class="col paid">
+      <div class="col">
         <div class="colh"><b data-i18n="cmp.paid.h">With the agent</b><span class="amt">$29</span><span class="soon" data-i18n="price.soon">Opens in November</span></div>
         <p class="colw" data-i18n="cmp.paid.w">One price, everything after the invite. Paid once, up front.</p>
         <dl class="rows">

@@ -29,12 +29,20 @@ at 5 seconds, at the end of the hero, and after one scroll.
 | Today | Does it by hand from upstream docs, or not at all. |
 | **5 s** | Tagline + "Free skill, full guide, always" + a GitHub button. Converts or bounces here; the page has already done its job. |
 | **After hero** | Knows the paid tier exists and that it is not aimed at them ("You are never charged"). Correct outcome. |
-| **Loses them** | Nothing on the page says what actually gets installed. To find out they must leave for the README. Acceptable — but see **UX-L3**. |
+| **Loses them** | Was: nothing said what actually gets installed, so they had to leave for the README. **Fixed** — see UX-L3 below. |
 
 **Finding UX-3 (S, fixed).** The free path read "You run the steps, Claude talks
 you through them", and every step description assumes a server is created during
 setup. A developer with a VPS already couldn't tell the skill would work for
 them. Now reads "Bring a server or let the skill create one".
+
+**Finding UX-L3 (M, fixed — was L).** A collapsed *What actually gets installed*
+disclosure now sits under How it works: cover (Xray, VLESS + XHTTP + REALITY on
+443/tcp behind a real site), devices (plain WireGuard, official apps), panel,
+watchdog, split routing, and the two layouts — plus a link to
+`references/architecture.md`. Downgraded from L because `<details>` answers the
+persona without adding a section or taxing the non-technical reader, which is what
+made it look expensive in the first pass.
 
 ### (b) Non-technical person setting it up for family
 
@@ -212,15 +220,63 @@ reading while clearing AA.
 
 ## 8. Performance
 
-Single file, 4 requests: the document, `anton.jpg`, and two font files.
+Measured with Lighthouse 12.8.2, mobile form factor, simulated throttling.
+Localhost numbers are for the current branch; the live row is the deployed page
+before this PR, as a baseline.
 
-- `display=swap` was already on the Google Fonts URL — no change needed.
-- **Finding PERF-1 (S, fixed).** The page preconnected to `fonts.googleapis.com`
-  only. The font *files* come from `fonts.gstatic.com`, which was left to a cold
-  connection discovered after the CSS parsed. Added the second preconnect with
-  `crossorigin`.
-- Local numbers (DOMContentLoaded 150 ms) are not meaningful for first paint.
-  A real measurement needs the deployed URL — **UX-L2**.
+| | Perf | A11y | BP | SEO | FCP | LCP | CLS |
+|---|---|---|---|---|---|---|---|
+| Deployed page, before this PR | 88 | 95 | 96 | 100 | 2.9 s | 2.9 s | 0 |
+| This branch, before perf fixes | 91 | **100** | 96 | 100 | 2.8 s | 2.8 s | 0.002 |
+| This branch, after perf fixes | **100** | **100** | **100** | **100** | **0.9 s** | **0.9 s** | 0.004 |
+
+The accessibility jump from 95 to 100 is the contrast work in §7, independently
+confirmed by a second tool.
+
+**Finding PERF-2 (S, fixed) — the big one.** The Google Fonts stylesheet was
+render-blocking: Lighthouse attributed **865 ms** directly to it, and flagged
+1743 ms of render-blocking work overall. The document cannot paint until a
+stylesheet in `<head>` resolves, and this one is on a third-party origin. Now
+loaded asynchronously — `media="print"` flipped to `all` on load, with a
+`<noscript>` fallback so the fonts still arrive with scripting off. `display=swap`
+was already set, so text paints immediately in the fallback face and swaps.
+**FCP and LCP went 2.8 s → 0.9 s.**
+
+**Finding PERF-3 (S, fixed).** One console error on every load: browsers request
+`/favicon.ico` whether or not you declare one, and nothing was there. Added an
+inline SVG data-URI icon using the existing brand mark — no extra request, and
+Best Practices went 96 → 100.
+
+**Finding PERF-1 (S, fixed).** Only `fonts.googleapis.com` was preconnected; the
+font *files* come from `fonts.gstatic.com`, which was left to a connection
+discovered after the CSS parsed. Second preconnect added with `crossorigin`.
+
+**Finding PERF-4 (S, fixed).** The portrait is below the fold, had no intrinsic
+size, and loaded eagerly. Now `width`/`height` + `loading="lazy"`
++ `decoding="async"`.
+
+**Not a real finding:** Lighthouse's "enable text compression" is an artifact of
+`python -m http.server`, which does not gzip. GitHub Pages does.
+
+### Budget
+
+Regressions below this are what future changes should be measured against, on the
+deployed URL, mobile, simulated throttling:
+
+| Metric | Budget |
+|---|---|
+| Performance | ≥ 95 |
+| Accessibility | 100 |
+| Best Practices | ≥ 95 |
+| SEO | 100 |
+| FCP / LCP | ≤ 1.5 s |
+| CLS | ≤ 0.05 |
+| Render-blocking resources | none |
+| Console errors | none |
+
+Re-take these against `https://antongavrilov88.github.io/burrow/` once this is
+merged and deployed; the numbers should improve slightly, since Pages serves
+gzipped and the local server does not.
 
 **Finding HYG-1 (S, fixed).** The restructure orphaned 25 CSS rules
 (`.price`, `.plan`, `.grp`, `.li`, `.cta`, `.badge` and descendants). Removed.
@@ -243,5 +299,5 @@ was not true before this PR, at any width.
 | | What | Why it isn't in this PR |
 |---|---|---|
 | **UX-L1** | Refund terms for "or your money back" | Needs a policy decision — window, method, who decides |
-| **UX-L2** | Measure first paint against the deployed URL and set a budget | Needs the deployed page, not localhost |
-| **UX-L3** | A short "what gets installed" summary for persona (a) | Would need a new section; the brief forbids adding one |
+| **UX-L2** | ~~Measure first paint and set a budget~~ | **Done** — §8. Re-take on the deployed URL after merge |
+| **UX-L3** | ~~"What gets installed" for persona (a)~~ | **Done** — §1a, as a `<details>` rather than a section |

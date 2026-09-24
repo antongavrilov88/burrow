@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26"><path d="M2 20c0-7 5-13 11-13s11 6 11 13H2z" fill="none" stroke="%23F2B84B" stroke-width="2"/><path d="M8 20c0-3.5 2.2-6.5 5-6.5s5 3 5 6.5" fill="%23F2B84B"/><path d="M1 20h24" stroke="%23F2B84B" stroke-width="2" stroke-linecap="round"/></svg>'>
 <title>Burrow — your own VPN in five minutes</title>
 <meta name="description" content="Burrow — a free Claude skill that turns a $6 server you rent into a personal VPN. Your server, your keys, no company in the middle. Banking apps keep working.">
 <meta property="og:type" content="website">
@@ -14,7 +15,9 @@
 <meta name="twitter:image" content="https://antongavrilov88.github.io/burrow/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"></noscript>
 <style>
 :root{
   color-scheme:light;
@@ -113,6 +116,21 @@ code{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1p
 .path p{margin:0;font-size:14px;color:var(--ink-2);line-height:1.5}
 .path .btn{margin-top:auto;width:100%;padding:12px 18px;min-height:44px}
 .soon{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.04em;text-transform:none;padding:2px 8px;border-radius:999px;border:1px dashed var(--line-2);color:var(--ink-2)}
+
+/* what gets installed — progressive disclosure for the technical reader */
+.spec{margin:0 auto;max-width:1120px;padding:0 20px}
+.spec details{border:1px solid var(--line);border-radius:12px;background:var(--surface-2)}
+.spec summary{cursor:pointer;padding:14px 18px;font:700 15px var(--body);color:var(--ink);list-style:none;display:flex;align-items:center;gap:10px;min-height:48px}
+.spec summary::-webkit-details-marker{display:none}
+.spec summary::before{content:"";width:7px;height:7px;border-right:1.5px solid var(--mute);border-bottom:1.5px solid var(--mute);transform:rotate(-45deg);transition:transform .15s ease;flex:none}
+.spec details[open] summary::before{transform:rotate(45deg)}
+.spec summary:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.spec .body{padding:2px 18px 18px;border-top:1px solid var(--line)}
+.spec dl{margin:0;display:flex;flex-direction:column}
+.spec dl>div{display:grid;grid-template-columns:150px 1fr;gap:14px;padding:11px 0;border-bottom:1px solid var(--line)}
+.spec dl>div:last-child{border-bottom:0}
+.spec dt{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);padding-top:3px}
+.spec dd{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.55}
 
 /* the bridge between the free path and the paid one */
 .bridge{margin:0 auto;max-width:1120px;padding:16px 20px 0}
@@ -213,7 +231,7 @@ footer a{color:var(--ink-2)}
 /* phone: <=760 */
 @media (max-width:760px){
   .why,.who,.dfm .grid,.opts,.paths,.cmp{grid-template-columns:1fr}
-  .rows>div{grid-template-columns:1fr;gap:2px}
+  .rows>div,.spec dl>div{grid-template-columns:1fr;gap:2px}
   .colh .amt{margin-left:0}
   .hero{padding-block:32px 28px}
   .how{grid-template-columns:1fr}
@@ -310,6 +328,23 @@ footer a{color:var(--ink-2)}
     <b data-i18n="how.h4">Verified</b>
     <p data-i18n="how.p4">Nothing is marked done on trust. Burrow connects through your server once, checks the traffic really exits from your server's location, and only then calls it finished.</p>
   </div>
+</div>
+
+<div class="spec">
+  <details>
+    <summary data-i18n="spec.s">What actually gets installed</summary>
+    <div class="body">
+      <dl>
+        <div><dt data-i18n="spec.k1">Cover</dt><dd data-i18n="spec.v1">Xray serving VLESS + XHTTP + REALITY on 443/tcp, behind a real site on your own domain with a real certificate. A prober that knocks gets the site — because it is the site.</dd></div>
+        <div><dt data-i18n="spec.k2">Devices</dt><dd data-i18n="spec.v2">Plain WireGuard, official apps. Nothing custom to install on a phone or a laptop.</dd></div>
+        <div><dt data-i18n="spec.k3">Panel</dt><dd data-i18n="spec.v3">A small web panel on the server: add a device, get a QR, see bytes and last-seen.</dd></div>
+        <div><dt data-i18n="spec.k4">Watchdog</dt><dd data-i18n="spec.v4">A systemd timer that probes the tunnel, repairs what it can, fails over to a spare route, and pushes a notification when it cannot.</dd></div>
+        <div><dt data-i18n="spec.k5">Split routing</dt><dd data-i18n="spec.v5">An nftables set decides who goes through the tunnel; a domain list leaves directly. This is what keeps banking apps working.</dd></div>
+        <div><dt data-i18n="spec.k6">Layouts</dt><dd data-i18n="spec.v6">One server abroad by default, or a two-machine relay when devices sit behind heavy filtering. Same installers either way.</dd></div>
+      </dl>
+      <p class="fine" style="margin-top:14px"><a href="https://github.com/antongavrilov88/burrow/blob/main/references/architecture.md" target="_blank" rel="noopener" data-i18n="spec.link">The full design — including the one signal it deliberately does not win</a></p>
+    </div>
+  </details>
 </div>
 
 <div class="bridge">
@@ -423,7 +458,7 @@ footer a{color:var(--ink-2)}
       <h2 data-i18n="who.h2">One developer, building in public.</h2>
     </div>
     <div class="prose">
-      <div class="me"><span aria-hidden="true">AG</span><img id="photo" src="anton.jpg" alt="Anton Gavrilov"></div>
+      <div class="me"><span aria-hidden="true">AG</span><img id="photo" src="anton.jpg" alt="Anton Gavrilov" width="78" height="78" loading="lazy" decoding="async"></div>
       <p data-i18n="who.p1">I'm Anton Gavrilov, a developer. I build Burrow in public — the skill, the guide and the agent — and write about what works and what doesn't along the way.</p>
       <p data-i18n="who.p2">The skill is free and stays free; the paid part is only for people who'd rather be walked through it — I don't run servers for anyone, don't hold cards, and don't want your keys.</p>
       <div class="links">

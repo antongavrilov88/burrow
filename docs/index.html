@@ -1,17 +1,17 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26"><path d="M2 20c0-7 5-13 11-13s11 6 11 13H2z" fill="none" stroke="%23F2B84B" stroke-width="2"/><path d="M8 20c0-3.5 2.2-6.5 5-6.5s5 3 5 6.5" fill="%23F2B84B"/><path d="M1 20h24" stroke="%23F2B84B" stroke-width="2" stroke-linecap="round"/></svg>'>
-<title>Burrow — your own VPN in five minutes</title>
-<meta name="description" content="Burrow — a free Claude skill that turns a $6 server you rent into a personal VPN. Your server, your keys, no company in the middle. Banking apps keep working.">
+<title>Burrow — your own VPN, on your own server</title>
+<meta name="description" content="Burrow — a free Claude skill that turns a $6 server you rent into a personal VPN. Your server, your keys, no company in the middle. Your own IP, not a shared one.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://antongavrilov88.github.io/burrow/">
-<meta property="og:title" content="Your own VPN in five minutes. No shared servers, no company in the middle.">
-<meta property="og:description" content="Burrow — a free Claude skill that turns a $6 server you rent into a personal VPN. Your server, your keys, no company in the middle. Banking apps keep working.">
+<meta property="og:title" content="Your own VPN. On a $6 server that is yours, not a company's.">
+<meta property="og:description" content="Burrow — a free Claude skill that turns a $6 server you rent into a personal VPN. Your server, your keys, no company in the middle. Your own IP, not a shared one.">
 <meta property="og:image" content="https://antongavrilov88.github.io/burrow/og.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Your own VPN in five minutes. No shared servers, no company in the middle.">
-<meta name="twitter:description" content="Burrow — a free Claude skill that turns a $6 server you rent into a personal VPN. Your server, your keys, no company in the middle. Banking apps keep working.">
+<meta name="twitter:title" content="Your own VPN. On a $6 server that is yours, not a company's.">
+<meta name="twitter:description" content="Burrow — a free Claude skill that turns a $6 server you rent into a personal VPN. Your server, your keys, no company in the middle. Your own IP, not a shared one.">
 <meta name="twitter:image" content="https://antongavrilov88.github.io/burrow/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -283,8 +283,8 @@ footer a{color:var(--ink-2)}
 <section class="wrap hero" style="border-top:0">
   <div>
     <span class="pill"><i></i><span data-i18n="hero.pill">Free &amp; open source · MIT</span></span>
-    <h1 data-i18n="hero.h1">Your own VPN in five minutes. No shared servers, no company in the middle.</h1>
-    <p class="lede" style="margin-top:16px" data-i18n="hero.lede">A Claude skill turns a $6 server you rent into a VPN only your people use — no address shared with strangers, and banking apps that reject commercial VPNs keep working.</p>
+    <h1 data-i18n="hero.h1">Your own VPN. On a $6 server that is yours, not a company's.</h1>
+    <p class="lede" style="margin-top:16px" data-i18n="hero.lede">A Claude skill turns a $6 server you rent into a VPN only your people use — no address shared with strangers, and the banking apps that reject commercial VPNs stop seeing a flagged address.</p>
     <div class="paths">
       <div class="path free">
         <span class="pk" data-i18n="path.free.k">Do it yourself</span>
@@ -301,7 +301,7 @@ footer a{color:var(--ink-2)}
         <a class="btn ghost" href="#agent" data-i18n="hero.btn2">Set it up for me</a>
       </div>
     </div>
-    <p class="fine" data-i18n="hero.fine">5 min of clicking · ~10 min unattended install · a DNS wait that's usually short</p>
+    <p class="fine" data-i18n="hero.fine">About 15 minutes: ~5 of your clicking, ~10 the installer runs on its own · then a short wait for the domain</p>
   </div>
   <div class="panel" aria-hidden="true">
     <div class="ph"><span data-i18n="panel.h">Devices</span><span data-i18n="panel.ok">● tunnel healthy</span></div>
@@ -344,9 +344,9 @@ footer a{color:var(--ink-2)}
       <dl>
         <div><dt data-i18n="spec.k1">Cover</dt><dd data-i18n="spec.v1">Xray serving VLESS + XHTTP + REALITY on 443/tcp, behind a real site on your own domain with a real certificate. A prober that knocks gets the site — because it is the site.</dd></div>
         <div><dt data-i18n="spec.k2">Devices</dt><dd data-i18n="spec.v2">Plain WireGuard, official apps. Nothing custom to install on a phone or a laptop.</dd></div>
-        <div><dt data-i18n="spec.k3">Panel</dt><dd data-i18n="spec.v3">A small web panel on the server: add a device, get a QR, see bytes and last-seen.</dd></div>
+        <div><dt data-i18n="spec.k3">Panel</dt><dd data-i18n="spec.v3">A small web panel on the server: add a device, get a QR, see bytes and last-seen. The panel and push alerts are in Russian in this version; everything Claude says to you, and the handout you pass on, are in your language.</dd></div>
         <div><dt data-i18n="spec.k4">Watchdog</dt><dd data-i18n="spec.v4">A systemd timer that probes the tunnel, repairs what it can, fails over to a spare route, and pushes a notification when it cannot.</dd></div>
-        <div><dt data-i18n="spec.k5">Split routing</dt><dd data-i18n="spec.v5">An nftables set decides who goes through the tunnel; a domain list leaves directly. This is what keeps banking apps working.</dd></div>
+        <div><dt data-i18n="spec.k5">Split routing</dt><dd data-i18n="spec.v5">Two-server layout only: an nftables set decides who goes through the tunnel, and a domain list you edit leaves directly from the relay. Seeded with the payment networks that usually object — add your own bank.</dd></div>
         <div><dt data-i18n="spec.k6">Layouts</dt><dd data-i18n="spec.v6">One server abroad by default, or a two-machine relay when devices sit behind heavy filtering. Same installers either way.</dd></div>
       </dl>
       <p class="fine" style="margin-top:14px"><a href="https://github.com/antongavrilov88/burrow/blob/main/references/architecture.md" target="_blank" rel="noopener" data-i18n="spec.link">The full design — including the one signal it deliberately does not win</a></p>
@@ -371,10 +371,10 @@ footer a{color:var(--ink-2)}
       </div>
     </div>
     <div class="claims">
-      <div class="claim"><b data-i18n="why.k1">Split tunneling</b><span data-i18n="why.v1">Banking and other apps that refuse VPN connections keep working, no toggling. <i>Local services go direct, the rest through the tunnel.</i></span></div>
-      <div class="claim"><b data-i18n="why.k2">Private</b><span data-i18n="why.v2">Your own server, so nobody sees your traffic. Access logs are off, and the only numbers kept — bytes and last-seen, per device — live on your server, nowhere else. <a href="https://github.com/antongavrilov88/burrow/blob/main/README.md#privacy-stated-plainly" target="_blank" rel="noopener">Privacy, stated plainly</a>.</span></div>
+      <div class="claim"><b data-i18n="why.k1">Not a flagged address</b><span data-i18n="why.v1">Banks and shops flag addresses shared by thousands of strangers. Yours is used by the people you added, so it does not look like a VPN to them. <i>Local services go direct, the rest through the tunnel.</i></span></div>
+      <div class="claim"><b data-i18n="why.k2">Private</b><span data-i18n="why.v2">Your own server, so nobody sees your traffic. Access logs and DNS logging are off. What is kept is bytes and last-seen per device, plus a 14-day history so the panel can draw a graph — all of it on your server. You will see that a phone used 2 GB; nobody sees what it opened, because that is never recorded. <a href="https://github.com/antongavrilov88/burrow/blob/main/README.md#privacy-stated-plainly" target="_blank" rel="noopener">Privacy, stated plainly</a>.</span></div>
       <div class="claim"><b data-i18n="why.k3">Fast</b><span data-i18n="why.v3">No shared bandwidth and no queue of strangers on the same address: the server's whole pipe belongs to the handful of devices you added.</span></div>
-      <div class="claim"><b data-i18n="why.k4">Whose machine</b><span data-i18n="why.v4">Nothing runs on anyone else's infrastructure. The server is rented in your name and stays yours — Burrow runs no servers at all.</span></div>
+      <div class="claim"><b data-i18n="why.k4">Whose machine</b><span data-i18n="why.v4">Nothing of yours runs on my machines. The server is rented in your name, billed to your card, at a host you pick — and Burrow runs no servers at all, so there is no account to close.</span></div>
     </div>
   </div>
 </section>
@@ -406,8 +406,8 @@ footer a{color:var(--ink-2)}
         <div class="colh"><b data-i18n="cmp.paid.h">With the agent</b><span class="amt">$29</span><span class="soon" data-i18n="price.soon">Opens in November</span></div>
         <p class="colw" data-i18n="cmp.paid.w">One price, everything after the invite. Paid once, up front.</p>
         <dl class="rows">
-          <div><dt data-i18n="cmp.k1">What you do</dt><dd data-i18n="cmp.paid.v1">Three steps nobody can do for you: create the hosting account, <a href="#card">add your card</a>, invite Burrow to it.</dd></div>
-          <div><dt data-i18n="cmp.k2">What Burrow does</dt><dd data-i18n="cmp.paid.v2">Server, domain, install, certificates, watchdog, panel, your first device and QR, a handout in plain words — then removes its own access.</dd></div>
+          <div><dt data-i18n="cmp.k1">What you do</dt><dd data-i18n="cmp.paid.v1">Three steps nobody can do for you: create the hosting account, <a href="#card">add your card</a>, invite Burrow to it — then remove that invite at the end.</dd></div>
+          <div><dt data-i18n="cmp.k2">What Burrow does</dt><dd data-i18n="cmp.paid.v2">Server, domain, install, certificates, watchdog, panel, your first device and QR, a handout in plain words — then walks you through removing its access yourself — you should not have to take my word for it.</dd></div>
           <div><dt data-i18n="cmp.k3">Time</dt><dd data-i18n="cmp.paid.v3">Your part is a few minutes. The rest happens without you.</dd></div>
           <div><dt data-i18n="cmp.k4">Guarantee</dt><dd data-i18n="price.guar">Verified before you're done, or your money back.</dd></div>
         </dl>
@@ -419,7 +419,7 @@ footer a{color:var(--ink-2)}
           <div class="bub a" data-i18n="ag.chat.b3">Good. Invite me to your team (I'll point at the exact button), then say done.</div>
         </div>
 
-        <p class="sub" data-i18n="price.verify">To verify, Burrow connects once through your server with a temporary key, then deletes it — <a href="https://github.com/antongavrilov88/burrow/blob/main/scripts/payload/common/verify.sh" target="_blank" rel="noopener">this is the script that does it</a>.</p>
+        <p class="sub" data-i18n="price.verify">Verification runs on the server and from outside it: services up, the config valid, a real certificate answering on your domain, and traffic actually leaving through the tunnel — <a href="https://github.com/antongavrilov88/burrow/blob/main/scripts/payload/common/verify.sh" target="_blank" rel="noopener">this is the script, and you can re-run it yourself any time</a>.</p>
         <p class="sub" data-i18n="price.terms">If verification doesn't pass, the refund is full and automatic — you don't have to argue for it. Anything else inside 14 days, just ask.</p>
         <p class="sub" data-i18n="price.scope">The guarantee covers the setup on your server. Whether a particular carrier or corporate network permits VPN traffic is outside anyone's control — see the <a href="#limit">honest limit</a> above.</p>
         <p class="sub" data-i18n="price.parents">Setting it up for someone else? Same flow — you pay, they get the QR.</p>

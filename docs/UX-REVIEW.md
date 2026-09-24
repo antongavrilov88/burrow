@@ -143,10 +143,22 @@ added.
 | "nobody sees your traffic, access logs are off" | README § *Privacy, stated plainly* |
 | "Works with DigitalOcean today" | `references/provisioning.md` — the provider table |
 
-**Finding UX-L1 (L, filed as an issue).** "Or your money back" has no stated
-process: no refund window, no method, no who-decides. For a product that isn't
-live this is survivable; before the first payment it is not. Needs a policy
-decision, not code.
+**Finding UX-L1 (L, decided and fixed).** "Or your money back" had no stated
+process: no window, no method, no who-decides. Now stated on the page, one line
+under the guarantee, in the shape the owner chose — **verification-tied with
+discretion**: a failed verification is a full automatic refund, anything else
+inside 14 days on request. The trigger is objective and its evidence is already
+public (`verify.sh`, linked from the same column), which is what makes the narrow
+half defensible and the generous half safe to offer.
+
+Two constraints recorded for whoever revisits this:
+
+- **The merchant of record governs.** Payments are to run through a MoR, which
+  imposes its own refund policy and moves the money. The landing's terms must be a
+  subset of theirs or they are unenforceable — read their terms before changing
+  this line.
+- **The bot's `/start` copy must match.** It is the other place a buyer meets the
+  offer, and it is outside this repo.
 
 ---
 
@@ -298,6 +310,6 @@ was not true before this PR, at any width.
 
 | | What | Why it isn't in this PR |
 |---|---|---|
-| **UX-L1** | Refund terms for "or your money back" | Needs a policy decision — window, method, who decides |
+| **UX-L1** | ~~Refund terms~~ | **Decided and shipped** — §4. Re-check against the MoR's policy when one is chosen |
 | **UX-L2** | ~~Measure first paint and set a budget~~ | **Done** — §8. Re-take on the deployed URL after merge |
 | **UX-L3** | ~~"What gets installed" for persona (a)~~ | **Done** — §1a, as a `<details>` rather than a section |

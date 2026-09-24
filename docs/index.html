@@ -1,17 +1,17 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26"><path d="M2 20c0-7 5-13 11-13s11 6 11 13H2z" fill="none" stroke="%23F2B84B" stroke-width="2"/><path d="M8 20c0-3.5 2.2-6.5 5-6.5s5 3 5 6.5" fill="%23F2B84B"/><path d="M1 20h24" stroke="%23F2B84B" stroke-width="2" stroke-linecap="round"/></svg>'>
-<title>Burrow — your own VPN in five minutes</title>
-<meta name="description" content="Burrow — a free Claude skill that turns a $6 server you rent into a personal VPN. Your server, your keys, no company in the middle. Banking apps keep working.">
+<title>Burrow — your own VPN, on your own server</title>
+<meta name="description" content="Burrow — a free Claude skill that turns a $6 server you rent into a personal VPN. Your server, your keys, no company in the middle. Your own IP, not a shared one.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://antongavrilov88.github.io/burrow/">
-<meta property="og:title" content="Your own VPN in five minutes. No shared servers, no company in the middle.">
-<meta property="og:description" content="Burrow — a free Claude skill that turns a $6 server you rent into a personal VPN. Your server, your keys, no company in the middle. Banking apps keep working.">
+<meta property="og:title" content="Your own VPN. On a $6 server that is yours, not a company's.">
+<meta property="og:description" content="Burrow — a free Claude skill that turns a $6 server you rent into a personal VPN. Your server, your keys, no company in the middle. Your own IP, not a shared one.">
 <meta property="og:image" content="https://antongavrilov88.github.io/burrow/og.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Your own VPN in five minutes. No shared servers, no company in the middle.">
-<meta name="twitter:description" content="Burrow — a free Claude skill that turns a $6 server you rent into a personal VPN. Your server, your keys, no company in the middle. Banking apps keep working.">
+<meta name="twitter:title" content="Your own VPN. On a $6 server that is yours, not a company's.">
+<meta name="twitter:description" content="Burrow — a free Claude skill that turns a $6 server you rent into a personal VPN. Your server, your keys, no company in the middle. Your own IP, not a shared one.">
 <meta name="twitter:image" content="https://antongavrilov88.github.io/burrow/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -54,12 +54,11 @@ html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1120px;margin:0 auto;padding-inline:20px}
 a{color:var(--accent-ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
-a:hover{color:var(--accent)}
+@media (hover:hover){a:hover{color:var(--accent)}}
 a:focus-visible,button:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
 h1,h2,h3{margin:0;font-weight:800;letter-spacing:-.03em;line-height:1.1;text-wrap:balance}
 h1{font-size:clamp(38px,5.4vw,62px);line-height:1.05}
 h2{font-size:clamp(28px,3.4vw,38px);margin-bottom:12px}
-h3{font-size:22px;margin-bottom:6px;letter-spacing:-.02em}
 p{margin:0 0 1em}
 .lede{font-size:clamp(17px,1.6vw,19px);color:var(--ink-2);max-width:620px}
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:12px}
@@ -71,7 +70,7 @@ code{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1p
 @supports (backdrop-filter:blur(1px)){.bar{background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}}
 .top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
 [id]{scroll-margin-top:84px}
-.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:-.02em;text-decoration:none;color:var(--ink)}
+.brand{display:flex;align-items:center;gap:10px;min-height:44px;font-weight:800;font-size:20px;letter-spacing:-.02em;text-decoration:none;color:var(--ink)}
 .brand svg{width:26px;height:26px;color:var(--accent)}
 .tools{display:flex;align-items:center;gap:8px}
 .nav{display:flex;gap:22px;font-size:14px;font-weight:600;color:var(--ink-2);margin-right:14px}
@@ -79,9 +78,9 @@ code{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1p
 .nav a:hover{color:var(--ink)}
 .langwrap{position:relative;display:flex;align-items:center}
 .langwrap svg{position:absolute;left:10px;width:16px;height:16px;color:var(--mute);pointer-events:none}
-.lang{appearance:none;-webkit-appearance:none;font:600 13px var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line-2);border-radius:8px;padding:8px 30px 8px 32px;cursor:pointer;min-height:40px}
+.lang{appearance:none;-webkit-appearance:none;font:600 13px var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line-2);border-radius:8px;padding:8px 30px 8px 32px;cursor:pointer;min-height:44px}
 .langwrap::after{content:"";position:absolute;right:12px;width:7px;height:7px;border-right:1.5px solid var(--mute);border-bottom:1.5px solid var(--mute);transform:translateY(-2px) rotate(45deg);pointer-events:none}
-.theme{width:40px;height:40px;border-radius:8px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.theme{width:44px;height:44px;border-radius:8px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
 .theme svg{width:17px;height:17px}
 .theme .moon{display:none}
 :root[data-theme="dark"] .theme .sun{display:none}
@@ -96,19 +95,17 @@ code{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1p
 .pill{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:var(--accent-soft);border:1px solid var(--accent-line);color:var(--accent-ink);font-size:13px;font-weight:700;margin-bottom:18px}
 .pill i{width:8px;height:8px;border-radius:50%;background:var(--accent)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 22px;border-radius:10px;font:700 15px var(--body);text-decoration:none;border:1px solid transparent;cursor:pointer;transition:transform .12s ease,background .12s ease;min-height:48px}
-.btn:hover{transform:translateY(-1px)}
+@media (hover:hover){.btn:hover{transform:translateY(-1px)}}
 .btn.primary{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
-.btn.primary:hover{background:var(--accent-ink);color:var(--on-accent)}
+@media (hover:hover){.btn.primary:hover{background:var(--accent-ink);color:var(--on-accent)}}
 .btn.ghost{background:var(--surface-2);color:var(--ink);border-color:var(--line-2)}
-.btn.ghost:hover{border-color:var(--ink)}
-.btn.off{background:var(--surface);color:var(--mute);border-color:var(--line-2);border-style:dashed;cursor:default;pointer-events:none}
-.btn.off:hover{transform:none}
+@media (hover:hover){.btn.ghost:hover{border-color:var(--ink)}}
 .btn small{font:500 12px var(--mono);opacity:.9}
 .fine{margin-top:18px;font-family:var(--mono);font-size:12.5px;color:var(--mute)}
 
 /* hero: the two paths, equally weighted */
 .paths{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
-.path{display:flex;flex-direction:column;gap:6px;padding:18px;border:1px solid var(--line);border-radius:14px;background:var(--surface-2)}
+.path{display:flex;flex-direction:column;gap:6px;padding:18px;border:1px solid var(--line-2);border-radius:14px;background:var(--surface)}
 .path.free{background:var(--accent-soft);border:2px solid var(--accent);padding:17px;box-shadow:var(--shadow)}
 .path .pk{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
 .path.free .pk{color:var(--accent-ink)}
@@ -118,15 +115,18 @@ code{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1p
 .path.free .amt small{color:var(--ink-2)}
 .path b{font-size:15.5px;font-weight:700;letter-spacing:-.01em;line-height:1.35}
 .path p{margin:0;font-size:14px;color:var(--ink-2);line-height:1.5}
-.path .btn{margin-top:auto;width:100%;padding:12px 18px;min-height:44px}
-.soon{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.04em;text-transform:none;padding:2px 8px;border-radius:999px;border:1px dashed var(--line-2);color:var(--ink-2)}
+.path .btn{margin-top:auto;width:100%;padding:12px 18px;min-height:48px}
+.path .need{margin:0;font-size:13px;color:var(--mute);line-height:1.45}
+.path.free .need{color:var(--ink-2)}
+.cmd{display:block;margin-top:8px;padding:9px 11px;font:500 11.5px var(--mono);color:var(--ink-2);background:var(--surface);border:1px solid var(--line-2);border-radius:8px;overflow-x:auto;white-space:nowrap}
+.soon{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.04em;text-transform:none;padding:2px 8px;border-radius:999px;border:1px solid var(--line-2);color:var(--ink-2)}
 
 /* what gets installed — progressive disclosure for the technical reader */
 .spec{margin:0 auto;max-width:1120px;padding:0 20px}
 .spec details{border:1px solid var(--line);border-radius:12px;background:var(--surface-2)}
-.spec summary{cursor:pointer;padding:14px 18px;font:700 15px var(--body);color:var(--ink);list-style:none;display:flex;align-items:center;gap:10px;min-height:48px}
+.spec summary{cursor:pointer;padding:14px 18px;font:700 15px var(--body);color:var(--ink);list-style:none;display:flex;align-items:center;justify-content:space-between;flex-direction:row-reverse;gap:10px;min-height:48px;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
 .spec summary::-webkit-details-marker{display:none}
-.spec summary::before{content:"";width:7px;height:7px;border-right:1.5px solid var(--mute);border-bottom:1.5px solid var(--mute);transform:rotate(-45deg);transition:transform .15s ease;flex:none}
+.spec summary::before{content:"";width:9px;height:9px;border-right:2px solid var(--accent-ink);border-bottom:2px solid var(--accent-ink);transform:rotate(-45deg);transition:transform .15s ease;flex:none}
 .spec details[open] summary::before{transform:rotate(45deg)}
 .spec summary:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
 .spec .body{padding:2px 18px 18px;border-top:1px solid var(--line)}
@@ -165,7 +165,7 @@ code{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1p
 .dev{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;font-weight:600;font-size:14px}
 .dev span:last-child{font-family:var(--mono);font-size:12px;color:var(--ink-2);font-weight:400}
 .qr{display:flex;align-items:center;gap:14px;padding:14px;border:1px dashed var(--line-2);border-radius:10px}
-.qr i{width:60px;height:60px;border-radius:6px;flex:none;background:
+.qr i{opacity:.45;width:60px;height:60px;border-radius:6px;flex:none;background:
   repeating-linear-gradient(0deg,var(--ink) 0 4px,var(--surface) 4px 8px),
   repeating-linear-gradient(90deg,var(--ink) 0 4px,var(--surface) 4px 8px);background-blend-mode:multiply}
 .qr b{display:block;font-size:14px}
@@ -243,6 +243,15 @@ footer a{color:var(--ink-2)}
   .claim{grid-template-columns:1fr;gap:4px}
   .dfm{padding:22px 16px}
   .bub{max-width:92%}
+  .panel,.chat{display:none}
+  .top{padding-block:10px}
+  /* a phone cannot run the install command, so the paid path leads here */
+  .cmd{display:none}
+  .path.paid{order:-1}
+  footer .fl{flex-direction:column;gap:0}
+  footer .fl a,.links a{display:inline-flex;align-items:center;min-height:44px}
+  .links{gap:0 18px}
+  .bridge a{display:inline-flex;align-items:center;min-height:44px}
   section{padding-block:40px}
   h1{font-size:clamp(34px,9vw,44px)}
   .top{padding-block:10px}
@@ -283,25 +292,27 @@ footer a{color:var(--ink-2)}
 <section class="wrap hero" style="border-top:0">
   <div>
     <span class="pill"><i></i><span data-i18n="hero.pill">Free &amp; open source · MIT</span></span>
-    <h1 data-i18n="hero.h1">Your own VPN in five minutes. No shared servers, no company in the middle.</h1>
-    <p class="lede" style="margin-top:16px" data-i18n="hero.lede">A Claude skill turns a $6 server you rent into a VPN only your people use — no address shared with strangers, and banking apps that reject commercial VPNs keep working.</p>
+    <h1 data-i18n="hero.h1">Your own VPN. On a $6 server that is yours, not a company's.</h1>
+    <p class="lede" style="margin-top:16px" data-i18n="hero.lede">A Claude skill turns a $6 server you rent into a VPN only your people use — no address shared with strangers, and the banking apps that reject commercial VPNs stop seeing a flagged address.</p>
     <div class="paths">
       <div class="path free">
         <span class="pk" data-i18n="path.free.k">Do it yourself</span>
         <div class="amt"><span data-i18n="path.free.amt">Free</span> <small data-i18n="path.free.amts">forever</small></div>
         <b data-i18n="path.free.h">The skill and the full guide</b>
-        <p data-i18n="path.free.p">For developers and anyone at home in a terminal. Bring a server or let the skill make one.</p>
+        <p data-i18n="path.free.p">For developers and anyone comfortable in a terminal. Use a server you have, or let the skill create one.</p>
+        <p class="need" data-i18n="path.free.need">Needs Claude Code on your machine. No Claude Code? <a href="#agent">The other path is for you.</a></p>
         <a class="btn primary" href="https://github.com/antongavrilov88/burrow" target="_blank" rel="noopener"><span data-i18n="hero.btn1">Get the free skill</span> <small>GitHub</small></a>
+        <code class="cmd">git clone …/burrow ~/.claude/skills/burrow</code>
       </div>
       <div class="path paid">
         <span class="pk"><span data-i18n="path.paid.k">Have it done</span> <span class="soon" data-i18n="path.paid.soon">Opens in November</span></span>
         <div class="amt">$29 <small data-i18n="path.paid.amts">one time</small></div>
-        <b data-i18n="path.paid.h">The agent sets it up, verified or refunded</b>
-        <p data-i18n="path.paid.p">For everyone else. A chat walks you through your three steps, then does the rest itself.</p>
+        <b data-i18n="path.paid.h">Done for you, or your money back</b>
+        <p data-i18n="path.paid.p">A few minutes of your time at the start. After that you close the tab and come back to a VPN that has been tested working.</p>
         <a class="btn ghost" href="#agent" data-i18n="hero.btn2">Set it up for me</a>
       </div>
     </div>
-    <p class="fine" data-i18n="hero.fine">5 min of clicking · ~10 min unattended install · a DNS wait that's usually short</p>
+    <p class="fine" data-i18n="hero.fine">About 15 minutes: ~5 of your clicking, ~10 the installer runs on its own · then a short wait for the domain</p>
   </div>
   <div class="panel" aria-hidden="true">
     <div class="ph"><span data-i18n="panel.h">Devices</span><span data-i18n="panel.ok">● tunnel healthy</span></div>
@@ -318,7 +329,7 @@ footer a{color:var(--ink-2)}
     <span class="k" data-i18n="how.k1">You · ~5 min</span>
     <b data-i18n="how.h1">You create the server</b>
     <p data-i18n="how.p1">Claude tells you what to click, one step at a time, and why.</p>
-    <p class="self" data-i18n="how.note">There's a guide below, and a human if you get stuck.</p>
+    <p class="self" data-i18n="how.note">This is the only part you do yourself. There is a full guide below.</p>
   </div>
   <div class="card b">
     <span class="k" data-i18n="how.k2">Burrow · ~10 min</span>
@@ -344,9 +355,9 @@ footer a{color:var(--ink-2)}
       <dl>
         <div><dt data-i18n="spec.k1">Cover</dt><dd data-i18n="spec.v1">Xray serving VLESS + XHTTP + REALITY on 443/tcp, behind a real site on your own domain with a real certificate. A prober that knocks gets the site — because it is the site.</dd></div>
         <div><dt data-i18n="spec.k2">Devices</dt><dd data-i18n="spec.v2">Plain WireGuard, official apps. Nothing custom to install on a phone or a laptop.</dd></div>
-        <div><dt data-i18n="spec.k3">Panel</dt><dd data-i18n="spec.v3">A small web panel on the server: add a device, get a QR, see bytes and last-seen.</dd></div>
+        <div><dt data-i18n="spec.k3">Panel</dt><dd data-i18n="spec.v3">A small web panel on the server: add a device, get a QR, see bytes and last-seen. The panel and push alerts are in Russian in this version; everything Claude says to you, and the handout you pass on, are in your language.</dd></div>
         <div><dt data-i18n="spec.k4">Watchdog</dt><dd data-i18n="spec.v4">A systemd timer that probes the tunnel, repairs what it can, fails over to a spare route, and pushes a notification when it cannot.</dd></div>
-        <div><dt data-i18n="spec.k5">Split routing</dt><dd data-i18n="spec.v5">An nftables set decides who goes through the tunnel; a domain list leaves directly. This is what keeps banking apps working.</dd></div>
+        <div><dt data-i18n="spec.k5">Split routing</dt><dd data-i18n="spec.v5">Two-server layout only: an nftables set decides who goes through the tunnel, and a domain list you edit leaves directly from the relay. Seeded with the payment networks that usually object — add your own bank.</dd></div>
         <div><dt data-i18n="spec.k6">Layouts</dt><dd data-i18n="spec.v6">One server abroad by default, or a two-machine relay when devices sit behind heavy filtering. Same installers either way.</dd></div>
       </dl>
       <p class="fine" style="margin-top:14px"><a href="https://github.com/antongavrilov88/burrow/blob/main/references/architecture.md" target="_blank" rel="noopener" data-i18n="spec.link">The full design — including the one signal it deliberately does not win</a></p>
@@ -355,7 +366,7 @@ footer a{color:var(--ink-2)}
 </div>
 
 <div class="bridge">
-  <p data-i18n="bridge">Started on your own and got stuck? <a href="#agent">The agent can take over from any step.</a></p>
+  <p data-i18n="bridge">Read those four steps and thought &ldquo;not tonight&rdquo;? <a href="#agent">From November, Burrow can do all four for you.</a></p>
 </div>
 
 <!-- 3 · why your own server -->
@@ -371,10 +382,10 @@ footer a{color:var(--ink-2)}
       </div>
     </div>
     <div class="claims">
-      <div class="claim"><b data-i18n="why.k1">Split tunneling</b><span data-i18n="why.v1">Banking and other apps that refuse VPN connections keep working, no toggling. <i>Local services go direct, the rest through the tunnel.</i></span></div>
-      <div class="claim"><b data-i18n="why.k2">Private</b><span data-i18n="why.v2">Your own server, so nobody sees your traffic. Access logs are off, and the only numbers kept — bytes and last-seen, per device — live on your server, nowhere else. <a href="https://github.com/antongavrilov88/burrow/blob/main/README.md#privacy-stated-plainly" target="_blank" rel="noopener">Privacy, stated plainly</a>.</span></div>
+      <div class="claim"><b data-i18n="why.k1">Not a flagged address</b><span data-i18n="why.v1">Banks and shops flag addresses shared by thousands of strangers. Yours is used by the people you added, so it does not look like a VPN to them. <i>Local services go direct, the rest through the tunnel.</i></span></div>
+      <div class="claim"><b data-i18n="why.k2">Private</b><span data-i18n="why.v2">Your own server, so nobody sees your traffic. Access logs and DNS logging are off. What is kept is bytes and last-seen per device, plus a 14-day history so the panel can draw a graph — all of it on your server. You will see that a phone used 2 GB; nobody sees what it opened, because that is never recorded. <a href="https://github.com/antongavrilov88/burrow/blob/main/README.md#privacy-stated-plainly" target="_blank" rel="noopener">Privacy, stated plainly</a>.</span></div>
       <div class="claim"><b data-i18n="why.k3">Fast</b><span data-i18n="why.v3">No shared bandwidth and no queue of strangers on the same address: the server's whole pipe belongs to the handful of devices you added.</span></div>
-      <div class="claim"><b data-i18n="why.k4">Whose machine</b><span data-i18n="why.v4">Nothing runs on anyone else's infrastructure. The server is rented in your name and stays yours — Burrow runs no servers at all.</span></div>
+      <div class="claim"><b data-i18n="why.k4">Whose machine</b><span data-i18n="why.v4">Nothing of yours runs on my machines. The server is rented in your name, billed to your card, at a host you pick — and Burrow runs no servers at all, so there is no account to close.</span></div>
     </div>
   </div>
 </section>
@@ -384,32 +395,32 @@ footer a{color:var(--ink-2)}
   <div class="hd">
     <div class="eyebrow" data-i18n="ag.eyebrow">Set it up for me</div>
   </div>
-  <h2 data-i18n="ag.h2">Two ways to get there. Same VPN at the end.</h2>
-  <p class="lede" data-i18n="ag.lede">The skill and the guide are the whole product, free forever — developers never pay a cent. If you'd rather be walked through it, the same skill runs as a chat that does the work: you pay once, up front, and a human steps in only if something breaks.</p>
+  <h2 data-i18n="ag.h2">Same VPN either way. The difference is whose problem it is when something goes wrong.</h2>
+  <p class="lede" data-i18n="ag.lede">You scrolled this far, so you have probably decided you would rather not spend an evening on this. That is what the $29 buys: you do three things only you can do, and from there it stops being yours to worry about. Burrow builds the server, installs everything, tests it end to end and hands you a QR code. If the test does not pass you get your money back — and if something breaks later you message me instead of reading a forum.</p>
 
   <div class="dfm">
     <div class="cmp">
 
       <div class="col free">
-        <div class="colh"><b data-i18n="cmp.free.h">Yourself</b><span class="amt">$0</span></div>
+        <div class="colh"><b data-i18n="cmp.free.h">You do it</b><span class="amt">$0</span></div>
         <p class="colw" data-i18n="cmp.free.w">Free forever, no account, no sign-up. Install the skill and start.</p>
         <dl class="rows">
           <div><dt data-i18n="cmp.k1">What you do</dt><dd data-i18n="cmp.free.v1">All of it: the hosting account, the card, the server, the domain, the install, the first device.</dd></div>
           <div><dt data-i18n="cmp.k2">What Burrow does</dt><dd data-i18n="cmp.free.v2">Tells you what to click and why, builds the installer, and runs whatever can be automated from your machine.</dd></div>
           <div><dt data-i18n="cmp.k3">Time</dt><dd data-i18n="cmp.free.v3">About 15 minutes if nothing surprises you, longer if something does.</dd></div>
-          <div><dt data-i18n="cmp.k4">Guarantee</dt><dd data-i18n="cmp.free.v4">None to give — you paid nothing. If you get stuck, the agent can take over.</dd></div>
+          <div><dt data-i18n="cmp.k4">Guarantee</dt><dd data-i18n="cmp.free.v4">No guarantee, because there is no invoice. Same scripts, same checks — the only thing you do not get is someone to blame. If you get stuck, you can hand it over.</dd></div>
         </dl>
         <a class="btn ghost" href="https://github.com/antongavrilov88/burrow" target="_blank" rel="noopener"><span data-i18n="cmp.free.btn">Get the free skill</span> <small>GitHub</small></a>
       </div>
 
       <div class="col">
-        <div class="colh"><b data-i18n="cmp.paid.h">With the agent</b><span class="amt">$29</span><span class="soon" data-i18n="price.soon">Opens in November</span></div>
-        <p class="colw" data-i18n="cmp.paid.w">One price, everything after the invite. Paid once, up front.</p>
+        <div class="colh"><b data-i18n="cmp.paid.h">Done for you</b><span class="amt">$29</span><span class="soon" data-i18n="price.soon">Opens in November</span></div>
+        <p class="colw" data-i18n="cmp.paid.w">$29 once, nothing after. The moment you send the invite, it stops being your job.</p>
         <dl class="rows">
-          <div><dt data-i18n="cmp.k1">What you do</dt><dd data-i18n="cmp.paid.v1">Three steps nobody can do for you: create the hosting account, <a href="#card">add your card</a>, invite Burrow to it.</dd></div>
-          <div><dt data-i18n="cmp.k2">What Burrow does</dt><dd data-i18n="cmp.paid.v2">Server, domain, install, certificates, watchdog, panel, your first device and QR, a handout in plain words — then removes its own access.</dd></div>
+          <div><dt data-i18n="cmp.k1">What you do</dt><dd data-i18n="cmp.paid.v1">Three steps nobody can do for you: create the hosting account, <a href="#card">add your card</a>, invite Burrow to it — then remove that invite at the end.</dd></div>
+          <div><dt data-i18n="cmp.k2">What Burrow does</dt><dd data-i18n="cmp.paid.v2">Server, domain, install, certificates, watchdog, panel, your first device and QR, a handout in plain words — then walks you through removing its access yourself — you should not have to take my word for it.</dd></div>
           <div><dt data-i18n="cmp.k3">Time</dt><dd data-i18n="cmp.paid.v3">Your part is a few minutes. The rest happens without you.</dd></div>
-          <div><dt data-i18n="cmp.k4">Guarantee</dt><dd data-i18n="price.guar">Verified before you're done, or your money back.</dd></div>
+          <div><dt data-i18n="cmp.k4">Guarantee</dt><dd data-i18n="price.guar">It is not finished until it has been tested working. If it cannot be, you get your money back.</dd></div>
         </dl>
 
         <div class="chat" aria-hidden="true">
@@ -419,13 +430,13 @@ footer a{color:var(--ink-2)}
           <div class="bub a" data-i18n="ag.chat.b3">Good. Invite me to your team (I'll point at the exact button), then say done.</div>
         </div>
 
-        <p class="sub" data-i18n="price.verify">To verify, Burrow connects once through your server with a temporary key, then deletes it — <a href="https://github.com/antongavrilov88/burrow/blob/main/scripts/payload/common/verify.sh" target="_blank" rel="noopener">this is the script that does it</a>.</p>
+        <p class="sub" data-i18n="price.verify">Verification runs on the server and from outside it: services up, the config valid, a real certificate answering on your domain, and traffic actually leaving through the tunnel — <a href="https://github.com/antongavrilov88/burrow/blob/main/scripts/payload/common/verify.sh" target="_blank" rel="noopener">this is the script, and you can re-run it yourself any time</a>.</p>
         <p class="sub" data-i18n="price.terms">If verification doesn't pass, the refund is full and automatic — you don't have to argue for it. Anything else inside 14 days, just ask.</p>
         <p class="sub" data-i18n="price.scope">The guarantee covers the setup on your server. Whether a particular carrier or corporate network permits VPN traffic is outside anyone's control — see the <a href="#limit">honest limit</a> above.</p>
         <p class="sub" data-i18n="price.parents">Setting it up for someone else? Same flow — you pay, they get the QR.</p>
-        <a class="btn primary" href="https://t.me/burrow_vpn_bot" target="_blank" rel="noopener" data-i18n="price.btn">Notify me in Telegram</a>
+        <p class="sub" data-i18n="price.early">$29 is the price when it opens in November. The list gets in under it, and goes first — I do these one at a time.</p>
+        <a class="btn primary" href="https://t.me/burrow_vpn_bot" target="_blank" rel="noopener" data-i18n="price.btn">Get the early-access price</a>
         <span class="handle">@burrow_vpn_bot</span>
-        <p class="sub" data-i18n="price.early">The Telegram list gets the early-access price when it opens.</p>
         <p class="fine" data-i18n="ag.prov">Works with DigitalOcean today; more providers as they're tested — <a href="https://github.com/antongavrilov88/burrow/blob/main/references/provisioning.md" target="_blank" rel="noopener">the provider table</a>.</p>
       </div>
 
@@ -484,7 +495,8 @@ footer a{color:var(--ink-2)}
 <footer class="wrap">
   <span class="fl">
     <a href="https://github.com/antongavrilov88/burrow" target="_blank" rel="noopener">GitHub</a>
-    <a href="https://t.me/bepatientlikeme" target="_blank" rel="noopener" data-i18n="foot.bot">Telegram — updates and releases</a>
+    <a href="https://t.me/burrow_vpn_bot" target="_blank" rel="noopener" data-i18n="foot.bot">Telegram — the launch list</a>
+    <a href="https://t.me/bepatientlikeme" target="_blank" rel="noopener" data-i18n="foot.ch">Build notes</a>
     <a href="https://linkedin.com/in/agavrilov88" target="_blank" rel="noopener">LinkedIn</a>
   </span>
   <span data-i18n="foot.r">Burrow · MIT · the server is always yours. Not legal advice.</span>
@@ -514,8 +526,10 @@ footer a{color:var(--ink-2)}
   /* ---------- theme ---------- */
   var root = document.documentElement, themeBtn = document.getElementById('theme');
   function isDark(){ var t = root.getAttribute('data-theme'); if(t) return t==='dark'; return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; }
-  themeBtn.addEventListener('click', function(){ var next = isDark() ? 'light' : 'dark'; root.setAttribute('data-theme', next); try{ localStorage.setItem('burrow.theme', next); }catch(e){} });
+  function syncTheme(){ themeBtn.setAttribute('aria-pressed', String(isDark())); }
+  themeBtn.addEventListener('click', function(){ var next = isDark() ? 'light' : 'dark'; root.setAttribute('data-theme', next); syncTheme(); try{ localStorage.setItem('burrow.theme', next); }catch(e){} });
   try{ var st = localStorage.getItem('burrow.theme'); if(st==='dark'||st==='light') root.setAttribute('data-theme', st); }catch(e){}
+  syncTheme();
 
   /* ---------- photo: drop docs/anton.jpg in and it replaces the initials ---------- */
   var photo = document.getElementById('photo');

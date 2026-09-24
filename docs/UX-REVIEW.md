@@ -233,14 +233,21 @@ reading while clearing AA.
 ## 8. Performance
 
 Measured with Lighthouse 12.8.2, mobile form factor, simulated throttling.
-Localhost numbers are for the current branch; the live row is the deployed page
-before this PR, as a baseline.
 
 | | Perf | A11y | BP | SEO | FCP | LCP | CLS |
 |---|---|---|---|---|---|---|---|
-| Deployed page, before this PR | 88 | 95 | 96 | 100 | 2.9 s | 2.9 s | 0 |
-| This branch, before perf fixes | 91 | **100** | 96 | 100 | 2.8 s | 2.8 s | 0.002 |
-| This branch, after perf fixes | **100** | **100** | **100** | **100** | **0.9 s** | **0.9 s** | 0.004 |
+| Deployed, before this work | 88 | 95 | 96 | 100 | 2.9 s | 2.9 s | 0 |
+| Localhost, before perf fixes | 91 | **100** | 96 | 100 | 2.8 s | 2.8 s | 0.002 |
+| Localhost, after perf fixes | 100 | **100** | **100** | **100** | 0.9 s | 0.9 s | 0.004 |
+| **Deployed, after** | **99** | **100** | **100** | **100** | **1.3 s** | **1.3 s** | 0.002 |
+
+The deployed row is the one that counts; the localhost rows are kept because they
+are what the fixes were tuned against. Deployed FCP (1.3 s) is slower than
+localhost (0.9 s) for the obvious reason — real TLS and real DNS to
+`github.io` — and still less than half of the 2.9 s the page served before.
+Render-blocking resources: none. Console errors: none. Total blocking time is
+120 ms, all of it the font stylesheet arriving asynchronously, which is the trade
+that bought the 1.6 s.
 
 The accessibility jump from 95 to 100 is the contrast work in §7, independently
 confirmed by a second tool.
@@ -286,9 +293,9 @@ deployed URL, mobile, simulated throttling:
 | Render-blocking resources | none |
 | Console errors | none |
 
-Re-take these against `https://antongavrilov88.github.io/burrow/` once this is
-merged and deployed; the numbers should improve slightly, since Pages serves
-gzipped and the local server does not.
+Taken against `https://antongavrilov88.github.io/burrow/` on 24 Sep 2026, after
+deploy. Re-take on the deployed URL after any change to `docs/`; localhost numbers
+are for tuning, not for the budget.
 
 **Finding HYG-1 (S, fixed).** The restructure orphaned 25 CSS rules
 (`.price`, `.plan`, `.grp`, `.li`, `.cta`, `.badge` and descendants). Removed.

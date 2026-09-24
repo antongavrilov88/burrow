@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Burrow — your own VPN in five minutes</title>
-<meta name="description" content="Burrow — a free Claude skill that turns a $6 server you rent into a personal VPN. Your server, your keys, nothing to block.">
+<meta name="description" content="Burrow — a free Claude skill that turns a $6 server you rent into a personal VPN. Your server, your keys, no company in the middle. Banking apps keep working.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://antongavrilov88.github.io/burrow/">
-<meta property="og:title" content="Your own VPN in five minutes. No shared servers, no company to block.">
-<meta property="og:description" content="Burrow — a free Claude skill that turns a $6 server you rent into a personal VPN. Your server, your keys, nothing to block.">
+<meta property="og:title" content="Your own VPN in five minutes. No shared servers, no company in the middle.">
+<meta property="og:description" content="Burrow — a free Claude skill that turns a $6 server you rent into a personal VPN. Your server, your keys, no company in the middle. Banking apps keep working.">
 <meta property="og:image" content="https://antongavrilov88.github.io/burrow/og.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Your own VPN in five minutes. No shared servers, no company to block.">
-<meta name="twitter:description" content="Burrow — a free Claude skill that turns a $6 server you rent into a personal VPN. Your server, your keys, nothing to block.">
+<meta name="twitter:title" content="Your own VPN in five minutes. No shared servers, no company in the middle.">
+<meta name="twitter:description" content="Burrow — a free Claude skill that turns a $6 server you rent into a personal VPN. Your server, your keys, no company in the middle. Banking apps keep working.">
 <meta name="twitter:image" content="https://antongavrilov88.github.io/burrow/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -44,6 +44,7 @@
   --shadow:0 12px 32px -20px rgba(0,0,0,.6);
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto} *{transition:none!important}}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
@@ -167,7 +168,7 @@ section{padding-block:56px;border-top:1px solid var(--line)}
 .price .btn{width:100%}
 .price .handle{font:500 12.5px var(--mono);color:var(--mute);text-align:center;margin-top:-4px}
 
-/* no foreign card */
+/* card declined */
 .opts{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
 .opt{padding:22px;border:1px solid var(--line);border-radius:14px;background:var(--surface-2);display:flex;flex-direction:column;gap:8px}
 .opt .n{font-family:var(--mono);font-size:12px;color:var(--mute)}
@@ -225,13 +226,12 @@ footer a{color:var(--ink-2)}
       <a href="#how" data-i18n="nav.how">How it works</a>
       <a href="#why" data-i18n="nav.why">Why your own server</a>
       <a href="#agent" data-i18n="nav.agent">Set it up with the agent</a>
-      <a href="#card" data-i18n="nav.card">No foreign card?</a>
+      <a href="#card" data-i18n="nav.card">Card declined?</a>
     </nav>
     <div class="langwrap">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/></svg>
       <select class="lang" id="lang" aria-label="Language">
         <option value="en">English</option>
-        <option value="ru">Русский</option>
       </select>
     </div>
     <button class="theme" id="theme" type="button" aria-label="Toggle dark mode">
@@ -247,8 +247,8 @@ footer a{color:var(--ink-2)}
 <section class="wrap hero" style="border-top:0">
   <div>
     <span class="pill"><i></i><span data-i18n="hero.pill">Free &amp; open source · MIT</span></span>
-    <h1 data-i18n="hero.h1">Your own VPN in five minutes. No shared servers, no company to block.</h1>
-    <p class="lede" style="margin-top:16px" data-i18n="hero.lede">A Claude skill turns a $6 server you rent into a personal VPN that looks like an ordinary website from the outside, with a panel where you add devices by QR.</p>
+    <h1 data-i18n="hero.h1">Your own VPN in five minutes. No shared servers, no company in the middle.</h1>
+    <p class="lede" style="margin-top:16px" data-i18n="hero.lede">A Claude skill turns a $6 server you rent into a personal VPN: your own keys, a panel where you add devices by QR, and split tunneling so banking and other VPN-averse apps keep working.</p>
     <div class="cta">
       <a class="btn primary" href="https://github.com/antongavrilov88/burrow" target="_blank" rel="noopener"><span data-i18n="hero.btn1">Get the free skill</span> <small>GitHub</small></a>
       <a class="btn ghost" href="#agent"><span data-i18n="hero.btn2">Set it up with the agent</span> <small data-i18n="hero.btn2s">opens in November</small></a>
@@ -280,7 +280,7 @@ footer a{color:var(--ink-2)}
   <div class="card">
     <span class="k" data-i18n="how.k3">You · ~1 min per device</span>
     <b data-i18n="how.h3">You scan a QR</b>
-    <p data-i18n="how.p3">Install the official WireGuard app, open your panel, add a device, scan. Your parents' phones work the same way, even from another country.</p>
+    <p data-i18n="how.p3">Install the official WireGuard app, open your panel, add a device, scan. Family devices work the same way — they scan, you don't have to be in the room.</p>
   </div>
   <div class="card b">
     <span class="k" data-i18n="how.k4">Burrow · last step</span>
@@ -294,18 +294,18 @@ footer a{color:var(--ink-2)}
   <div class="why">
     <div>
       <div class="eyebrow" data-i18n="why.eyebrow">Why your own server</div>
-      <h2 data-i18n="why.h2">Every VPN you've been sold has something to block. Yours doesn't.</h2>
+      <h2 data-i18n="why.h2">Every VPN you've been sold is someone else's server. This one is yours.</h2>
       <div class="prose">
-        <p data-i18n="why.p1">Commercial VPNs share an IP among thousands of strangers. When one address gets flagged, all of them go dark, and the app-store listing goes with it. That's not a bug in a particular app — it's the shape of the business.</p>
-        <p data-i18n="why.p2">A server of your own is one IP, used by the people you know, behind a domain nobody has a reason to look at. There's no company to pressure, no listing to remove, no subscription to cancel. And it costs what a server costs — about $6 a month — not $6 a month per person.</p>
-        <p id="limit" data-i18n="why.p3">One honest limit: a network with a strict allow-list can block everything foreign, and no protocol gets around that. Burrow tells you when it can't help.</p>
+        <p data-i18n="why.p1">Commercial VPNs share an IP among thousands of strangers, so you inherit their reputation: banks, shops and streaming services flag the address as "VPN" and you get captchas, refused logins and toggling the app on and off. That's not a bug in a particular app — it's the shape of the business.</p>
+        <p data-i18n="why.p2">A server of your own is one IP, used by the people you know. Nobody in the middle sees your traffic, nobody can sell it, and nobody can change the terms. And it costs what a server costs — about $6 a month — not $6 a month per person.</p>
+        <p id="limit" data-i18n="why.p3">One honest limit: some carrier and corporate networks restrict VPN traffic altogether, and no setup on your side changes that. Burrow tells you when the network, not the setup, is the problem.</p>
       </div>
     </div>
     <div class="claims">
-      <div class="claim"><b data-i18n="why.k1">Shared vs yours</b><span data-i18n="why.v1">Shared servers get blocked because thousands of strangers share the address. A personal one gives them nothing to flag.</span></div>
-      <div class="claim"><b data-i18n="why.k2">Whose machine</b><span data-i18n="why.v2">Nothing runs on anyone else's infrastructure. The server is rented in your name and stays yours — Burrow runs no servers at all.</span></div>
-      <div class="claim"><b data-i18n="why.k3">Who sees what</b><span data-i18n="why.v3">Nobody sees your browsing. Access logs are off, and the only numbers kept — bytes and last-seen, per device — live on your server, nowhere else.</span></div>
-      <div class="claim"><b data-i18n="why.k4">Split tunneling</b><span data-i18n="why.v4">Your bank works without toggling anything. <i>Local sites go direct, the rest through the tunnel.</i></span></div>
+      <div class="claim"><b data-i18n="why.k1">Split tunneling</b><span data-i18n="why.v1">Banking and other apps that refuse VPN connections keep working, no toggling. <i>Local services go direct, the rest through the tunnel.</i></span></div>
+      <div class="claim"><b data-i18n="why.k2">Private</b><span data-i18n="why.v2">Your own server, so nobody sees your traffic. Access logs are off, and the only numbers kept — bytes and last-seen, per device — live on your server, nowhere else.</span></div>
+      <div class="claim"><b data-i18n="why.k3">Fast</b><span data-i18n="why.v3">No shared bandwidth and no queue of strangers on the same address: the server's whole pipe belongs to the handful of devices you added.</span></div>
+      <div class="claim"><b data-i18n="why.k4">Whose machine</b><span data-i18n="why.v4">Nothing runs on anyone else's infrastructure. The server is rented in your name and stays yours — Burrow runs no servers at all.</span></div>
     </div>
   </div>
 </section>
@@ -347,9 +347,9 @@ footer a{color:var(--ink-2)}
         <span class="k" data-i18n="price.k">One price · everything after the invite</span>
         <div class="n">$29</div>
         <p class="guar" data-i18n="price.guar">Verified before you're done, or your money back.</p>
-        <p class="sub" data-i18n="price.scope">The guarantee covers the setup on your server. Whether a specific network lets foreign traffic through is outside anyone's control — see the <a href="#limit">honest limit</a> above.</p>
+        <p class="sub" data-i18n="price.scope">The guarantee covers the setup on your server. Whether a particular carrier or corporate network permits VPN traffic is outside anyone's control — see the <a href="#limit">honest limit</a> above.</p>
         <p class="sub" data-i18n="price.verify">To verify, Burrow connects once through your server with a temporary key, then deletes it.</p>
-        <p class="par" data-i18n="price.parents">Setting it up for your parents? Same flow — you pay, they get the QR.</p>
+        <p class="par" data-i18n="price.parents">Setting it up for someone else? Same flow — you pay, they get the QR.</p>
         <span class="btn off" aria-disabled="true" data-i18n="price.soon">Opens in November</span>
         <a class="btn primary" href="https://t.me/burrow_vpn_bot" target="_blank" rel="noopener" data-i18n="price.btn">Notify me in Telegram</a>
         <span class="handle">@burrow_vpn_bot</span>
@@ -359,25 +359,25 @@ footer a{color:var(--ink-2)}
   </div>
 </section>
 
-<!-- 5 · no foreign card -->
+<!-- 5 · card declined -->
 <section class="wrap" id="card">
-  <h2 data-i18n="card.h2">Do you have a card that works internationally?</h2>
-  <p class="lede" data-i18n="card.lede">If not, you can still rent a server. Three ways round it, in the order I'd try them.</p>
+  <h2 data-i18n="card.h2">Provider won't take your card?</h2>
+  <p class="lede" data-i18n="card.lede">It happens — some hosts reject prepaid or debit cards, or a card from a bank they don't know. You can still rent a server. Three ways round it, in the order I'd try them.</p>
   <div class="opts">
     <div class="opt">
       <span class="n">01</span>
-      <b data-i18n="card.o1h">Someone abroad pays for you</b>
-      <p data-i18n="card.o1p">A friend or relative with a working card rents the server. It's about $6 a month, or they just keep paying it — it's the price of a coffee.</p>
+      <b data-i18n="card.o1h">Someone else pays for you</b>
+      <p data-i18n="card.o1p">A friend or relative whose card the provider accepts rents the server. It's about $6 a month, or they just keep paying it — it's the price of a coffee.</p>
     </div>
     <div class="opt">
       <span class="n">02</span>
-      <b data-i18n="card.o2h">Hosts that take crypto or regional cards</b>
-      <p data-i18n="card.o2p">Plenty of providers accept payment methods that work where you are. The guide lists which ones are known to work and what to watch for.</p>
+      <b data-i18n="card.o2h">Hosts that take crypto or local payment methods</b>
+      <p data-i18n="card.o2p">Plenty of providers accept PayPal, crypto or local payment methods. The guide lists which ones are known to work and what to watch for.</p>
       <p class="cav"><a href="https://github.com/antongavrilov88/burrow/blob/main/references/provisioning.md" target="_blank" rel="noopener" data-i18n="card.o2l">See the list in the guide</a></p>
     </div>
     <div class="opt">
       <span class="n">03</span>
-      <b data-i18n="card.o3h">Foreign-card services</b>
+      <b data-i18n="card.o3h">Virtual-card services</b>
       <p data-i18n="card.o3p">They work — and they're last on this list for a reason.</p>
       <p class="cav" data-i18n="card.o3c">Fees, identity checks, and they come and go. We don't partner with any of them or take a cut — check one yourself before trusting it with a card.</p>
     </div>
@@ -389,15 +389,15 @@ footer a{color:var(--ink-2)}
   <div class="who">
     <div>
       <div class="eyebrow" data-i18n="who.eyebrow">Who's behind this</div>
-      <h2 data-i18n="who.h2">One engineer, one family, one friend who asked.</h2>
+      <h2 data-i18n="who.h2">One developer, building in public.</h2>
     </div>
     <div class="prose">
       <div class="me"><span aria-hidden="true">AG</span><img id="photo" src="anton.jpg" alt="Anton Gavrilov"></div>
-      <p data-i18n="who.p1">I'm Anton Gavrilov, a frontend engineer. I built this for my parents when every app we tried stopped working, then wrote the whole procedure down so Claude could do it for anyone.</p>
+      <p data-i18n="who.p1">I'm Anton Gavrilov, a developer. I build Burrow in public — the skill, the guide and the agent — and write about what works and what doesn't along the way.</p>
       <p data-i18n="who.p2">The skill is free and stays free; the paid part is only for people who'd rather be walked through it — I don't run servers for anyone, don't hold cards, and don't want your keys.</p>
       <div class="links">
         <a href="https://github.com/antongavrilov88/burrow" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://t.me/bepatientlikeme" target="_blank" rel="noopener" data-i18n="who.tg">Telegram channel (RU)</a>
+        <a href="https://t.me/bepatientlikeme" target="_blank" rel="noopener" data-i18n="who.tg">Telegram channel</a>
         <a href="https://linkedin.com/in/agavrilov88" target="_blank" rel="noopener">LinkedIn</a>
       </div>
       <div class="sig">— Anton</div>
@@ -418,62 +418,16 @@ footer a{color:var(--ink-2)}
 
 <script>
 (function(){
-  /* ---------- i18n: add a language = add a dict below + an <option> above ---------- */
-  var DICT = { ru: {
-    "nav.how":"Как это работает","nav.why":"Почему свой сервер","nav.agent":"Настроить с агентом","nav.card":"Нет зарубежной карты?",
-    "hero.pill":"Бесплатно и открыто · MIT",
-    "hero.h1":"Свой VPN за пять минут. Без общих серверов и без компании, которую можно заблокировать.",
-    "hero.lede":"Скилл для Claude поднимает личный VPN на арендованном вами сервере за $6: снаружи — обычный сайт, внутри — панель, где устройства добавляются по QR.",
-    "hero.btn1":"Взять бесплатный скилл","hero.btn2":"Настроить с агентом","hero.btn2s":"открывается в ноябре",
-    "hero.fine":"5 минут кликов · ~10 минут установка без вашего участия · плюс ожидание DNS, обычно короткое",
-    "panel.h":"Устройства","panel.ok":"● туннель в порядке","panel.d1":"Мама · iPhone","panel.d1s":"онлайн · 1,8 ГБ сегодня","panel.d2":"Папа · ТВ","panel.d2s":"онлайн · 6,2 ГБ сегодня","panel.d3":"Ноутбук","panel.d3s":"был 2 ч назад","panel.new":"+ Новое устройство","panel.news":"Отсканируйте в приложении WireGuard",
-    "how.k1":"Вы · ~5 мин","how.h1":"Вы создаёте сервер","how.p1":"Аккаунт у хостера на вашу карту, Ubuntu-машина за $6, дешёвый домен. Claude говорит, что нажать, шаг за шагом, и объясняет зачем.",
-    "how.note":"Это единственная часть, которую вы делаете сами. Ниже — инструкция, а если застряли — поможет живой человек.",
-    "how.k2":"Burrow · ~10 мин","how.h2":"Burrow настраивает","how.p2":"Ключи создаются на вашем компьютере; установщик, домен, настоящие сертификаты и сторож — всё делается само. Ваше участие не нужно: ноутбук можно закрыть.",
-    "how.k3":"Вы · ~1 мин на устройство","how.h3":"Вы сканируете QR","how.p3":"Ставите официальное приложение WireGuard, открываете панель, добавляете устройство, сканируете. Телефоны родителей подключаются так же — даже из другой страны.",
-    "how.k4":"Burrow · последний шаг","how.h4":"Проверено","how.p4":"«Готово» не говорится на слово. Burrow один раз выходит в интернет через ваш сервер, убеждается, что трафик действительно выходит в интернет оттуда, где стоит ваш сервер, и только тогда считает работу законченной.",
-    "why.eyebrow":"Почему свой сервер","why.h2":"У любого VPN, который вам продавали, есть что заблокировать. У вашего — нечего.",
-    "why.p1":"Коммерческие VPN делят один IP между тысячами незнакомых людей. Когда адрес попадает под блокировку, гаснут все сразу, а следом исчезает и приложение из магазина. Это не ошибка конкретного сервиса — это форма бизнеса.",
-    "why.p2":"Свой сервер — один IP, которым пользуются только ваши люди, за доменом, на который никому нет причины смотреть. Нет компании, на которую можно надавить, нет приложения, которое можно удалить, нет подписки, которую можно отменить. И стоит это столько, сколько стоит сервер — около $6 в месяц, а не $6 в месяц с человека.",
-    "why.p3":"Честное ограничение: сеть с жёстким белым списком может резать всё зарубежное, и никакой протокол это не обходит. Burrow скажет, когда помочь не может.",
-    "why.k1":"Общий и свой","why.v1":"Общие серверы блокируют, потому что один адрес делят тысячи незнакомых людей. У личного отмечать нечего.",
-    "why.k2":"Чей сервер","why.v2":"Ничего не крутится на чужой инфраструктуре. Сервер арендован на вас и остаётся вашим — у Burrow вообще нет своих серверов.",
-    "why.k3":"Кто видит трафик","why.v3":"Никто не видит, что вы открываете. Логи доступа выключены, а единственное, что хранится, — байты и время последнего подключения по каждому устройству, — лежит на вашем сервере и больше нигде.",
-    "why.k4":"Раздельное туннелирование","why.v4":"Банк работает — ничего переключать не нужно. <i>Местные сайты идут напрямую, остальное — через туннель.</i>",
-    "ag.eyebrow":"Настроить с агентом",
-    "ag.h2":"Тот же скилл — в виде чата, который всё делает сам.",
-    "ag.lede":"Всё это можно сделать самому и бесплатно: скилл и инструкция — это и есть весь продукт, и разработчики не платят никогда. Если хочется, чтобы вас провели за руку, — платите один раз вперёд, и с момента приглашения агент делает всё сам. Человек подключается, только если что-то сломалось.",
-    "ag.g1":"Ваша часть","ag.g1s":"три шага, которые за вас никто не сделает","ag.y1":"Завести аккаунт у хостера","ag.y2":"Привязать свою карту","ag.y3":"Пригласить Burrow в аккаунт",
-    "ag.g2":"Часть агента","ag.g2s":"всё остальное","ag.a1":"Создать сервер и привязать домен","ag.a2":"Установка, сертификаты, сторож, панель","ag.a3":"Первое устройство, QR, памятка простыми словами","ag.a4":"Проверить, что всё действительно работает, от начала до конца","ag.a5":"Удалить свой доступ и уйти",
-    "ag.chat.h":"Burrow · агент","ag.chat.b1":"Какого хостера вы выбрали? Дальше я сам.","ag.chat.b2":"DigitalOcean","ag.chat.b3":"Отлично. Пригласите меня в свою команду (покажу, какую кнопку нажать) и напишите «готово».",
-    "price.k":"Одна цена · всё после приглашения",
-    "price.guar":"Проверим, что работает, — или вернём деньги.",
-    "price.verify":"Для проверки Burrow один раз подключается через ваш сервер по временному ключу, а потом удаляет его.",
-    "price.parents":"Настраиваете родителям? Тот же порядок — платите вы, QR получают они.",
-    "price.soon":"Открывается в ноябре","price.btn":"Уведомить в Telegram",
-    "price.scope":"Гарантия распространяется на настройку на вашем сервере. Пропустит ли конкретная сеть зарубежный трафик, не зависит ни от кого — см. <a href=\"#limit\">честное ограничение</a> выше.",
-    "price.early":"Те, кто в списке в Telegram, получат цену раннего доступа, когда сервис откроется.",
-    "ag.prov":"Сегодня работает с DigitalOcean; другие провайдеры — по мере проверки.",
-    "card.h2":"У вас есть карта, которая работает за рубежом?",
-    "card.lede":"Если нет — сервер всё равно можно арендовать. Три способа, в том порядке, в каком я бы их пробовал.",
-    "card.o1h":"За вас платит кто-то за границей","card.o1p":"Друг или родственник с работающей картой арендует сервер. Это около $6 в месяц — или пусть просто продолжает платить: это цена чашки кофе.",
-    "card.o2h":"Хостеры, которые принимают крипту или местные карты","card.o2p":"Немало провайдеров принимают способы оплаты, которые работают там, где вы находитесь. В инструкции — какие из них точно работают и на что обратить внимание.",
-    "card.o2l":"Список — в инструкции",
-    "card.o3h":"Сервисы зарубежных карт","card.o3p":"Сервисы, которые выпускают карту для оплаты. Они работают — и не зря стоят последними.",
-    "card.o3c":"Комиссии, проверка личности, и они то появляются, то исчезают. Мы ни с кем из них не сотрудничаем и не берём процент — проверьте сервис сами, прежде чем доверить ему деньги.",
-    "who.eyebrow":"Кто за этим стоит","who.h2":"Один инженер, одна семья и один друг, который попросил.",
-    "who.p1":"Я Антон Гаврилов, фронтенд-инженер. Собрал это для родителей, когда все приложения, что мы пробовали, перестали работать, а потом записал всю процедуру так, чтобы Claude мог сделать это для кого угодно.",
-    "who.p2":"Скилл бесплатный и останется бесплатным; платная часть — только для тех, кто хочет, чтобы его провели за руку. Я не держу ничьи серверы, не храню карты и не хочу ваших ключей.",
-    "who.tg":"Telegram-канал",
-    "foot.bot":"Telegram — обновления и релизы",
-    "foot.r":"Burrow · MIT · сервер всегда ваш. Не юридическая консультация."
-  }};
+  /* ---------- i18n: add a language = add a dict below (DICT.xx = {...}) + an <option>
+     above; the dropdown shows itself once there are two ---------- */
+  var DICT = {};
 
   var EN = {}, nodes = document.querySelectorAll('[data-i18n]');
   nodes.forEach(function(n){ var k = n.getAttribute('data-i18n'); if(k && EN[k]==null) EN[k] = n.innerHTML; });
   DICT.en = EN;
 
   var langSel = document.getElementById('lang');
+  if(langSel.options.length < 2){ langSel.parentNode.hidden = true; }
   function setLang(l){
     if(!DICT[l]) l = 'en';
     var D = DICT[l];
@@ -493,12 +447,9 @@ footer a{color:var(--ink-2)}
   var photo = document.getElementById('photo');
   if(photo){ photo.addEventListener('error', function(){ photo.parentNode.removeChild(photo); }); }
 
-  /* ---------- initial language: #xx anchor -> saved -> browser -> en ---------- */
-  var initial = 'en', h = (location.hash||'').slice(1);
-  if(DICT[h]) initial = h;
-  else { var saved = null; try{ saved = localStorage.getItem('burrow.lang'); }catch(e){}
-    if(saved && DICT[saved]) initial = saved;
-    else { var nl = (navigator.language||'').slice(0,2).toLowerCase(); if(DICT[nl]) initial = nl; } }
+  /* ---------- initial language: saved choice if it exists, else en ---------- */
+  var initial = 'en';
+  try{ var saved = localStorage.getItem('burrow.lang'); if(saved && DICT[saved]) initial = saved; }catch(e){}
   setLang(initial);
 })();
 </script>

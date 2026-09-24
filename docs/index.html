@@ -145,6 +145,11 @@ code{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1p
 
 /* section 4: the same split, as a comparison */
 .cmp{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:stretch}
+.detail{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.detail .chat{margin-top:0}
+.notes{display:flex;flex-direction:column;gap:10px}
+.notes .sub{margin:0;font-size:14px;color:var(--ink-2);line-height:1.55}
+.notes .fine{margin-top:4px}
 .col{display:flex;flex-direction:column;gap:12px;padding:24px;border:1px solid var(--line);border-radius:16px;background:var(--surface-2)}
 .col.free{border:2px solid var(--accent);padding:23px;box-shadow:var(--shadow)}
 .col.free .colh .amt{color:var(--accent-ink)}
@@ -237,7 +242,7 @@ footer a{color:var(--ink-2)}
 }
 /* phone: <=760 */
 @media (max-width:760px){
-  .why,.who,.dfm .grid,.opts,.paths,.cmp{grid-template-columns:1fr}
+  .why,.who,.dfm .grid,.opts,.paths,.cmp,.detail{grid-template-columns:1fr}
   .rows>div,.spec dl>div{grid-template-columns:1fr;gap:2px}
   .colh .amt{margin-left:0}
   .hero{padding-block:30px 14px}
@@ -439,23 +444,27 @@ footer a{color:var(--ink-2)}
           <div><dt data-i18n="cmp.k4">Guarantee</dt><dd data-i18n="price.guar">It is not finished until it has been tested working. If it cannot be, you get your money back.</dd></div>
         </dl>
 
-        <div class="chat" aria-hidden="true">
-          <div class="ch"><i></i><span data-i18n="ag.chat.h">Burrow · agent</span></div>
-          <div class="bub a" data-i18n="ag.chat.b1">Which provider did you pick? I'll take it from there.</div>
-          <div class="bub u" data-i18n="ag.chat.b2">DigitalOcean</div>
-          <div class="bub a" data-i18n="ag.chat.b3">Good. Invite me to your team (I'll point at the exact button), then say done.</div>
-        </div>
+        <a class="btn primary" href="https://t.me/burrow_vpn_bot" target="_blank" rel="noopener" data-i18n="price.btn">Get the early-access price</a>
+        <span class="handle">@burrow_vpn_bot</span>
+      </div>
 
+    </div>
+
+    <div class="detail">
+      <div class="chat" aria-hidden="true">
+        <div class="ch"><i></i><span data-i18n="ag.chat.h">Burrow · agent</span></div>
+        <div class="bub a" data-i18n="ag.chat.b1">Which provider did you pick? I'll take it from there.</div>
+        <div class="bub u" data-i18n="ag.chat.b2">DigitalOcean</div>
+        <div class="bub a" data-i18n="ag.chat.b3">Good. Invite me to your team (I'll point at the exact button), then say done.</div>
+      </div>
+      <div class="notes">
         <p class="sub" data-i18n="price.verify">Verification runs on the server and from outside it: services up, the config valid, a real certificate answering on your domain, and traffic actually leaving through the tunnel — <a href="https://github.com/antongavrilov88/burrow/blob/main/scripts/payload/common/verify.sh" target="_blank" rel="noopener">this is the script, and you can re-run it yourself any time</a>.</p>
         <p class="sub" data-i18n="price.terms">If verification doesn't pass, the refund is full and automatic — you don't have to argue for it. Anything else inside 14 days, just ask.</p>
         <p class="sub" data-i18n="price.scope">The guarantee covers the setup on your server. Whether a particular carrier or corporate network permits VPN traffic is outside anyone's control — see the <a href="#limit">honest limit</a> above.</p>
         <p class="sub" data-i18n="price.parents">Setting it up for someone else? Same flow — you pay, they get the QR.</p>
         <p class="sub" data-i18n="price.early">$29 is the price when it opens in November. The list gets in under it, and goes first — I do these one at a time.</p>
-        <a class="btn primary" href="https://t.me/burrow_vpn_bot" target="_blank" rel="noopener" data-i18n="price.btn">Get the early-access price</a>
-        <span class="handle">@burrow_vpn_bot</span>
         <p class="fine" data-i18n="ag.prov">Works with DigitalOcean today; more providers as they're tested — <a href="https://github.com/antongavrilov88/burrow/blob/main/references/provisioning.md" target="_blank" rel="noopener">the provider table</a>.</p>
       </div>
-
     </div>
   </div>
 </section>

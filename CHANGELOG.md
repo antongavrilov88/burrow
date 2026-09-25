@@ -6,6 +6,7 @@
 
 ## Unreleased
 
+- fix(landing): the free card's install line was `git clone …/burrow`, which reads as this site repo and could not be pasted. It now leads with the Claude Code plugin (`/plugin marketplace add antongavrilov88/burrow-skill`, `/plugin install burrow@burrow`), labelled as typed in Claude Code rather than a terminal, says how to start the skill, and keeps the terminal equivalents, the two-step update and a full `git clone` of `burrow-skill` under a disclosure. One command per box, each with a Copy button (local clipboard only, select-the-text fallback). The commands are now visible on phones too. (#66, #49)
 - fix(landing): small copy fixes. The card section no longer claims the guide lists hosts "known to work" (none are tested yet), says "I" not "we", and gets an eyebrow label; the spec says what REALITY covers on each layout and describes the watchdog as it is (a service checking every 30 seconds, failover only on two servers, not a systemd timer); both Telegram links say the channel is in Russian. (#58)
 - chore(repo): split the skill out into its own repository, so installing it no longer ships the website. This repository keeps `docs/` and the `/burrow/` Pages URL; all links now point at `burrow-skill`.
 

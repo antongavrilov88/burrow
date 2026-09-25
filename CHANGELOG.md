@@ -6,6 +6,7 @@
 
 ## Unreleased
 
+- fix(landing): the free card's install line was `git clone …/burrow`, which reads as this site repo and could not be pasted. It now leads with the Claude Code plugin (`/plugin marketplace add antongavrilov88/burrow-skill`, `/plugin install burrow@burrow`), labelled as typed in Claude Code rather than a terminal, says how to start the skill, and keeps the terminal equivalents, the two-step update and a full `git clone` of `burrow-skill` under a disclosure. One command per box, each with a Copy button (local clipboard only, select-the-text fallback). The commands are now visible on phones too. (#66, #49)
 - chore(repo): split the skill out into its own repository, so installing it no longer ships the website. This repository keeps `docs/` and the `/burrow/` Pages URL; all links now point at `burrow-skill`.
 
 - fix(landing): the comparison's free column is no longer half empty. The paid column had been carrying the chat mockup and five fine-print paragraphs — content that compares nothing — making it 1186px against the free column's 582px and leaving 739px of void inside the free card. Those now sit in their own row beneath the comparison; both columns are 691px.

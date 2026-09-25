@@ -6,6 +6,7 @@
 
 ## Unreleased
 
+- fix(landing): small copy fixes. The card section no longer claims the guide lists hosts "known to work" (none are tested yet), says "I" not "we", and gets an eyebrow label; the spec says what REALITY covers on each layout and describes the watchdog as it is (a service checking every 30 seconds, failover only on two servers, not a systemd timer); both Telegram links say the channel is in Russian. (#58)
 - chore(repo): split the skill out into its own repository, so installing it no longer ships the website. This repository keeps `docs/` and the `/burrow/` Pages URL; all links now point at `burrow-skill`.
 
 - fix(landing): the comparison's free column is no longer half empty. The paid column had been carrying the chat mockup and five fine-print paragraphs — content that compares nothing — making it 1186px against the free column's 582px and leaving 739px of void inside the free card. Those now sit in their own row beneath the comparison; both columns are 691px.

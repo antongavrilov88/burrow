@@ -69,7 +69,8 @@ code{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1p
 .bar{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
 @supports (backdrop-filter:blur(1px)){.bar{background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}}
 .top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
-[id]{scroll-margin-top:84px}
+/* one offset for anchor jumps and for focus scrolled into view, so nothing lands under the sticky bar */
+html{scroll-padding-top:84px}
 .brand{display:flex;align-items:center;gap:10px;min-height:44px;font-weight:800;font-size:20px;letter-spacing:-.02em;text-decoration:none;color:var(--ink)}
 .brand svg{width:26px;height:26px;color:var(--accent)}
 .tools{display:flex;align-items:center;gap:8px}
@@ -110,6 +111,9 @@ code{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1p
 /* the two decision cards: price, what it costs besides, your steps and every limit sit above the button.
    Rows are shared through subgrid, so the headers and the buttons line up side by side. */
 .paths{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto 1fr auto;gap:0 20px;margin:0}
+/* the paid card comes first in the markup (phone order); side by side, free stays on the left */
+.path.free{grid-column:1;grid-row:1 / span 3}
+.path.paid{grid-column:2;grid-row:1 / span 3}
 .path{grid-row:span 3;display:grid;grid-template-rows:subgrid;row-gap:10px;padding:18px 24px;border:1px solid var(--line-2);border-radius:16px;background:var(--surface)}
 @supports not (grid-template-rows:subgrid){.path{display:flex;flex-direction:column}.path .btn{margin-top:auto}}
 .path.free{background:var(--accent-soft);border:2px solid var(--accent);padding:17px 23px;box-shadow:var(--shadow)}
@@ -270,12 +274,11 @@ footer a{color:var(--ink-2)}
   .bub{max-width:92%}
   .panel,.chat{display:none}
   .top{padding-block:10px}
-  /* a phone cannot run the install commands, so the paid path leads here; the commands stay visible for later */
-  .path.paid{order:-1}
   .copy{min-height:44px}
   /* stacked cards share no rows, so they go back to a plain column */
   .paths{grid-template-rows:none;gap:14px}
-  .path{grid-row:auto;display:flex;flex-direction:column;gap:10px;padding:18px}
+  /* a phone cannot run the install commands, so the paid path leads here: markup order, no reordering, so focus follows what you see */
+  .path,.path.free,.path.paid{grid-row:auto;grid-column:auto;display:flex;flex-direction:column;gap:10px;padding:18px}
   .path.free{padding:17px}
   .path .amt{font-size:32px}
   .cmp{grid-template-rows:none;gap:14px}
@@ -293,7 +296,7 @@ footer a{color:var(--ink-2)}
   section{padding-block:40px}
   h1{font-size:clamp(34px,9vw,44px)}
   .top{padding-block:10px}
-  [id]{scroll-margin-top:72px}
+  html{scroll-padding-top:72px}
 }
 </style>
 </head><body>
@@ -340,6 +343,22 @@ footer a{color:var(--ink-2)}
   </div>
 
   <div class="paths" id="paths">
+    <div class="path paid" id="paid">
+      <div class="ph1">
+        <span class="pk" data-i18n="path.paid.k">Have it done</span>
+        <div class="amt">$29 <small data-i18n="path.paid.amts">once, to Burrow</small> <span class="soon" data-i18n="path.paid.soon">Opens in November</span></div>
+      </div>
+      <div class="terms">
+        <p class="cost" data-i18n="path.paid.cost"><strong>Not included:</strong> the server and the domain, billed by your providers.</p>
+        <dl class="facts">
+          <div><dt data-i18n="path.k.you">You</dt><dd data-i18n="path.paid.you">a hosting account and <a href="#card">card</a>, invite Burrow to it, scan the QR on each device, remove the invite at the end</dd></div>
+          <div><dt data-i18n="path.k.refund">Refund</dt><dd data-i18n="path.paid.refund">automatic if <a href="#check">the check</a> fails; otherwise on request within 14 days</dd></div>
+          <div><dt data-i18n="path.k.covers">Covers</dt><dd data-i18n="path.paid.covers">the setup, not <a href="#limit">your network</a></dd></div>
+          <div><dt data-i18n="path.k.launch">At launch</dt><dd data-i18n="path.paid.launch"><a href="https://github.com/antongavrilov88/burrow-skill/blob/main/references/provisioning.md" target="_blank" rel="noopener">DigitalOcean</a> only, panel buttons in Russian</dd></div>
+        </dl>
+      </div>
+      <a class="btn ghost" href="https://t.me/burrow_vpn_bot" target="_blank" rel="noopener"><span data-i18n="path.paid.btn">Join the waitlist</span> <small>Telegram</small></a>
+    </div>
     <div class="path free" id="free">
       <div class="ph1">
         <span class="pk" data-i18n="path.free.k">Do it yourself</span>
@@ -368,22 +387,6 @@ footer a{color:var(--ink-2)}
         <span class="sr" id="copy-status" role="status" aria-live="polite"></span>
       </div>
       <a class="btn primary" href="https://github.com/antongavrilov88/burrow-skill" target="_blank" rel="noopener"><span data-i18n="hero.btn1">Get the free skill</span> <small>GitHub</small></a>
-    </div>
-    <div class="path paid" id="paid">
-      <div class="ph1">
-        <span class="pk" data-i18n="path.paid.k">Have it done</span>
-        <div class="amt">$29 <small data-i18n="path.paid.amts">once, to Burrow</small> <span class="soon" data-i18n="path.paid.soon">Opens in November</span></div>
-      </div>
-      <div class="terms">
-        <p class="cost" data-i18n="path.paid.cost"><strong>Not included:</strong> the server and the domain, billed by your providers.</p>
-        <dl class="facts">
-          <div><dt data-i18n="path.k.you">You</dt><dd data-i18n="path.paid.you">a hosting account and <a href="#card">card</a>, invite Burrow to it, scan the QR on each device, remove the invite at the end</dd></div>
-          <div><dt data-i18n="path.k.refund">Refund</dt><dd data-i18n="path.paid.refund">automatic if <a href="#check">the check</a> fails; otherwise on request within 14 days</dd></div>
-          <div><dt data-i18n="path.k.covers">Covers</dt><dd data-i18n="path.paid.covers">the setup, not <a href="#limit">your network</a></dd></div>
-          <div><dt data-i18n="path.k.launch">At launch</dt><dd data-i18n="path.paid.launch"><a href="https://github.com/antongavrilov88/burrow-skill/blob/main/references/provisioning.md" target="_blank" rel="noopener">DigitalOcean</a> only, panel buttons in Russian</dd></div>
-        </dl>
-      </div>
-      <a class="btn ghost" href="https://t.me/burrow_vpn_bot" target="_blank" rel="noopener"><span data-i18n="path.paid.btn">Join the waitlist</span> <small>Telegram</small></a>
     </div>
   </div>
 

@@ -6,6 +6,7 @@
 
 ## Unreleased
 
+- fix(landing): the verification copy says what `verify.sh` does. How step 4 and the price note claimed the script checks that traffic exits through the tunnel; it does that only on the two-server layout. On one server it tests the services, the config, the certificate and the panel, the outside certificate check is a separate step, and the first device's handshake is the end-to-end proof. (#57)
 - chore(repo): split the skill out into its own repository, so installing it no longer ships the website. This repository keeps `docs/` and the `/burrow/` Pages URL; all links now point at `burrow-skill`.
 
 - fix(landing): the comparison's free column is no longer half empty. The paid column had been carrying the chat mockup and five fine-print paragraphs — content that compares nothing — making it 1186px against the free column's 582px and leaving 739px of void inside the free card. Those now sit in their own row beneath the comparison; both columns are 691px.

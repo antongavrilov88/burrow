@@ -90,9 +90,13 @@ code{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1p
   :root:not([data-theme="light"]) .theme .moon{display:block}
 }
 
-/* hero */
-.hero{padding-block:44px 26px;display:grid;grid-template-columns:1.04fr .96fr;gap:52px;align-items:start}
-.pill{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:var(--accent-soft);border:1px solid var(--accent-line);color:var(--accent-ink);font-size:13px;font-weight:700;margin-bottom:18px}
+/* hero: a short intro, then the two decision cards, then the panel picture */
+.hero{padding-block:24px 26px;display:flex;flex-direction:column;gap:22px}
+.intro{display:grid;grid-template-columns:1.15fr .85fr;gap:12px 44px;align-items:end}
+.hero h1{font-size:clamp(34px,3.6vw,46px)}
+.hero .lede{margin:0;font-size:16.5px;line-height:1.55}
+.hero .fine{margin-top:10px}
+.pill{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:999px;background:var(--accent-soft);border:1px solid var(--accent-line);color:var(--accent-ink);font-size:13px;font-weight:700;margin-bottom:12px}
 .pill i{width:8px;height:8px;border-radius:50%;background:var(--accent)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 22px;border-radius:10px;font:700 15px var(--body);text-decoration:none;border:1px solid transparent;cursor:pointer;transition:transform .12s ease,background .12s ease;min-height:48px}
 @media (hover:hover){.btn:hover{transform:translateY(-1px)}}
@@ -103,27 +107,30 @@ code{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1p
 .btn small{font:500 12px var(--mono);opacity:.9}
 .fine{margin-top:18px;font-family:var(--mono);font-size:12.5px;color:var(--mute)}
 
-/* hero: the two paths, equally weighted */
-.offers{margin:0 auto;max-width:1120px;padding:0 20px 10px}
-.paths{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:0}
-.path{display:flex;flex-direction:column;gap:8px;padding:26px;border:1px solid var(--line-2);border-radius:16px;background:var(--surface)}
-.path.free{background:var(--accent-soft);border:2px solid var(--accent);padding:25px;box-shadow:var(--shadow)}
-.path .pk{display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-height:26px;font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+/* the two decision cards: price, what it costs besides, your steps and every limit sit above the button.
+   Rows are shared through subgrid, so the headers and the buttons line up side by side. */
+.paths{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto 1fr auto;gap:0 20px;margin:0}
+.path{grid-row:span 3;display:grid;grid-template-rows:subgrid;row-gap:12px;padding:22px 24px;border:1px solid var(--line-2);border-radius:16px;background:var(--surface)}
+@supports not (grid-template-rows:subgrid){.path{display:flex;flex-direction:column}.path .btn{margin-top:auto}}
+.path.free{background:var(--accent-soft);border:2px solid var(--accent);padding:21px 23px;box-shadow:var(--shadow)}
+.path .ph1{display:flex;flex-direction:column;gap:4px}
+.path .pk{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
 .path.free .pk{color:var(--accent-ink)}
-.path .amt{display:flex;align-items:baseline;align-content:flex-start;gap:8px 10px;min-height:44px;font-size:40px;font-weight:800;letter-spacing:-.035em;line-height:1;margin:1px 0}
+.path .amt{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px;font-size:36px;font-weight:800;letter-spacing:-.035em;line-height:1}
 .path.free .amt{color:var(--accent-ink)}
-.path .amt{flex-wrap:wrap}
 .path .amt small{font:500 12px var(--mono);letter-spacing:0;color:var(--mute);text-transform:uppercase}
 .path.free .amt small{color:var(--ink-2)}
-.path b{font-size:18px;font-weight:700;letter-spacing:-.015em;line-height:1.3;min-height:1.3em}
-.path p{margin:0;font-size:15px;color:var(--ink-2);line-height:1.55;min-height:3.1em}
-.path .btn{margin-top:auto;width:100%;padding:13px 18px;min-height:48px}
-.path .need{margin:0;font-size:13px;color:var(--mute);line-height:1.45}
-.path.free .need{color:var(--ink-2)}
+.path .terms{display:flex;flex-direction:column;gap:8px;min-width:0}
+.path .cost{margin:0;font-size:14.5px;line-height:1.5;color:var(--ink)}
+.facts{margin:0;display:flex;flex-direction:column;gap:6px}
+.facts>div{display:grid;grid-template-columns:82px 1fr;gap:10px}
+.facts dt{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);padding-top:2px}
+.path.free .facts dt{color:var(--ink-2)}
+.facts dd{margin:0;font-size:14px;line-height:1.5;color:var(--ink-2)}
+.path .btn{width:100%;padding:13px 18px}
 /* install commands: one command per box, each with its own Copy button; long lines wrap inside the box */
-.path .where{margin:4px 0 0;min-height:0;font-size:13px;font-weight:700;color:var(--ink)}
-.path .need,.path .start{min-height:0}
-.path .start{font-size:13px;color:var(--ink-2);line-height:1.45}
+.path .where{margin:4px 0 0;font-size:13px;font-weight:700;color:var(--ink)}
+.path .start{margin:0;font-size:13px;color:var(--ink-2);line-height:1.45}
 .cmdrow{display:flex;gap:6px;align-items:stretch;min-width:0}
 .cmd{display:flex;align-items:center;flex:1;min-width:0;margin:0;padding:8px 11px;font:500 12px/1.45 var(--mono);color:var(--ink);background:var(--surface-2);border:1px solid var(--line-2);border-radius:8px;white-space:normal;overflow-wrap:anywhere}
 .copy{flex:none;min-width:64px;min-height:40px;padding:0 10px;font:700 12.5px var(--body);color:var(--ink);background:var(--surface-2);border:1px solid var(--line-2);border-radius:8px;cursor:pointer}
@@ -135,7 +142,7 @@ code{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1p
 .path .more summary::before{content:"";width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg);transition:transform .15s ease;flex:none}
 .path .more[open] summary::before{transform:rotate(45deg)}
 .path .more summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
-.path .more p{margin:10px 0 6px;min-height:0;font-size:13px;color:var(--ink-2)}
+.path .more p{margin:10px 0 6px;font-size:13px;color:var(--ink-2)}
 .path .more .cmdrow+.cmdrow{margin-top:6px}
 .sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .soon{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.04em;text-transform:none;padding:2px 8px;border-radius:999px;border:1px solid var(--line-2);color:var(--ink-2)}
@@ -161,29 +168,25 @@ code{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1p
 .bridge a{font-weight:700}
 
 /* section 4: the same split, as a comparison */
-.cmp{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:stretch}
+/* the columns share their rows through subgrid, so each row lines up with its neighbour */
+.cmp{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(4,auto);gap:0 20px}
 .detail{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
 .detail .chat{margin-top:0}
 .notes{display:flex;flex-direction:column;gap:10px}
 .notes .sub{margin:0;font-size:14px;color:var(--ink-2);line-height:1.55}
-.notes .fine{margin-top:4px}
-.col{display:flex;flex-direction:column;gap:12px;padding:24px;border:1px solid var(--line);border-radius:16px;background:var(--surface-2)}
+.col{grid-row:span 4;display:grid;grid-template-rows:subgrid;row-gap:0;padding:24px;border:1px solid var(--line);border-radius:16px;background:var(--surface-2)}
 .col.free{border:2px solid var(--accent);padding:23px;box-shadow:var(--shadow)}
-.col.free .colh .amt{color:var(--accent-ink)}
-.colh{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.colh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-bottom:12px}
 .colh b{font-size:21px;font-weight:800;letter-spacing:-.02em}
-.colh .amt{margin-left:auto;font-size:30px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-.col.paid .colh .amt{color:var(--accent-ink)}
-.colw{margin:0;min-height:42px;font-size:14px;color:var(--ink-2);line-height:1.5}
-.rows{margin:0;display:flex;flex-direction:column;border-top:1px solid var(--line)}
-.rows>div{display:grid;grid-template-columns:118px 1fr;gap:14px;align-content:start;min-height:110px;padding:11px 0;border-bottom:1px solid var(--line)}
+.rows{margin:0;grid-row:span 3;display:grid;grid-template-rows:subgrid;row-gap:0;border-top:1px solid var(--line)}
+.rows>div{display:grid;grid-template-columns:118px 1fr;gap:14px;align-content:start;padding:11px 0;border-bottom:1px solid var(--line)}
+@supports not (grid-template-rows:subgrid){.col,.rows{display:flex;flex-direction:column}}
 .rows dt{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);padding-top:3px}
 .rows dd{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.5}
-.col .sub{margin:0;font-size:14px;color:var(--ink-2);line-height:1.55}
-.col .fine{margin-top:2px}
-.col .btn{width:100%;margin-top:auto}
-.col .handle{font:500 12.5px var(--mono);color:var(--mute);text-align:center;margin-top:-6px}
-.panel{border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:20px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow)}
+.back{margin:14px 0 0;font-size:14px;font-weight:600}
+/* the panel picture sits under the cards: header and new-device row across, the devices in two columns */
+.panel{border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:12px;box-shadow:var(--shadow)}
+.panel .ph,.panel .qr{grid-column:1/-1}
 .panel .ph{display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:14px}
 .panel .ph span:last-child{font-family:var(--mono);font-size:12px;color:var(--good);font-weight:500}
 .dev{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;font-weight:600;font-size:14px}
@@ -251,8 +254,7 @@ footer a{color:var(--ink-2)}
 
 /* tablet: 768–1040 */
 @media (max-width:1040px){
-  .hero{grid-template-columns:1fr;gap:28px;padding-block:40px 24px}
-  .panel{max-width:520px}
+  .intro{grid-template-columns:1fr}
   .why,.who{gap:32px}
   .how{grid-template-columns:repeat(2,1fr)}
   .nav{display:none}
@@ -261,8 +263,7 @@ footer a{color:var(--ink-2)}
 @media (max-width:760px){
   .why,.who,.dfm .grid,.opts,.paths,.cmp,.detail{grid-template-columns:1fr}
   .rows>div,.spec dl>div{grid-template-columns:1fr;gap:2px}
-  .colh .amt{margin-left:0}
-  .hero{padding-block:30px 14px}
+  .hero{padding-block:18px 14px;gap:16px}
   .how{grid-template-columns:1fr}
   .claim{grid-template-columns:1fr;gap:4px}
   .dfm{padding:22px 16px}
@@ -272,14 +273,17 @@ footer a{color:var(--ink-2)}
   /* a phone cannot run the install commands, so the paid path leads here; the commands stay visible for later */
   .path.paid{order:-1}
   .copy{min-height:44px}
-  /* the min-heights exist to line up side-by-side columns; stacked, they only waste space */
-  .path .pk,.path .amt,.path b,.path p,.colw,.rows>div{min-height:0}
-  /* desktop generosity costs fold on a phone: tighten the cards back down */
-  .path{padding:20px;gap:6px}
-  .path.free{padding:19px}
-  .path .amt{font-size:34px}
-  .path b{font-size:16.5px}
-  .paths{gap:14px}
+  /* stacked cards share no rows, so they go back to a plain column */
+  .paths{grid-template-rows:none;gap:14px}
+  .path{grid-row:auto;display:flex;flex-direction:column;gap:10px;padding:18px}
+  .path.free{padding:17px}
+  .path .amt{font-size:32px}
+  .cmp{grid-template-rows:none;gap:14px}
+  .col{grid-row:auto;display:flex;flex-direction:column}
+  .rows{display:flex;flex-direction:column}
+  .facts>div{grid-template-columns:74px 1fr}
+  .pill{margin-bottom:10px}
+  .hero .lede{font-size:16px}
   /* the timing line is repeated in the comparison; on a phone it costs the second offer its fold */
   .hero .fine{display:none}
   footer .fl{flex-direction:column;gap:0}
@@ -322,14 +326,67 @@ footer a{color:var(--ink-2)}
 
 <main id="top">
 
-<!-- 1 · hero -->
+<!-- 1 · hero: the two paths, each with its price, costs and limits above its button -->
 <section class="wrap hero" style="border-top:0">
-  <div>
-    <span class="pill"><i></i><span data-i18n="hero.pill">Free &amp; open source · MIT</span></span>
-    <h1 data-i18n="hero.h1">Your own VPN. On a $6 server that is yours, not a company's.</h1>
-    <p class="lede" style="margin-top:16px" data-i18n="hero.lede">A Claude skill turns a $6 server you rent into a VPN only your people use — no address shared with strangers, and the banking apps that reject commercial VPNs stop seeing a flagged address.</p>
-    <p class="fine" data-i18n="hero.fine">About 15 minutes: ~5 of your clicking, ~10 the installer runs on its own · then a short wait for the domain</p>
+  <div class="intro">
+    <div>
+      <span class="pill"><i></i><span data-i18n="hero.pill">Free &amp; open source · MIT</span></span>
+      <h1 data-i18n="hero.h1">Your own VPN. On a $6 server that is yours, not a company's.</h1>
+    </div>
+    <div>
+      <p class="lede" data-i18n="hero.lede">A Claude skill turns a $6 server you rent into a VPN only your people use — no address shared with strangers, and the banking apps that reject commercial VPNs stop seeing a flagged address.</p>
+      <p class="fine" data-i18n="hero.fine">About 15 minutes: ~5 of your clicking, ~10 the installer runs on its own · then a short wait for the domain</p>
+    </div>
   </div>
+
+  <div class="paths" id="paths">
+    <div class="path free" id="free">
+      <div class="ph1">
+        <span class="pk" data-i18n="path.free.k">Do it yourself</span>
+        <div class="amt">$0 <small data-i18n="path.free.amts">for the skill</small></div>
+      </div>
+      <div class="terms">
+        <p class="cost" data-i18n="path.free.cost">You'll pay your host (~$6/month) and a registrar (~$10/year), and you need a Claude plan that includes Claude Code. No Burrow account.</p>
+        <dl class="facts">
+          <div><dt data-i18n="path.k.you">You</dt><dd data-i18n="path.free.you">a hosting account and card, a domain, install the skill, the WireGuard app on each device</dd></div>
+        </dl>
+        <p class="where" data-i18n="path.free.where">Install it as a plugin. Type these in Claude Code, not in a terminal, one at a time:</p>
+        <div class="cmdrow"><code class="cmd" id="cmd-add">/plugin marketplace add antongavrilov88/burrow-skill</code><button class="copy" type="button" data-copy="cmd-add" aria-describedby="cmd-add" data-i18n="copy">Copy</button></div>
+        <div class="cmdrow"><code class="cmd" id="cmd-install">/plugin install burrow@burrow</code><button class="copy" type="button" data-copy="cmd-install" aria-describedby="cmd-install" data-i18n="copy">Copy</button></div>
+        <p class="start" data-i18n="path.free.start">Then say “set up my own VPN”, or type <code>/burrow:burrow</code>.</p>
+        <details class="more">
+          <summary data-i18n="path.free.more">From a terminal, updating, or git clone</summary>
+          <p data-i18n="path.free.shell">From a terminal, the same two steps:</p>
+          <div class="cmdrow"><code class="cmd" id="cmd-sh-add">claude plugin marketplace add antongavrilov88/burrow-skill</code><button class="copy" type="button" data-copy="cmd-sh-add" aria-describedby="cmd-sh-add" data-i18n="copy">Copy</button></div>
+          <div class="cmdrow"><code class="cmd" id="cmd-sh-install">claude plugin install burrow@burrow</code><button class="copy" type="button" data-copy="cmd-sh-install" aria-describedby="cmd-sh-install" data-i18n="copy">Copy</button></div>
+          <p data-i18n="path.free.update">To update, run both lines, then restart Claude Code. The first line alone only refreshes the catalog.</p>
+          <div class="cmdrow"><code class="cmd" id="cmd-up-cat">claude plugin marketplace update burrow</code><button class="copy" type="button" data-copy="cmd-up-cat" aria-describedby="cmd-up-cat" data-i18n="copy">Copy</button></div>
+          <div class="cmdrow"><code class="cmd" id="cmd-up-plugin">claude plugin update burrow@burrow</code><button class="copy" type="button" data-copy="cmd-up-plugin" aria-describedby="cmd-up-plugin" data-i18n="copy">Copy</button></div>
+          <p data-i18n="path.free.clone">Or copy the skill instead of the plugin, in a terminal. Start it with <code>/burrow</code>; update with <code>git -C ~/.claude/skills/burrow pull</code>.</p>
+          <div class="cmdrow"><code class="cmd" id="cmd-clone">git clone https://github.com/antongavrilov88/burrow-skill ~/.claude/skills/burrow</code><button class="copy" type="button" data-copy="cmd-clone" aria-describedby="cmd-clone" data-i18n="copy">Copy</button></div>
+        </details>
+        <span class="sr" id="copy-status" role="status" aria-live="polite"></span>
+      </div>
+      <a class="btn primary" href="https://github.com/antongavrilov88/burrow-skill" target="_blank" rel="noopener"><span data-i18n="hero.btn1">Get the free skill</span> <small>GitHub</small></a>
+    </div>
+    <div class="path paid" id="paid">
+      <div class="ph1">
+        <span class="pk" data-i18n="path.paid.k">Have it done</span>
+        <div class="amt">$29 <small data-i18n="path.paid.amts">once, to Burrow</small> <span class="soon" data-i18n="path.paid.soon">Opens in November</span></div>
+      </div>
+      <div class="terms">
+        <p class="cost" data-i18n="path.paid.cost"><strong>Not included:</strong> the server and the domain, billed by your providers.</p>
+        <dl class="facts">
+          <div><dt data-i18n="path.k.you">You</dt><dd data-i18n="path.paid.you">a hosting account and <a href="#card">card</a>, invite Burrow to it, scan the QR on each device, remove the invite at the end</dd></div>
+          <div><dt data-i18n="path.k.refund">Refund</dt><dd data-i18n="path.paid.refund">automatic if <a href="#check">the check</a> fails; otherwise on request within 14 days</dd></div>
+          <div><dt data-i18n="path.k.covers">Covers</dt><dd data-i18n="path.paid.covers">the setup, not <a href="#limit">your network</a></dd></div>
+          <div><dt data-i18n="path.k.launch">At launch</dt><dd data-i18n="path.paid.launch"><a href="https://github.com/antongavrilov88/burrow-skill/blob/main/references/provisioning.md" target="_blank" rel="noopener">DigitalOcean</a> only, panel buttons in Russian</dd></div>
+        </dl>
+      </div>
+      <a class="btn ghost" href="https://t.me/burrow_vpn_bot" target="_blank" rel="noopener"><span data-i18n="path.paid.btn">Join the waitlist</span> <small>Telegram</small></a>
+    </div>
+  </div>
+
   <div class="panel" aria-hidden="true">
     <div class="ph"><span data-i18n="panel.h">Devices</span><span data-i18n="panel.ok">● tunnel healthy</span></div>
     <div class="dev"><span data-i18n="panel.d1">Mom · iPhone</span><span data-i18n="panel.d1s">online · 1.8 GB today</span></div>
@@ -339,42 +396,6 @@ footer a{color:var(--ink-2)}
     <div class="qr"><i></i><div><b data-i18n="panel.new">+ New device</b><span data-i18n="panel.news">Scan with the WireGuard app</span></div></div>
   </div>
 </section>
-
-<div class="wrap offers">
-  <div class="paths">
-    <div class="path free">
-      <span class="pk" data-i18n="path.free.k">Do it yourself</span>
-      <div class="amt"><span data-i18n="path.free.amt">Free</span> <small data-i18n="path.free.amts">forever</small></div>
-      <b data-i18n="path.free.h">The skill and the full guide</b>
-      <p data-i18n="path.free.p">For developers and anyone comfortable in a terminal. Use a server you have, or let the skill create one.</p>
-      <p class="need" data-i18n="path.free.need">Needs Claude Code on your machine. No Claude Code? <a href="#agent">The other path is for you.</a></p>
-      <p class="where" data-i18n="path.free.where">Install it as a plugin. Type these in Claude Code, not in a terminal, one at a time:</p>
-      <div class="cmdrow"><code class="cmd" id="cmd-add">/plugin marketplace add antongavrilov88/burrow-skill</code><button class="copy" type="button" data-copy="cmd-add" aria-describedby="cmd-add" data-i18n="copy">Copy</button></div>
-      <div class="cmdrow"><code class="cmd" id="cmd-install">/plugin install burrow@burrow</code><button class="copy" type="button" data-copy="cmd-install" aria-describedby="cmd-install" data-i18n="copy">Copy</button></div>
-      <p class="start" data-i18n="path.free.start">Then say “set up my own VPN”, or type <code>/burrow:burrow</code>.</p>
-      <details class="more">
-        <summary data-i18n="path.free.more">From a terminal, updating, or git clone</summary>
-        <p data-i18n="path.free.shell">From a terminal, the same two steps:</p>
-        <div class="cmdrow"><code class="cmd" id="cmd-sh-add">claude plugin marketplace add antongavrilov88/burrow-skill</code><button class="copy" type="button" data-copy="cmd-sh-add" aria-describedby="cmd-sh-add" data-i18n="copy">Copy</button></div>
-        <div class="cmdrow"><code class="cmd" id="cmd-sh-install">claude plugin install burrow@burrow</code><button class="copy" type="button" data-copy="cmd-sh-install" aria-describedby="cmd-sh-install" data-i18n="copy">Copy</button></div>
-        <p data-i18n="path.free.update">To update, run both lines, then restart Claude Code. The first line alone only refreshes the catalog.</p>
-        <div class="cmdrow"><code class="cmd" id="cmd-up-cat">claude plugin marketplace update burrow</code><button class="copy" type="button" data-copy="cmd-up-cat" aria-describedby="cmd-up-cat" data-i18n="copy">Copy</button></div>
-        <div class="cmdrow"><code class="cmd" id="cmd-up-plugin">claude plugin update burrow@burrow</code><button class="copy" type="button" data-copy="cmd-up-plugin" aria-describedby="cmd-up-plugin" data-i18n="copy">Copy</button></div>
-        <p data-i18n="path.free.clone">Or copy the skill instead of the plugin, in a terminal. Start it with <code>/burrow</code>; update with <code>git -C ~/.claude/skills/burrow pull</code>.</p>
-        <div class="cmdrow"><code class="cmd" id="cmd-clone">git clone https://github.com/antongavrilov88/burrow-skill ~/.claude/skills/burrow</code><button class="copy" type="button" data-copy="cmd-clone" aria-describedby="cmd-clone" data-i18n="copy">Copy</button></div>
-      </details>
-      <span class="sr" id="copy-status" role="status" aria-live="polite"></span>
-      <a class="btn primary" href="https://github.com/antongavrilov88/burrow-skill" target="_blank" rel="noopener"><span data-i18n="hero.btn1">Get the free skill</span> <small>GitHub</small></a>
-    </div>
-    <div class="path paid">
-      <span class="pk" data-i18n="path.paid.k">Have it done</span>
-      <div class="amt">$29 <small data-i18n="path.paid.amts">one time</small> <span class="soon" data-i18n="path.paid.soon">Opens in November</span></div>
-      <b data-i18n="path.paid.h">Done for you, or your money back</b>
-      <p data-i18n="path.paid.p">A few minutes of your time at the start. After that you close the tab and come back to a VPN that has been tested working.</p>
-      <a class="btn ghost" href="#agent" data-i18n="hero.btn2">Set it up for me</a>
-    </div>
-  </div>
-</div>
 
 <!-- 2 · how it works -->
 <div class="wrap how" id="how">
@@ -449,38 +470,31 @@ footer a{color:var(--ink-2)}
     <div class="eyebrow" data-i18n="ag.eyebrow">Set it up for me</div>
   </div>
   <h2 data-i18n="ag.h2">Same VPN either way. The difference is whose problem it is when something goes wrong.</h2>
-  <p class="lede" data-i18n="ag.lede">You scrolled this far, so you have probably decided you would rather not spend an evening on this. That is what the $29 buys: you do three things only you can do, and from there it stops being yours to worry about. Burrow builds the server, installs everything, tests it end to end and hands you a QR code. If the test does not pass you get your money back — and if something breaks later you message me instead of reading a forum.</p>
+  <p class="lede" data-i18n="ag.lede">You scrolled this far, so you have probably decided you would rather not spend an evening on this. That is what the $29 buys: you do three things only you can do, and from there it stops being yours to worry about. Burrow builds the server, installs everything, tests it end to end and hands you a QR code. If something breaks later, you message me instead of reading a forum.</p>
 
   <div class="dfm">
     <div class="cmp">
 
       <div class="col free">
-        <div class="colh"><b data-i18n="cmp.free.h">You do it</b><span class="amt">$0</span></div>
-        <p class="colw" data-i18n="cmp.free.w">Free forever, no account, no sign-up. Install the skill and start.</p>
+        <div class="colh"><b data-i18n="cmp.free.h">You do it</b></div>
         <dl class="rows">
-          <div><dt data-i18n="cmp.k1">What you do</dt><dd data-i18n="cmp.free.v1">All of it: the hosting account, the card, the server, the domain, the install, the first device.</dd></div>
           <div><dt data-i18n="cmp.k2">What Burrow does</dt><dd data-i18n="cmp.free.v2">Tells you what to click and why, builds the installer, and runs whatever can be automated from your machine.</dd></div>
           <div><dt data-i18n="cmp.k3">Time</dt><dd data-i18n="cmp.free.v3">About 15 minutes if nothing surprises you, longer if something does.</dd></div>
           <div><dt data-i18n="cmp.k4">Guarantee</dt><dd data-i18n="cmp.free.v4">No guarantee, because there is no invoice. Same scripts, same checks — the only thing you do not get is someone to blame. If you get stuck, you can hand it over.</dd></div>
         </dl>
-        <a class="btn ghost" href="https://github.com/antongavrilov88/burrow-skill" target="_blank" rel="noopener"><span data-i18n="cmp.free.btn">Get the free skill</span> <small>GitHub</small></a>
       </div>
 
-      <div class="col">
-        <div class="colh"><b data-i18n="cmp.paid.h">Done for you</b><span class="amt">$29</span><span class="soon" data-i18n="price.soon">Opens in November</span></div>
-        <p class="colw" data-i18n="cmp.paid.w">$29 once, nothing after. The moment you send the invite, it stops being your job.</p>
+      <div class="col paid">
+        <div class="colh"><b data-i18n="cmp.paid.h">Done for you</b><span class="soon" data-i18n="price.soon">Opens in November</span></div>
         <dl class="rows">
-          <div><dt data-i18n="cmp.k1">What you do</dt><dd data-i18n="cmp.paid.v1">Three steps nobody can do for you: create the hosting account, <a href="#card">add your card</a>, invite Burrow to it — then remove that invite at the end.</dd></div>
           <div><dt data-i18n="cmp.k2">What Burrow does</dt><dd data-i18n="cmp.paid.v2">Server, domain, install, certificates, monitoring, panel, your first device and QR, plain-English notes to pass on. Then it walks you through removing its access yourself.</dd></div>
           <div><dt data-i18n="cmp.k3">Time</dt><dd data-i18n="cmp.paid.v3">Your part is a few minutes. The rest happens without you.</dd></div>
-          <div><dt data-i18n="cmp.k4">Guarantee</dt><dd data-i18n="price.guar">It is not finished until it has been tested working. If it cannot be, you get your money back.</dd></div>
+          <div><dt data-i18n="cmp.k4">Guarantee</dt><dd data-i18n="price.guar">It is not finished until it has been tested working.</dd></div>
         </dl>
-
-        <a class="btn primary" href="https://t.me/burrow_vpn_bot" target="_blank" rel="noopener" data-i18n="price.btn">Get the early-access price</a>
-        <span class="handle">@burrow_vpn_bot</span>
       </div>
 
     </div>
+    <p class="back"><a href="#paths" data-i18n="cmp.back">Prices, costs, limits and both buttons are in the two cards at the top</a></p>
 
     <div class="detail">
       <div class="chat" aria-hidden="true">
@@ -490,12 +504,8 @@ footer a{color:var(--ink-2)}
         <div class="bub a" data-i18n="ag.chat.b3">Good. Invite me to your team (I'll point at the exact button), then say done.</div>
       </div>
       <div class="notes">
-        <p class="sub" data-i18n="price.verify">Verification runs on the server and from outside it: services up, the config valid, a real certificate on your domain, the panel, and on the two-server layout traffic through the tunnel — <a href="https://github.com/antongavrilov88/burrow-skill/blob/main/scripts/payload/common/verify.sh" target="_blank" rel="noopener">this is the script, and you can re-run it yourself any time</a>.</p>
-        <p class="sub" data-i18n="price.terms">If verification doesn't pass, the refund is full and automatic — you don't have to argue for it. Anything else inside 14 days, just ask.</p>
-        <p class="sub" data-i18n="price.scope">The guarantee covers the setup on your server. Whether a particular carrier or corporate network permits VPN traffic is outside anyone's control — see the <a href="#limit">honest limit</a> above.</p>
+        <p class="sub" id="check" data-i18n="price.verify">Verification runs on the server and from outside it: services up, the config valid, a real certificate on your domain, the panel, and on the two-server layout traffic through the tunnel — <a href="https://github.com/antongavrilov88/burrow-skill/blob/main/scripts/payload/common/verify.sh" target="_blank" rel="noopener">this is the script, and you can re-run it yourself any time</a>.</p>
         <p class="sub" data-i18n="price.parents">Setting it up for someone else? Same flow — you pay, they get the QR.</p>
-        <p class="sub" data-i18n="price.early">$29 is the price when it opens in November. The list gets in under it, and goes first — I do these one at a time.</p>
-        <p class="fine" data-i18n="ag.prov">Works with DigitalOcean today; more providers as they're tested — <a href="https://github.com/antongavrilov88/burrow-skill/blob/main/references/provisioning.md" target="_blank" rel="noopener">the provider table</a>.</p>
       </div>
     </div>
   </div>

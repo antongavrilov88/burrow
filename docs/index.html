@@ -120,7 +120,24 @@ code{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1p
 .path .btn{margin-top:auto;width:100%;padding:13px 18px;min-height:48px}
 .path .need{margin:0;font-size:13px;color:var(--mute);line-height:1.45}
 .path.free .need{color:var(--ink-2)}
-.cmd{display:block;margin-top:4px;padding:9px 11px;font:500 11.5px var(--mono);color:var(--ink-2);background:var(--surface);border:1px solid var(--line-2);border-radius:8px;overflow-x:auto;white-space:nowrap}
+/* install commands: one command per box, each with its own Copy button; long lines wrap inside the box */
+.path .where{margin:4px 0 0;min-height:0;font-size:13px;font-weight:700;color:var(--ink)}
+.path .need,.path .start{min-height:0}
+.path .start{font-size:13px;color:var(--ink-2);line-height:1.45}
+.cmdrow{display:flex;gap:6px;align-items:stretch;min-width:0}
+.cmd{display:flex;align-items:center;flex:1;min-width:0;margin:0;padding:8px 11px;font:500 12px/1.45 var(--mono);color:var(--ink);background:var(--surface-2);border:1px solid var(--line-2);border-radius:8px;white-space:normal;overflow-wrap:anywhere}
+.copy{flex:none;min-width:64px;min-height:40px;padding:0 10px;font:700 12.5px var(--body);color:var(--ink);background:var(--surface-2);border:1px solid var(--line-2);border-radius:8px;cursor:pointer}
+@media (hover:hover){.copy:hover{border-color:var(--ink)}}
+.copy.done{color:var(--accent-ink);border-color:var(--accent)}
+.path .more{font-size:13px;color:var(--ink-2);line-height:1.45}
+.path .more summary{cursor:pointer;display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:700;color:var(--accent-ink);list-style:none}
+.path .more summary::-webkit-details-marker{display:none}
+.path .more summary::before{content:"";width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg);transition:transform .15s ease;flex:none}
+.path .more[open] summary::before{transform:rotate(45deg)}
+.path .more summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.path .more p{margin:10px 0 6px;min-height:0;font-size:13px;color:var(--ink-2)}
+.path .more .cmdrow+.cmdrow{margin-top:6px}
+.sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .soon{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.04em;text-transform:none;padding:2px 8px;border-radius:999px;border:1px solid var(--line-2);color:var(--ink-2)}
 
 /* what gets installed — progressive disclosure for the technical reader */
@@ -252,9 +269,9 @@ footer a{color:var(--ink-2)}
   .bub{max-width:92%}
   .panel,.chat{display:none}
   .top{padding-block:10px}
-  /* a phone cannot run the install command, so the paid path leads here */
-  .cmd{display:none}
+  /* a phone cannot run the install commands, so the paid path leads here; the commands stay visible for later */
   .path.paid{order:-1}
+  .copy{min-height:44px}
   /* the min-heights exist to line up side-by-side columns; stacked, they only waste space */
   .path .pk,.path .amt,.path b,.path p,.colw,.rows>div{min-height:0}
   /* desktop generosity costs fold on a phone: tighten the cards back down */
@@ -331,7 +348,22 @@ footer a{color:var(--ink-2)}
       <b data-i18n="path.free.h">The skill and the full guide</b>
       <p data-i18n="path.free.p">For developers and anyone comfortable in a terminal. Use a server you have, or let the skill create one.</p>
       <p class="need" data-i18n="path.free.need">Needs Claude Code on your machine. No Claude Code? <a href="#agent">The other path is for you.</a></p>
-      <code class="cmd">git clone …/burrow ~/.claude/skills/burrow</code>
+      <p class="where" data-i18n="path.free.where">Install it as a plugin. Type these in Claude Code, not in a terminal, one at a time:</p>
+      <div class="cmdrow"><code class="cmd" id="cmd-add">/plugin marketplace add antongavrilov88/burrow-skill</code><button class="copy" type="button" data-copy="cmd-add" aria-describedby="cmd-add" data-i18n="copy">Copy</button></div>
+      <div class="cmdrow"><code class="cmd" id="cmd-install">/plugin install burrow@burrow</code><button class="copy" type="button" data-copy="cmd-install" aria-describedby="cmd-install" data-i18n="copy">Copy</button></div>
+      <p class="start" data-i18n="path.free.start">Then say “set up my own VPN”, or type <code>/burrow:burrow</code>.</p>
+      <details class="more">
+        <summary data-i18n="path.free.more">From a terminal, updating, or git clone</summary>
+        <p data-i18n="path.free.shell">From a terminal, the same two steps:</p>
+        <div class="cmdrow"><code class="cmd" id="cmd-sh-add">claude plugin marketplace add antongavrilov88/burrow-skill</code><button class="copy" type="button" data-copy="cmd-sh-add" aria-describedby="cmd-sh-add" data-i18n="copy">Copy</button></div>
+        <div class="cmdrow"><code class="cmd" id="cmd-sh-install">claude plugin install burrow@burrow</code><button class="copy" type="button" data-copy="cmd-sh-install" aria-describedby="cmd-sh-install" data-i18n="copy">Copy</button></div>
+        <p data-i18n="path.free.update">To update, run both lines, then restart Claude Code. The first line alone only refreshes the catalog.</p>
+        <div class="cmdrow"><code class="cmd" id="cmd-up-cat">claude plugin marketplace update burrow</code><button class="copy" type="button" data-copy="cmd-up-cat" aria-describedby="cmd-up-cat" data-i18n="copy">Copy</button></div>
+        <div class="cmdrow"><code class="cmd" id="cmd-up-plugin">claude plugin update burrow@burrow</code><button class="copy" type="button" data-copy="cmd-up-plugin" aria-describedby="cmd-up-plugin" data-i18n="copy">Copy</button></div>
+        <p data-i18n="path.free.clone">Or copy the skill instead of the plugin, in a terminal. Start it with <code>/burrow</code>; update with <code>git -C ~/.claude/skills/burrow pull</code>.</p>
+        <div class="cmdrow"><code class="cmd" id="cmd-clone">git clone https://github.com/antongavrilov88/burrow-skill ~/.claude/skills/burrow</code><button class="copy" type="button" data-copy="cmd-clone" aria-describedby="cmd-clone" data-i18n="copy">Copy</button></div>
+      </details>
+      <span class="sr" id="copy-status" role="status" aria-live="polite"></span>
       <a class="btn primary" href="https://github.com/antongavrilov88/burrow-skill" target="_blank" rel="noopener"><span data-i18n="hero.btn1">Get the free skill</span> <small>GitHub</small></a>
     </div>
     <div class="path paid">
@@ -555,6 +587,24 @@ footer a{color:var(--ink-2)}
   themeBtn.addEventListener('click', function(){ var next = isDark() ? 'light' : 'dark'; root.setAttribute('data-theme', next); syncTheme(); try{ localStorage.setItem('burrow.theme', next); }catch(e){} });
   try{ var st = localStorage.getItem('burrow.theme'); if(st==='dark'||st==='light') root.setAttribute('data-theme', st); }catch(e){}
   syncTheme();
+
+  /* ---------- copy buttons: local clipboard only, nothing is sent anywhere ---------- */
+  var copyStatus = document.getElementById('copy-status');
+  function selectText(el){ var r = document.createRange(); r.selectNodeContents(el); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); }
+  function copied(btn, ok){
+    if(!btn.classList.contains('done')) btn.dataset.label = btn.textContent;
+    copyStatus.textContent = '';
+    setTimeout(function(){ copyStatus.textContent = ok ? 'Copied' : 'Selected. Press Ctrl+C or Cmd+C to copy.'; }, 50);
+    if(ok){ btn.textContent = 'Copied'; btn.classList.add('done'); clearTimeout(btn._t); btn._t = setTimeout(function(){ btn.textContent = btn.dataset.label; btn.classList.remove('done'); }, 2000); }
+  }
+  document.querySelectorAll('button.copy[data-copy]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var el = document.getElementById(btn.getAttribute('data-copy')), text = el.textContent.trim();
+      function fallback(){ selectText(el); var ok = false; try{ ok = document.execCommand('copy'); }catch(e){} copied(btn, ok); }
+      if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(function(){ copied(btn, true); }, fallback); }
+      else fallback();
+    });
+  });
 
   /* ---------- photo: drop docs/anton.jpg in and it replaces the initials ---------- */
   var photo = document.getElementById('photo');

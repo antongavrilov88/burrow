@@ -1,194 +1,47 @@
-# Burrow
+# Burrow — the site
 
-**Your own VPN in five minutes. No shared servers, no company to block.**
+The landing page for [Burrow](https://github.com/antongavrilov88/burrow-skill), served at
+<https://antongavrilov88.github.io/burrow/> by GitHub Pages from `docs/`.
 
-Burrow is a free [Claude](https://claude.ai) skill that turns a $6 cloud server you rent into a personal VPN that survives 2026-grade blocking. You create the server and buy a domain; Claude installs everything, hands you a web panel, and you add phones and laptops by scanning a QR code.
+**The skill itself lives at [antongavrilov88/burrow-skill](https://github.com/antongavrilov88/burrow-skill).**
+This repository holds only the website, so that installing the skill does not drag a
+marketing site into `~/.claude/skills/`.
 
-The server is yours. The domain is yours. The keys never leave your machine. There is no Burrow account, no Burrow backend, and nothing for anyone to shut down except your own server — which you can rebuild in fifteen minutes.
+## Layout
 
-> Made for one situation: people you care about live where the internet is filtered, and every "install our app" VPN keeps dying. Works in both directions — reaching services back home from abroad, or reaching the world from behind a filter.
+| Path | What |
+|---|---|
+| `docs/index.html` | The whole site — one self-contained file: markup, CSS and a small i18n script |
+| `docs/og.png` | Social preview, 1200x630 |
+| `docs/anton.jpg` | Portrait used in the bio |
+| `docs/UX-REVIEW.md` | Standing UX review, findings ranked with effort, plus the performance budget |
 
----
-
-## What you get
-
-- **A protocol that looks like ordinary web traffic.** VLESS + XHTTP + REALITY on Xray, on port 443, with a real website under your own domain as the cover. To a probe your server *is* a normal HTTPS site, because it is one.
-- **WireGuard for the devices.** Phones, laptops, TVs and routers connect with the official free WireGuard app. Scan a QR, flip a switch, done. A second port on UDP/443 for hotel and mobile networks that cut everything else.
-- **A web panel** (reachable only from inside the VPN): who is online, how much they used, add or remove a device with a QR code, manage the list of domains that bypass the tunnel.
-- **A watchdog** that probes the tunnel every minute, restarts what died, fails over to the direct route and back, and pushes a notification to your phone. A monthly fire drill (a deliberate two-minute outage) proves the failover actually works, not just "is configured".
-- **Split routing.** Banks and government sites that break when they see a foreign IP go direct; everything else goes through the tunnel. Optional per-country GeoIP rule.
-- **Push notifications** through your own [ntfy](https://ntfy.sh) instance on the same server (public ntfy.sh as fallback).
-- **A one-page handout** for the person who will actually use it, in plain words and in their language, generated at the end.
-
-### Two profiles, one question
-
-Claude asks one thing first: *"Where are the people who'll use this, and does their network restrict direct foreign connections or only allow listed IP ranges (typical on carrier-restricted mobile networks)?"* The answer picks the profile. You don't need to know what any of the below means.
-
-**`single`** (the default) — one server abroad. You, or a few people, anywhere; devices connect straight to it. Simplest and cheapest.
-
-```
-devices ──WireGuard──▶ your server abroad ──▶ internet
-devices ──VLESS+REALITY──┘   (for Hiddify / v2rayNG users)
-```
-
-**`relay`** — for people whose network restricts direct foreign connections or only allows listed IP ranges, or a household whose devices you can't keep reconfiguring. Devices talk WireGuard to a cheap server *inside* the country; that relay carries one disguised connection across the border. When the exit gets banned you replace it in fifteen minutes and nobody at home touches their phone.
-
-```
-devices ──WireGuard──▶ relay (home country) ──VLESS+XHTTP+REALITY──▶ exit (abroad) ──▶ internet
-                              └──────▶ direct (automatic fallback)
-```
-
-Both profiles end at the same installers with different parameters; the table in [`SKILL.md`](SKILL.md) lists exactly what differs. The provider is a parameter of each server, not of the profile — [`references/providers/`](references/providers/) has one dated file per provider.
-
----
-
-## Requirements
-
-Whichever way you run it, two things are yours to bring: **a hosting account with a payment method the provider accepts**, and **a domain** — any cheap, neutral name. Python 3 must exist wherever Claude runs the scripts; they are standard library only, including the X25519 key generation.
-
-*Where* you run the skill decides how much of the work Claude can do by itself:
-
-| You run the skill in | What Claude does | What you do |
-|---|---|---|
-| **Claude Code** on a laptop with SSH — the recommended way | Everything: creates the server, sets DNS, installs, verifies, fixes, writes the handout. | Create the hosting account, add the card, buy the domain, paste one token. |
-| **claude.ai** (a paid plan with code execution on; the skill uploaded as a zip) | Guidance plus file generation: it makes the keys and the installers, explains every step, reads back the output you paste. **It cannot connect to your server or to the hosting API** — the sandbox has no network to them. It says so at the start; if it seems to hang waiting for a connection, that is the sandbox, not a bug. | Everything that needs a connection: create the server in the provider's console with the installer pasted in, run the two SSH lines it gives you, check DNS at dnschecker.org. |
-| **Cowork** (the desktop app) | **Untested.** It should behave like Claude Code when it has a terminal with network access; nobody has run a full setup through it yet. If you do, open an issue and say how it went. | |
-| **None of the above** | The hosted agent does the same setup in a chat, for one price — [burrow site](https://antongavrilov88.github.io/burrow/). | Account, card, invite. |
-
----
-
-## Quick start
-
-**Claude Code — copy the skill:**
+## Working on it
 
 ```bash
-git clone https://github.com/antongavrilov88/burrow ~/.claude/skills/burrow
+cd docs && python3 -m http.server 8765   # then open http://localhost:8765
 ```
 
-**Claude Code — or install it as a plugin** (later updates: `/plugin marketplace update burrow`):
+Deploys automatically on every push to `main` that touches `docs/`.
 
-```
-/plugin marketplace add antongavrilov88/burrow
-/plugin install burrow@burrow
-```
+A language is one dictionary plus one `<option>`: add `DICT.xx = {…}` in the inline
+script and an `<option value="xx">` in the header. With a single language the dropdown
+hides itself.
 
-Then, in any session: *"set up my own VPN"*, *"VPN for my parents"*, *"подними мне VPN"*, or `/burrow` (`/burrow:burrow` when installed as a plugin).
+## Checks
 
-**claude.ai:** download `burrow-skill.zip` from the [latest release](https://github.com/antongavrilov88/burrow/releases), then Settings → Capabilities → Skills → Upload skill. Start a chat and say what you want. Read the claude.ai row in the table above first: Claude will explain each step and you will run the commands.
+CI runs three: no secrets, no country-specific wording (`.github/wording-guard.sh`, rules
+in `CONTRIBUTING.md`), and no leftover `{{placeholders}}` reaching `main`.
 
----
+Before changing the page, read `docs/UX-REVIEW.md` §8 — it records the performance budget
+the page is held to, and §1 the personas it is written for.
 
-## What you will do yourself
+## Claims about the skill
 
-The skill does everything it technically can. These four things it can't, because they need your card, your email or your phone in hand — and by design Burrow never does them for you:
-
-1. **Create a hosting account** and attach a payment method. DigitalOcean (`$6/month`, 1 TB traffic) is the automated path; any Ubuntu 24.04 VPS works with a few more clicks on your side — [Hetzner](references/providers/hetzner.md), [Vultr](references/providers/vultr.md), [anything else](references/providers/generic-ubuntu.md). No card that works? [`references/provisioning.md`](references/provisioning.md) has a dated list of hosts that take crypto or regional cards.
-2. **Give Claude an API token** for that account (so it can create the server instead of dictating twenty clicks), and revoke it afterwards. The skill reminds you.
-3. **Buy a domain** — any cheap, neutral name you don't care about. It is the cover story, and a domain can get banned along with the IP.
-4. **Point the domain** at the server: either delegate it to DigitalOcean nameservers or add three A-records by hand. Step-by-step instructions for the common registrars are built in.
-
-For the `relay` profile you also rent a small VPS in the home country and paste one command into a terminal; the skill walks you through that too, including "the password won't show while you type".
-
-Budget: about **$6–7/month** for `single`, plus a domain (~$10/year); `relay` adds a ~$4–8/month VPS.
-
----
-
-## What the skill puts on your server
-
-Everything is installed by a self-contained `setup-exit.sh` / `setup-relay.sh` that Claude builds locally and delivers via cloud-init or SSH. The installers are idempotent — run them again to fix a half-finished install; existing clients, certificates and tokens are never overwritten.
-
-**Exit server (abroad)**
-
-| Component | Purpose |
-|---|---|
-| `xray` (pinned version) | VLESS + XHTTP + REALITY inbound on `:443/tcp`, access logging **off** |
-| `nginx` on `:80` and `127.0.0.1:8443` | Let's Encrypt challenges, HTTPS redirect, the cover site that REALITY hands to probes |
-| `certbot` + renewal timer | Real certificates for your domain and the `push.` subdomain |
-| `ntfy` (optional, own domain) | Self-hosted push notifications with per-user access control |
-| `nftables` | Default-deny inbound; opens 22, 80, 443 (+ WireGuard ports in the `single` profile) |
-| `/var/www/<domain>/` | A generic self-hosting-notes site as cover. **Rewrite it** — the same template on many domains becomes a fingerprint |
-| `/root/vpn-kit/exit-summary.txt` | The connection parameters, mode 600 |
-
-**Relay (home country) or the single server**
-
-| Component | Purpose |
-|---|---|
-| WireGuard `wg-clients` | Device tunnel, `10.67.0.0/24`, port 51821 + redirect from UDP/443 |
-| `xray` in TPROXY mode + `nftables` | Routes selected devices (`proxied_src` set) through the disguised tunnel; everyone else goes direct |
-| `vpn-monitor` (`:8088`, VPN-only) | The web panel: status, traffic, QR issuing, direct-domain list |
-| `vpn-watchdog` (systemd) | Probe → repair → fail over → notify, every minute |
-| `vpn-drill` (systemd timer) | Monthly failover rehearsal at night; `--check` mode never breaks anything |
-| `vpn-split` | Rebuilds routing rules from `/etc/vpn-monitor/direct-domains.txt` |
-| `vpn-verify.sh`, `vpn-diag.sh` | Install verification and top-down diagnostics |
-
-Config lives in `/etc/vpn-monitor/` and `/etc/wireguard/`; state in `/var/lib/vpn-monitor/`. Nothing phones home to anyone but your own ntfy.
-
-**Languages.** The skill talks to you in whatever language you write in, and the handout comes in that language. The web panel and the push notifications are in Russian in this version — the files that land on the server are frozen while the installers stay byte-identical to the tested ones. The skill tells you this before the first device, and the handout lists what each button and each notification means.
-
-### Privacy, stated plainly
-
-Collected: byte counters and last-handshake time per device. That's it. Not collected: domains, destination IPs, DNS queries, content. Xray access logs are disabled on both machines; the panel listens only on the VPN interface and localhost. You'll see that your mother's phone used 2 GB and you will not see what she watched — even if you wanted to, the data isn't there.
-
----
-
-## Why REALITY and not plain WireGuard across the border
-
-Modern DPI doesn't decrypt; it classifies. Bare WireGuard has a recognizable first packet, an odd TLS fingerprint (UDP on 443), no answer when probed, and a constant symmetric UDP stream to a foreign datacenter — four tells. REALITY + XHTTP answers each one: the wire looks like TLS 1.3, uTLS mimics Chrome, a probe gets a real site with a valid certificate, and XHTTP multiplexes everything into one or two long padded HTTP/2 connections. The residual tell is the destination itself — a foreign host — which is why the `relay` profile exists.
-
-Why your **own** domain instead of borrowing a big-brand SNI: with a borrowed name the network owner, IP and SNI don't match, active probing sees that, and Xray's own docs warn that impersonating Apple or Microsoft gets your IP banned. With your domain on your server, the probe gets the real site, because it is the real site.
-
-More in [`references/architecture.md`](references/architecture.md) — including what was considered and rejected, and the honest risk table.
-
----
-
-## Repository layout
-
-```
-SKILL.md                     the skill itself — how Claude runs the setup, step by step
-references/
-  human-steps.md             every manual step: what has to happen and what Claude verifies
-  lang/en.md, lang/ru.md     the words for every human-facing moment, per language (ru is the tested wording)
-  lang/handout-en.md, -ru.md handout templates
-  providers/*.md             one dated file per hosting provider: layer, automation, payment, click paths
-  provisioning.md            provider index, "no card that works?", delivering installers, DNS
-  architecture.md            how it works and why; alternatives rejected; risks
-  operations.md              daily commands, replacing a banned exit, drills
-  troubleshooting.md         top-down failure diagnosis
-scripts/
-  gen-secrets.py             keys, UUIDs, passwords → params.json (pure Python X25519)
-  build-installers.py        packs payload + params into self-contained setup-*.sh
-  provision-do.py            DigitalOcean: check, keys, create, DNS, list, destroy
-  client-link.py             vless:// link for Hiddify / v2rayNG
-  make-handout.py            the Russian handout (tested wording)
-  payload/                   what actually lands on the servers (see table above)
-skills/burrow/SKILL.md       the plugin entry point: points at the root SKILL.md
-.claude-plugin/              marketplace.json and plugin.json for /plugin install
-```
-
-Internally the scripts still call themselves `vpn-kit` (`/opt/vpn-kit`, `/root/vpn-kit`) — that's the working name it shipped under; it's not being renamed on the server side to keep tested installers byte-identical.
-
----
-
-## Hard rules the skill follows
-
-- One server per tag at any time; never touches machines it didn't create; never deletes the old server before the new one is verified.
-- The REALITY private key exists only on the exit server. The build step strips it from the relay installer and the skill checks that it did.
-- The cover site is never a fake company, shop or review page. It's a real, boring, honest site — yours.
-- Never helps bypass card verification, never suggests registering an account in someone else's name.
-- Never starts creating servers from an unattended or scheduled session: it costs money and it's irreversible.
-
----
-
-## Stuck? Want it done for you?
-
-The skill and this guide are free and stay free. If you get stuck, open an issue or message me on Telegram: [@bepatientlikeme](https://t.me/bepatientlikeme).
-
-If you'd rather not do it at all: one price, your server, ready in about an hour — [burrow site](https://antongavrilov88.github.io/burrow/). The server stays yours; I never hold your card or your account.
-
-## Who's behind this
-
-I'm Anton Gavrilov, a frontend engineer. I built this for my parents, then for a friend, then wrote it down so Claude could do it for anyone. Built in public: [Telegram (RU)](https://t.me/bepatientlikeme) · [LinkedIn](https://linkedin.com/in/agavrilov88).
+The page states things about what the skill does. Those claims are checked against the
+code in the other repository, not against intent — if you change a claim here, verify it
+there first. A round of false claims once shipped because nobody did.
 
 ## License
 
-[MIT](LICENSE). Use it, fork it, sell setups with it — just keep the notice.
+MIT, same as the skill.

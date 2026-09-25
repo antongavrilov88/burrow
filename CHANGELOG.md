@@ -1,6 +1,12 @@
 # Changelog
 
+> **Split, 25 Sep 2026.** The skill moved to
+> [antongavrilov88/burrow-skill](https://github.com/antongavrilov88/burrow-skill); this repository is the
+> site. Entries below 0.2.0 cover both, and skill releases continue over there.
+
 ## Unreleased
+
+- chore(repo): split the skill out into its own repository, so installing it no longer ships the website. This repository keeps `docs/` and the `/burrow/` Pages URL; all links now point at `burrow-skill`.
 
 - fix(landing): the comparison's free column is no longer half empty. The paid column had been carrying the chat mockup and five fine-print paragraphs — content that compares nothing — making it 1186px against the free column's 582px and leaving 739px of void inside the free card. Those now sit in their own row beneath the comparison; both columns are 691px.
 - feat(landing): hero rebuilt. The two offers were living inside the hero's left column at 352px wide while a 348px panel floated vertically centred against a 935px column, anchored to nothing. The headline row is now a top-aligned pair and the offers are a full-width row of 530px cards below it.

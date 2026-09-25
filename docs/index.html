@@ -286,7 +286,7 @@ footer a{color:var(--ink-2)}
     <nav class="nav" aria-label="Sections">
       <a href="#how" data-i18n="nav.how">How it works</a>
       <a href="#why" data-i18n="nav.why">Why your own server</a>
-      <a href="https://github.com/antongavrilov88/burrow" target="_blank" rel="noopener" data-i18n="nav.free">Free skill</a>
+      <a href="https://github.com/antongavrilov88/burrow-skill" target="_blank" rel="noopener" data-i18n="nav.free">Free skill</a>
       <a href="#agent" data-i18n="nav.agent">Set it up for me</a>
       <a href="#card" data-i18n="nav.card">Card declined?</a>
     </nav>
@@ -332,7 +332,7 @@ footer a{color:var(--ink-2)}
       <p data-i18n="path.free.p">For developers and anyone comfortable in a terminal. Use a server you have, or let the skill create one.</p>
       <p class="need" data-i18n="path.free.need">Needs Claude Code on your machine. No Claude Code? <a href="#agent">The other path is for you.</a></p>
       <code class="cmd">git clone …/burrow ~/.claude/skills/burrow</code>
-      <a class="btn primary" href="https://github.com/antongavrilov88/burrow" target="_blank" rel="noopener"><span data-i18n="hero.btn1">Get the free skill</span> <small>GitHub</small></a>
+      <a class="btn primary" href="https://github.com/antongavrilov88/burrow-skill" target="_blank" rel="noopener"><span data-i18n="hero.btn1">Get the free skill</span> <small>GitHub</small></a>
     </div>
     <div class="path paid">
       <span class="pk" data-i18n="path.paid.k">Have it done</span>
@@ -381,7 +381,7 @@ footer a{color:var(--ink-2)}
         <div><dt data-i18n="spec.k5">Split routing</dt><dd data-i18n="spec.v5">Two-server layout only: an nftables set decides who goes through the tunnel, and a domain list you edit leaves directly from the relay. Seeded with the payment networks that usually object — add your own bank.</dd></div>
         <div><dt data-i18n="spec.k6">Layouts</dt><dd data-i18n="spec.v6">One server abroad by default, or a two-machine relay when devices sit behind heavy filtering. Same installers either way.</dd></div>
       </dl>
-      <p class="fine" style="margin-top:14px"><a href="https://github.com/antongavrilov88/burrow/blob/main/references/architecture.md" target="_blank" rel="noopener" data-i18n="spec.link">The full design — including the one signal it deliberately does not win</a></p>
+      <p class="fine" style="margin-top:14px"><a href="https://github.com/antongavrilov88/burrow-skill/blob/main/references/architecture.md" target="_blank" rel="noopener" data-i18n="spec.link">The full design — including the one signal it deliberately does not win</a></p>
     </div>
   </details>
 </div>
@@ -404,7 +404,7 @@ footer a{color:var(--ink-2)}
     </div>
     <div class="claims">
       <div class="claim"><b data-i18n="why.k1">Not a flagged address</b><span data-i18n="why.v1">Banks and shops flag addresses shared by thousands of strangers. Yours is used by the people you added, so it does not look like a VPN to them. <i>Local services go direct, the rest through the tunnel.</i></span></div>
-      <div class="claim"><b data-i18n="why.k2">Private</b><span data-i18n="why.v2">Your own server, so nobody sees your traffic. Access logs and DNS logging are off. What is kept is bytes and last-seen per device, plus a 14-day history so the panel can draw a graph — all of it on your server. You will see that a phone used 2 GB; nobody sees what it opened, because that is never recorded. <a href="https://github.com/antongavrilov88/burrow/blob/main/README.md#privacy-stated-plainly" target="_blank" rel="noopener">Privacy, stated plainly</a>.</span></div>
+      <div class="claim"><b data-i18n="why.k2">Private</b><span data-i18n="why.v2">Your own server, so nobody sees your traffic. Access logs and DNS logging are off. What is kept is bytes and last-seen per device, plus a 14-day history so the panel can draw a graph — all of it on your server. You will see that a phone used 2 GB; nobody sees what it opened, because that is never recorded. <a href="https://github.com/antongavrilov88/burrow-skill/blob/main/README.md#privacy-stated-plainly" target="_blank" rel="noopener">Privacy, stated plainly</a>.</span></div>
       <div class="claim"><b data-i18n="why.k3">Fast</b><span data-i18n="why.v3">No shared bandwidth and no queue of strangers on the same address: the server's whole pipe belongs to the handful of devices you added.</span></div>
       <div class="claim"><b data-i18n="why.k4">Whose machine</b><span data-i18n="why.v4">Nothing of yours runs on my machines. The server is rented in your name, billed to your card, at a host you pick — and Burrow runs no servers at all, so there is no account to close.</span></div>
     </div>
@@ -431,7 +431,7 @@ footer a{color:var(--ink-2)}
           <div><dt data-i18n="cmp.k3">Time</dt><dd data-i18n="cmp.free.v3">About 15 minutes if nothing surprises you, longer if something does.</dd></div>
           <div><dt data-i18n="cmp.k4">Guarantee</dt><dd data-i18n="cmp.free.v4">No guarantee, because there is no invoice. Same scripts, same checks — the only thing you do not get is someone to blame. If you get stuck, you can hand it over.</dd></div>
         </dl>
-        <a class="btn ghost" href="https://github.com/antongavrilov88/burrow" target="_blank" rel="noopener"><span data-i18n="cmp.free.btn">Get the free skill</span> <small>GitHub</small></a>
+        <a class="btn ghost" href="https://github.com/antongavrilov88/burrow-skill" target="_blank" rel="noopener"><span data-i18n="cmp.free.btn">Get the free skill</span> <small>GitHub</small></a>
       </div>
 
       <div class="col">
@@ -458,12 +458,12 @@ footer a{color:var(--ink-2)}
         <div class="bub a" data-i18n="ag.chat.b3">Good. Invite me to your team (I'll point at the exact button), then say done.</div>
       </div>
       <div class="notes">
-        <p class="sub" data-i18n="price.verify">Verification runs on the server and from outside it: services up, the config valid, a real certificate answering on your domain, and traffic actually leaving through the tunnel — <a href="https://github.com/antongavrilov88/burrow/blob/main/scripts/payload/common/verify.sh" target="_blank" rel="noopener">this is the script, and you can re-run it yourself any time</a>.</p>
+        <p class="sub" data-i18n="price.verify">Verification runs on the server and from outside it: services up, the config valid, a real certificate answering on your domain, and traffic actually leaving through the tunnel — <a href="https://github.com/antongavrilov88/burrow-skill/blob/main/scripts/payload/common/verify.sh" target="_blank" rel="noopener">this is the script, and you can re-run it yourself any time</a>.</p>
         <p class="sub" data-i18n="price.terms">If verification doesn't pass, the refund is full and automatic — you don't have to argue for it. Anything else inside 14 days, just ask.</p>
         <p class="sub" data-i18n="price.scope">The guarantee covers the setup on your server. Whether a particular carrier or corporate network permits VPN traffic is outside anyone's control — see the <a href="#limit">honest limit</a> above.</p>
         <p class="sub" data-i18n="price.parents">Setting it up for someone else? Same flow — you pay, they get the QR.</p>
         <p class="sub" data-i18n="price.early">$29 is the price when it opens in November. The list gets in under it, and goes first — I do these one at a time.</p>
-        <p class="fine" data-i18n="ag.prov">Works with DigitalOcean today; more providers as they're tested — <a href="https://github.com/antongavrilov88/burrow/blob/main/references/provisioning.md" target="_blank" rel="noopener">the provider table</a>.</p>
+        <p class="fine" data-i18n="ag.prov">Works with DigitalOcean today; more providers as they're tested — <a href="https://github.com/antongavrilov88/burrow-skill/blob/main/references/provisioning.md" target="_blank" rel="noopener">the provider table</a>.</p>
       </div>
     </div>
   </div>
@@ -483,7 +483,7 @@ footer a{color:var(--ink-2)}
       <span class="n">02</span>
       <b data-i18n="card.o2h">Hosts that take crypto or local payment methods</b>
       <p data-i18n="card.o2p">Plenty of providers accept PayPal, crypto or local payment methods. The guide lists which ones are known to work and what to watch for.</p>
-      <p class="cav"><a href="https://github.com/antongavrilov88/burrow/blob/main/references/provisioning.md" target="_blank" rel="noopener" data-i18n="card.o2l">See the list in the guide</a></p>
+      <p class="cav"><a href="https://github.com/antongavrilov88/burrow-skill/blob/main/references/provisioning.md" target="_blank" rel="noopener" data-i18n="card.o2l">See the list in the guide</a></p>
     </div>
     <div class="opt">
       <span class="n">03</span>
@@ -506,7 +506,7 @@ footer a{color:var(--ink-2)}
       <p data-i18n="who.p1">I'm Anton Gavrilov, a developer. I build Burrow in public — the skill, the guide and the agent — and write about what works and what doesn't along the way.</p>
       <p data-i18n="who.p2">The skill is free and stays free; the paid part is only for people who'd rather be walked through it — I don't run servers for anyone, don't hold cards, and don't want your keys.</p>
       <div class="links">
-        <a href="https://github.com/antongavrilov88/burrow" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/antongavrilov88/burrow-skill" target="_blank" rel="noopener">GitHub</a>
         <a href="https://t.me/bepatientlikeme" target="_blank" rel="noopener" data-i18n="who.tg">Telegram channel</a>
         <a href="https://linkedin.com/in/agavrilov88" target="_blank" rel="noopener">LinkedIn</a>
       </div>
@@ -519,7 +519,7 @@ footer a{color:var(--ink-2)}
 
 <footer class="wrap">
   <span class="fl">
-    <a href="https://github.com/antongavrilov88/burrow" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://github.com/antongavrilov88/burrow-skill" target="_blank" rel="noopener">GitHub</a>
     <a href="https://t.me/burrow_vpn_bot" target="_blank" rel="noopener" data-i18n="foot.bot">Telegram — the launch list</a>
     <a href="https://t.me/bepatientlikeme" target="_blank" rel="noopener" data-i18n="foot.ch">Build notes</a>
     <a href="https://linkedin.com/in/agavrilov88" target="_blank" rel="noopener">LinkedIn</a>

@@ -287,8 +287,10 @@ footer a{color:var(--ink-2)}
   .facts>div{grid-template-columns:74px 1fr}
   .pill{margin-bottom:10px}
   .hero .lede{font-size:16px}
-  /* the timing line is repeated in the comparison; on a phone it costs the second offer its fold */
-  .hero .fine{display:none}
+  /* the timing line moves under the two cards, so the paid button keeps its fold. Its wrappers step aside
+     (display:contents) so it can be ordered after .paths; it holds no links, so focus order is unchanged */
+  .intro,.intro>div:last-child{display:contents}
+  .hero .fine{order:1;margin-top:0}
   footer .fl{flex-direction:column;gap:0}
   footer .fl a,.links a{display:inline-flex;align-items:center;min-height:44px}
   .links{gap:0 18px}
@@ -338,7 +340,7 @@ footer a{color:var(--ink-2)}
     </div>
     <div>
       <p class="lede" data-i18n="hero.lede">A Claude skill turns a $6 server you rent into a VPN only your people use — your own address, not one shared with thousands of strangers.</p>
-      <p class="fine" data-i18n="hero.fine">About 15 minutes: ~5 of your clicking, ~10 the installer runs on its own · then a short wait for the domain</p>
+      <p class="fine" data-i18n="hero.fine">Your clicks + ~10 min of install · new domain: 15 min to a few hours · account review, if any: a few hours</p>
     </div>
   </div>
 
@@ -403,18 +405,18 @@ footer a{color:var(--ink-2)}
 <!-- 2 · how it works -->
 <div class="wrap how" id="how">
   <div class="card">
-    <span class="k" data-i18n="how.k1">You · ~5 min</span>
+    <span class="k" data-i18n="how.k1">You</span>
     <b data-i18n="how.h1">You open an account and buy a domain</b>
     <p data-i18n="how.p1">A hosting account with your card, an access key for Claude, and a domain (~$10/year) that you point where Claude says. Claude tells you what to click, one step at a time, and why.</p>
     <p class="self" data-i18n="how.note">You revoke the key together at the end. On DigitalOcean, Claude creates the server; on another host, you create it. <a href="https://github.com/antongavrilov88/burrow-skill/blob/main/references/human-steps.md" target="_blank" rel="noopener">Every step you do by hand</a></p>
   </div>
   <div class="card b">
-    <span class="k" data-i18n="how.k2">Burrow · ~10 min</span>
+    <span class="k" data-i18n="how.k2">Burrow · about 10 min</span>
     <b data-i18n="how.h2">Burrow sets it up</b>
     <p data-i18n="how.p2">Keys are generated on your machine; the installer, real certificates and watchdog are handled for you, and the DNS records too once your domain points at DigitalOcean. It runs unattended — close the laptop if you like.</p>
   </div>
   <div class="card">
-    <span class="k" data-i18n="how.k3">You · ~1 min per device</span>
+    <span class="k" data-i18n="how.k3">You · per device</span>
     <b data-i18n="how.h3">You scan a QR</b>
     <p data-i18n="how.p3">Install the official WireGuard app and scan the first QR, which Claude sends you with a short handout to pass on. Later devices come from your panel. Family devices work the same way — they scan, you don't have to be in the room.</p>
   </div>
@@ -473,7 +475,7 @@ footer a{color:var(--ink-2)}
     <div class="eyebrow" data-i18n="ag.eyebrow">Set it up for me</div>
   </div>
   <h2 data-i18n="ag.h2">Same VPN either way. The difference is whose problem it is when something goes wrong.</h2>
-  <p class="lede" data-i18n="ag.lede">You scrolled this far, so you have probably decided you would rather not spend an evening on this. That is what the $29 buys: you do three things only you can do, and from there it stops being yours to worry about. Burrow builds the server, installs everything, tests it end to end and hands you a QR code. If something breaks later, you message me instead of reading a forum.</p>
+  <p class="lede" data-i18n="ag.lede">Rather not do it yourself? That is what the $29 buys: you do four things only you can do, and from there it stops being yours to worry about. Burrow builds the server, installs everything, tests it end to end and hands you a QR code. If something breaks later, you message me instead of reading a forum.</p>
 
   <div class="dfm">
     <div class="cmp">
@@ -482,7 +484,7 @@ footer a{color:var(--ink-2)}
         <div class="colh"><b data-i18n="cmp.free.h">You do it</b></div>
         <dl class="rows">
           <div><dt data-i18n="cmp.k2">What Burrow does</dt><dd data-i18n="cmp.free.v2">Creates the server on DigitalOcean, generates the keys, installs, gets certificates, sets the DNS records if your domain points at DigitalOcean, checks it all, sends your first QR and a handout to pass on. For your part, it tells you what to click and why.</dd></div>
-          <div><dt data-i18n="cmp.k3">Time</dt><dd data-i18n="cmp.free.v3">About 15 minutes if nothing surprises you, longer if something does.</dd></div>
+          <div><dt data-i18n="cmp.k3">Time</dt><dd data-i18n="cmp.free.v3">Your clicks, then about 10 minutes while it installs. A new domain takes 15 minutes to a few hours to go live, and a new hosting account is sometimes reviewed for a few hours.</dd></div>
           <div><dt data-i18n="cmp.k4">Guarantee</dt><dd data-i18n="cmp.free.v4">No guarantee, because there is no invoice. Same scripts, same checks — the only thing you do not get is someone to blame. If you get stuck, you can hand it over.</dd></div>
         </dl>
       </div>
@@ -491,7 +493,7 @@ footer a{color:var(--ink-2)}
         <div class="colh"><b data-i18n="cmp.paid.h">Done for you</b><span class="soon" data-i18n="price.soon">Opens in November</span></div>
         <dl class="rows">
           <div><dt data-i18n="cmp.k2">What Burrow does</dt><dd data-i18n="cmp.paid.v2">Server, domain and DNS records, keys, install, certificates, monitoring, panel, checks, your first device and QR, plain-English notes to pass on. Then it walks you through removing the invite yourself.</dd></div>
-          <div><dt data-i18n="cmp.k3">Time</dt><dd data-i18n="cmp.paid.v3">Your part is a few minutes. The rest happens without you.</dd></div>
+          <div><dt data-i18n="cmp.k3">Time</dt><dd data-i18n="cmp.paid.v3">Your part: the account and the card, one invite, a QR per device, then removing the invite. The rest happens without you. The same waits for a new domain and a new hosting account apply.</dd></div>
           <div><dt data-i18n="cmp.k4">Guarantee</dt><dd data-i18n="price.guar">It is not finished until it has been tested working.</dd></div>
         </dl>
       </div>

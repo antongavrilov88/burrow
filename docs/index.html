@@ -406,10 +406,10 @@ footer a{color:var(--ink-2)}
     <summary data-i18n="spec.s">What actually gets installed</summary>
     <div class="body">
       <dl>
-        <div><dt data-i18n="spec.k1">Cover</dt><dd data-i18n="spec.v1">Xray serving VLESS + XHTTP + REALITY on 443/tcp, behind a real site on your own domain with a real certificate. A prober that knocks gets the site — because it is the site.</dd></div>
+        <div><dt data-i18n="spec.k1">Cover</dt><dd data-i18n="spec.v1">Xray serving VLESS + XHTTP + REALITY on 443/tcp, behind a real site on your own domain with a real certificate. A prober that knocks gets the site — because it is the site. It protects the two-server link and phones using a VLESS app. On one server, WireGuard devices connect as plain WireGuard.</dd></div>
         <div><dt data-i18n="spec.k2">Devices</dt><dd data-i18n="spec.v2">Plain WireGuard, official apps. Nothing custom to install on a phone or a laptop.</dd></div>
         <div><dt data-i18n="spec.k3">Panel</dt><dd data-i18n="spec.v3">A small web panel on the server: add a device, get a QR, see bytes and last-seen. The panel and push alerts are in Russian in this version; everything Claude says to you, and the handout you pass on, are in your language.</dd></div>
-        <div><dt data-i18n="spec.k4">Watchdog</dt><dd data-i18n="spec.v4">A systemd timer that probes the tunnel, repairs what it can, fails over to a spare route, and pushes a notification when it cannot.</dd></div>
+        <div><dt data-i18n="spec.k4">Watchdog</dt><dd data-i18n="spec.v4">A service that checks the tunnel every 30 seconds, restarts what it can and alerts your phone. On two servers it also moves everyone to a spare route.</dd></div>
         <div><dt data-i18n="spec.k5">Split routing</dt><dd data-i18n="spec.v5">Two-server layout only: an nftables set decides who goes through the tunnel, and a domain list you edit leaves directly from the relay. Seeded with the payment networks that usually object — add your own bank.</dd></div>
         <div><dt data-i18n="spec.k6">Layouts</dt><dd data-i18n="spec.v6">One server abroad by default, or a two-machine relay when devices sit behind heavy filtering. Same installers either way.</dd></div>
       </dl>
@@ -503,25 +503,26 @@ footer a{color:var(--ink-2)}
 
 <!-- 5 · card declined -->
 <section class="wrap" id="card">
+  <div class="eyebrow" data-i18n="card.eyebrow">Paying for the server</div>
   <h2 data-i18n="card.h2">Provider won't take your card?</h2>
   <p class="lede" data-i18n="card.lede">It happens — some hosts reject prepaid or debit cards, or a card from a bank they don't know. You can still rent a server. Three ways round it, in the order I'd try them.</p>
   <div class="opts">
     <div class="opt">
       <span class="n">01</span>
       <b data-i18n="card.o1h">Someone else pays for you</b>
-      <p data-i18n="card.o1p">A friend or relative whose card the provider accepts rents the server. It's about $6 a month, or they just keep paying it — it's the price of a coffee.</p>
+      <p data-i18n="card.o1p">A friend or relative whose card the provider accepts rents the server. About $6 a month. They can keep paying it, or you pay them back.</p>
     </div>
     <div class="opt">
       <span class="n">02</span>
       <b data-i18n="card.o2h">Hosts that take crypto or local payment methods</b>
-      <p data-i18n="card.o2p">Plenty of providers accept PayPal, crypto or local payment methods. The guide lists which ones are known to work and what to watch for.</p>
+      <p data-i18n="card.o2p">The guide keeps a dated list of hosts that take PayPal, crypto or local methods. None are tested with Burrow yet, so check before you pay.</p>
       <p class="cav"><a href="https://github.com/antongavrilov88/burrow-skill/blob/main/references/provisioning.md" target="_blank" rel="noopener" data-i18n="card.o2l">See the list in the guide</a></p>
     </div>
     <div class="opt">
       <span class="n">03</span>
       <b data-i18n="card.o3h">Virtual-card services</b>
       <p data-i18n="card.o3p">They work — and they're last on this list for a reason.</p>
-      <p class="cav" data-i18n="card.o3c">Fees, identity checks, and they come and go. We don't partner with any of them or take a cut — check one yourself before trusting it with a card.</p>
+      <p class="cav" data-i18n="card.o3c">Fees, identity checks, and they come and go. I don't partner with any of them or take a cut — check one yourself before trusting it with a card.</p>
     </div>
   </div>
 </section>
@@ -539,7 +540,7 @@ footer a{color:var(--ink-2)}
       <p data-i18n="who.p2">The skill is free and stays free; the paid part is only for people who'd rather be walked through it — I don't run servers for anyone, don't hold cards, and don't want your keys.</p>
       <div class="links">
         <a href="https://github.com/antongavrilov88/burrow-skill" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://t.me/bepatientlikeme" target="_blank" rel="noopener" data-i18n="who.tg">Telegram channel</a>
+        <a href="https://t.me/bepatientlikeme" target="_blank" rel="noopener" data-i18n="who.tg">Telegram channel (in Russian)</a>
         <a href="https://linkedin.com/in/agavrilov88" target="_blank" rel="noopener">LinkedIn</a>
       </div>
       <div class="sig">— Anton</div>
@@ -553,7 +554,7 @@ footer a{color:var(--ink-2)}
   <span class="fl">
     <a href="https://github.com/antongavrilov88/burrow-skill" target="_blank" rel="noopener">GitHub</a>
     <a href="https://t.me/burrow_vpn_bot" target="_blank" rel="noopener" data-i18n="foot.bot">Telegram — the launch list</a>
-    <a href="https://t.me/bepatientlikeme" target="_blank" rel="noopener" data-i18n="foot.ch">Build notes</a>
+    <a href="https://t.me/bepatientlikeme" target="_blank" rel="noopener" data-i18n="foot.ch">Build notes (Telegram, in Russian)</a>
     <a href="https://linkedin.com/in/agavrilov88" target="_blank" rel="noopener">LinkedIn</a>
   </span>
   <span data-i18n="foot.r">Burrow · MIT · the server is always yours. Not legal advice.</span>

@@ -367,7 +367,7 @@ footer a{color:var(--ink-2)}
       <div class="terms">
         <p class="cost" data-i18n="path.free.cost">You'll pay your host (~$6/month) and a registrar (~$10/year), and you need a Claude plan that includes Claude Code. No Claude Code? <a href="#paid">The other path is for you.</a> No Burrow account.</p>
         <dl class="facts">
-          <div><dt data-i18n="path.k.you">You</dt><dd data-i18n="path.free.you">a hosting account and card, a domain, install the skill, the WireGuard app on each device</dd></div>
+          <div><dt data-i18n="path.k.you">You</dt><dd data-i18n="path.free.you">a hosting account and card, an access key (revoked later), a domain you buy and point, the WireGuard app per device</dd></div>
         </dl>
         <p class="where" data-i18n="path.free.where">Install it as a plugin. Type these in Claude Code, not in a terminal, one at a time:</p>
         <div class="cmdrow"><code class="cmd" id="cmd-add">/plugin marketplace add antongavrilov88/burrow-skill</code><button class="copy" type="button" data-copy="cmd-add" aria-describedby="cmd-add" data-i18n="copy">Copy</button></div>
@@ -404,19 +404,19 @@ footer a{color:var(--ink-2)}
 <div class="wrap how" id="how">
   <div class="card">
     <span class="k" data-i18n="how.k1">You · ~5 min</span>
-    <b data-i18n="how.h1">You create the server</b>
-    <p data-i18n="how.p1">Claude tells you what to click, one step at a time, and why.</p>
-    <p class="self" data-i18n="how.note">This is the only part you do yourself. There is a full guide below.</p>
+    <b data-i18n="how.h1">You open an account and buy a domain</b>
+    <p data-i18n="how.p1">A hosting account with your card, an access key for Claude, and a domain (~$10/year) that you point where Claude says. Claude tells you what to click, one step at a time, and why.</p>
+    <p class="self" data-i18n="how.note">You revoke the key together at the end. On DigitalOcean, Claude creates the server; on another host, you create it. <a href="https://github.com/antongavrilov88/burrow-skill/blob/main/references/human-steps.md" target="_blank" rel="noopener">Every step you do by hand</a></p>
   </div>
   <div class="card b">
     <span class="k" data-i18n="how.k2">Burrow · ~10 min</span>
     <b data-i18n="how.h2">Burrow sets it up</b>
-    <p data-i18n="how.p2">Keys are generated on your machine; the installer, domain, real certificates and watchdog are handled for you. It runs unattended — close the laptop if you like.</p>
+    <p data-i18n="how.p2">Keys are generated on your machine; the installer, real certificates and watchdog are handled for you, and the DNS records too once your domain points at DigitalOcean. It runs unattended — close the laptop if you like.</p>
   </div>
   <div class="card">
     <span class="k" data-i18n="how.k3">You · ~1 min per device</span>
     <b data-i18n="how.h3">You scan a QR</b>
-    <p data-i18n="how.p3">Install the official WireGuard app, open your panel, add a device, scan. Family devices work the same way — they scan, you don't have to be in the room.</p>
+    <p data-i18n="how.p3">Install the official WireGuard app and scan the first QR, which Claude sends you with a short handout to pass on. Later devices come from your panel. Family devices work the same way — they scan, you don't have to be in the room.</p>
   </div>
   <div class="card b">
     <span class="k" data-i18n="how.k4">Burrow · last step</span>
@@ -443,7 +443,7 @@ footer a{color:var(--ink-2)}
 </div>
 
 <div class="bridge">
-  <p data-i18n="bridge">Read those four steps and thought &ldquo;not tonight&rdquo;? <a href="#agent">From November, Burrow can do all four for you.</a></p>
+  <p data-i18n="bridge">Read those four steps and thought &ldquo;not tonight&rdquo;? <a href="#agent">From November, Burrow can take over everything but the account, the card, one invite and the QR scan.</a></p>
 </div>
 
 <!-- 3 · why your own server -->
@@ -481,7 +481,7 @@ footer a{color:var(--ink-2)}
       <div class="col free">
         <div class="colh"><b data-i18n="cmp.free.h">You do it</b></div>
         <dl class="rows">
-          <div><dt data-i18n="cmp.k2">What Burrow does</dt><dd data-i18n="cmp.free.v2">Tells you what to click and why, builds the installer, and runs whatever can be automated from your machine.</dd></div>
+          <div><dt data-i18n="cmp.k2">What Burrow does</dt><dd data-i18n="cmp.free.v2">Creates the server on DigitalOcean, generates the keys, installs, gets certificates, sets the DNS records if your domain points at DigitalOcean, checks it all, sends your first QR and a handout to pass on. For your part, it tells you what to click and why.</dd></div>
           <div><dt data-i18n="cmp.k3">Time</dt><dd data-i18n="cmp.free.v3">About 15 minutes if nothing surprises you, longer if something does.</dd></div>
           <div><dt data-i18n="cmp.k4">Guarantee</dt><dd data-i18n="cmp.free.v4">No guarantee, because there is no invoice. Same scripts, same checks — the only thing you do not get is someone to blame. If you get stuck, you can hand it over.</dd></div>
         </dl>
@@ -490,7 +490,7 @@ footer a{color:var(--ink-2)}
       <div class="col paid">
         <div class="colh"><b data-i18n="cmp.paid.h">Done for you</b><span class="soon" data-i18n="price.soon">Opens in November</span></div>
         <dl class="rows">
-          <div><dt data-i18n="cmp.k2">What Burrow does</dt><dd data-i18n="cmp.paid.v2">Server, domain, install, certificates, monitoring, panel, your first device and QR, plain-English notes to pass on. Then it walks you through removing its access yourself.</dd></div>
+          <div><dt data-i18n="cmp.k2">What Burrow does</dt><dd data-i18n="cmp.paid.v2">Server, domain and DNS records, keys, install, certificates, monitoring, panel, checks, your first device and QR, plain-English notes to pass on. Then it walks you through removing the invite yourself.</dd></div>
           <div><dt data-i18n="cmp.k3">Time</dt><dd data-i18n="cmp.paid.v3">Your part is a few minutes. The rest happens without you.</dd></div>
           <div><dt data-i18n="cmp.k4">Guarantee</dt><dd data-i18n="price.guar">It is not finished until it has been tested working.</dd></div>
         </dl>

@@ -287,8 +287,10 @@ footer a{color:var(--ink-2)}
   .facts>div{grid-template-columns:74px 1fr}
   .pill{margin-bottom:10px}
   .hero .lede{font-size:16px}
-  /* the timing line is repeated in the comparison; on a phone it costs the second offer its fold */
-  .hero .fine{display:none}
+  /* the timing line moves under the two cards, so the paid button keeps its fold. Its wrappers step aside
+     (display:contents) so it can be ordered after .paths; it holds no links, so focus order is unchanged */
+  .intro,.intro>div:last-child{display:contents}
+  .hero .fine{order:1;margin-top:0}
   footer .fl{flex-direction:column;gap:0}
   footer .fl a,.links a{display:inline-flex;align-items:center;min-height:44px}
   .links{gap:0 18px}
@@ -337,8 +339,8 @@ footer a{color:var(--ink-2)}
       <h1 data-i18n="hero.h1">Your own VPN. On a $6 server that is yours, not a company's.</h1>
     </div>
     <div>
-      <p class="lede" data-i18n="hero.lede">A Claude skill turns a $6 server you rent into a VPN only your people use — no address shared with strangers, and the banking apps that reject commercial VPNs stop seeing a flagged address.</p>
-      <p class="fine" data-i18n="hero.fine">About 15 minutes: ~5 of your clicking, ~10 the installer runs on its own · then a short wait for the domain</p>
+      <p class="lede" data-i18n="hero.lede">A Claude skill turns a $6 server you rent into a VPN only your people use — your own address, not one shared with thousands of strangers.</p>
+      <p class="fine" data-i18n="hero.fine">Your clicks + ~10 min of install · new domain: 15 min to a few hours · account review, if any: a few hours</p>
     </div>
   </div>
 
@@ -367,7 +369,7 @@ footer a{color:var(--ink-2)}
       <div class="terms">
         <p class="cost" data-i18n="path.free.cost">You'll pay your host (~$6/month) and a registrar (~$10/year), and you need a Claude plan that includes Claude Code. No Claude Code? <a href="#paid">The other path is for you.</a> No Burrow account.</p>
         <dl class="facts">
-          <div><dt data-i18n="path.k.you">You</dt><dd data-i18n="path.free.you">a hosting account and card, a domain, install the skill, the WireGuard app on each device</dd></div>
+          <div><dt data-i18n="path.k.you">You</dt><dd data-i18n="path.free.you">a hosting account and card, an access key (revoked later), a domain you buy and point, the WireGuard app per device</dd></div>
         </dl>
         <p class="where" data-i18n="path.free.where">Install it as a plugin. Type these in Claude Code, not in a terminal, one at a time:</p>
         <div class="cmdrow"><code class="cmd" id="cmd-add">/plugin marketplace add antongavrilov88/burrow-skill</code><button class="copy" type="button" data-copy="cmd-add" aria-describedby="cmd-add" data-i18n="copy">Copy</button></div>
@@ -403,20 +405,20 @@ footer a{color:var(--ink-2)}
 <!-- 2 · how it works -->
 <div class="wrap how" id="how">
   <div class="card">
-    <span class="k" data-i18n="how.k1">You · ~5 min</span>
-    <b data-i18n="how.h1">You create the server</b>
-    <p data-i18n="how.p1">Claude tells you what to click, one step at a time, and why.</p>
-    <p class="self" data-i18n="how.note">This is the only part you do yourself. There is a full guide below.</p>
+    <span class="k" data-i18n="how.k1">You</span>
+    <b data-i18n="how.h1">You open an account and buy a domain</b>
+    <p data-i18n="how.p1">A hosting account with your card, an access key for Claude, and a domain (~$10/year) that you point where Claude says. Claude tells you what to click, one step at a time, and why.</p>
+    <p class="self" data-i18n="how.note">You revoke the key together at the end. On DigitalOcean, Claude creates the server; on another host, you create it. <a href="https://github.com/antongavrilov88/burrow-skill/blob/main/references/human-steps.md" target="_blank" rel="noopener">Every step you do by hand</a></p>
   </div>
   <div class="card b">
-    <span class="k" data-i18n="how.k2">Burrow · ~10 min</span>
+    <span class="k" data-i18n="how.k2">Burrow · about 10 min</span>
     <b data-i18n="how.h2">Burrow sets it up</b>
-    <p data-i18n="how.p2">Keys are generated on your machine; the installer, domain, real certificates and watchdog are handled for you. It runs unattended — close the laptop if you like.</p>
+    <p data-i18n="how.p2">Keys are generated on your machine; the installer, real certificates and watchdog are handled for you, and the DNS records too once your domain points at DigitalOcean. It runs unattended — close the laptop if you like.</p>
   </div>
   <div class="card">
-    <span class="k" data-i18n="how.k3">You · ~1 min per device</span>
+    <span class="k" data-i18n="how.k3">You · per device</span>
     <b data-i18n="how.h3">You scan a QR</b>
-    <p data-i18n="how.p3">Install the official WireGuard app, open your panel, add a device, scan. Family devices work the same way — they scan, you don't have to be in the room.</p>
+    <p data-i18n="how.p3">Install the official WireGuard app and scan the first QR, which Claude sends you with a short handout to pass on. Later devices come from your panel. Family devices work the same way — they scan, you don't have to be in the room.</p>
   </div>
   <div class="card b">
     <span class="k" data-i18n="how.k4">Burrow · last step</span>
@@ -443,7 +445,7 @@ footer a{color:var(--ink-2)}
 </div>
 
 <div class="bridge">
-  <p data-i18n="bridge">Read those four steps and thought &ldquo;not tonight&rdquo;? <a href="#agent">From November, Burrow can do all four for you.</a></p>
+  <p data-i18n="bridge">Read those four steps and thought &ldquo;not tonight&rdquo;? <a href="#agent">From November, Burrow can take over everything but the account, the card, one invite and the QR scan.</a></p>
 </div>
 
 <!-- 3 · why your own server -->
@@ -453,13 +455,13 @@ footer a{color:var(--ink-2)}
       <div class="eyebrow" data-i18n="why.eyebrow">Why your own server</div>
       <h2 data-i18n="why.h2">Every VPN you've been sold is someone else's server. This one is yours.</h2>
       <div class="prose">
-        <p data-i18n="why.p1">Commercial VPNs share an IP among thousands of strangers, so you inherit their reputation: banks, shops and streaming services flag the address as "VPN" and you get captchas, refused logins and toggling the app on and off. That's not a bug in a particular app — it's the shape of the business.</p>
+        <p data-i18n="why.p1">Commercial VPNs share an IP among thousands of strangers, so you inherit their reputation: banks, shops and streaming services flag the address as "VPN" and you get captchas, refused logins and toggling the app on and off. That's the shape of the business. Your own server gets rid of the strangers, but it still sits in a data centre, and some services flag that too.</p>
         <p data-i18n="why.p2">A server of your own is one IP, used by the people you know. Nobody in the middle sees your traffic, nobody can sell it, and nobody can change the terms. And it costs what a server costs — about $6 a month — not $6 a month per person.</p>
         <p id="limit" data-i18n="why.p3">One honest limit: some carrier and corporate networks restrict VPN traffic altogether, and no setup on your side changes that. Burrow tells you when the network, not the setup, is the problem.</p>
       </div>
     </div>
     <div class="claims">
-      <div class="claim"><b data-i18n="why.k1">Not a flagged address</b><span data-i18n="why.v1">Banks and shops flag addresses shared by thousands of strangers. Yours is used by the people you added, so it does not look like a VPN to them. <i>Local services go direct, the rest through the tunnel.</i></span></div>
+      <div class="claim"><b data-i18n="why.k1">Your own address</b><span data-i18n="why.v1">Used by the people you added, not by thousands of strangers. On the default one-server layout everything leaves from it, and it is a data-centre address: some banks still challenge those. <i>On the two-server layout, apps that refuse VPN connections leave from the home-country relay and keep working.</i></span></div>
       <div class="claim"><b data-i18n="why.k2">Private</b><span data-i18n="why.v2">Your own server, so nobody sees your traffic. Access logs and DNS logging are off. What is kept is bytes and last-seen per device, plus a 14-day history so the panel can draw a graph — all of it on your server. You will see that a phone used 2 GB; nobody sees what it opened, because that is never recorded. <a href="https://github.com/antongavrilov88/burrow-skill/blob/main/README.md#privacy-stated-plainly" target="_blank" rel="noopener">Privacy, stated plainly</a>.</span></div>
       <div class="claim"><b data-i18n="why.k3">Fast</b><span data-i18n="why.v3">No shared bandwidth and no queue of strangers on the same address: the server's whole pipe belongs to the handful of devices you added.</span></div>
       <div class="claim"><b data-i18n="why.k4">Whose machine</b><span data-i18n="why.v4">Nothing of yours runs on my machines. The server is rented in your name, billed to your card, at a host you pick — and Burrow runs no servers at all, so there is no account to close.</span></div>
@@ -473,7 +475,7 @@ footer a{color:var(--ink-2)}
     <div class="eyebrow" data-i18n="ag.eyebrow">Set it up for me</div>
   </div>
   <h2 data-i18n="ag.h2">Same VPN either way. The difference is whose problem it is when something goes wrong.</h2>
-  <p class="lede" data-i18n="ag.lede">You scrolled this far, so you have probably decided you would rather not spend an evening on this. That is what the $29 buys: you do three things only you can do, and from there it stops being yours to worry about. Burrow builds the server, installs everything, tests it end to end and hands you a QR code. If something breaks later, you message me instead of reading a forum.</p>
+  <p class="lede" data-i18n="ag.lede">Rather not do it yourself? That is what the $29 buys: you do four things only you can do, and from there it stops being yours to worry about. Burrow builds the server, installs everything, tests it end to end and hands you a QR code. If something breaks later, you message me instead of reading a forum.</p>
 
   <div class="dfm">
     <div class="cmp">
@@ -481,8 +483,8 @@ footer a{color:var(--ink-2)}
       <div class="col free">
         <div class="colh"><b data-i18n="cmp.free.h">You do it</b></div>
         <dl class="rows">
-          <div><dt data-i18n="cmp.k2">What Burrow does</dt><dd data-i18n="cmp.free.v2">Tells you what to click and why, builds the installer, and runs whatever can be automated from your machine.</dd></div>
-          <div><dt data-i18n="cmp.k3">Time</dt><dd data-i18n="cmp.free.v3">About 15 minutes if nothing surprises you, longer if something does.</dd></div>
+          <div><dt data-i18n="cmp.k2">What Burrow does</dt><dd data-i18n="cmp.free.v2">Creates the server on DigitalOcean, generates the keys, installs, gets certificates, sets the DNS records if your domain points at DigitalOcean, checks it all, sends your first QR and a handout to pass on. For your part, it tells you what to click and why.</dd></div>
+          <div><dt data-i18n="cmp.k3">Time</dt><dd data-i18n="cmp.free.v3">Your clicks, then about 10 minutes while it installs. A new domain takes 15 minutes to a few hours to go live, and a new hosting account is sometimes reviewed for a few hours.</dd></div>
           <div><dt data-i18n="cmp.k4">Guarantee</dt><dd data-i18n="cmp.free.v4">No guarantee, because there is no invoice. Same scripts, same checks — the only thing you do not get is someone to blame. If you get stuck, you can hand it over.</dd></div>
         </dl>
       </div>
@@ -490,8 +492,8 @@ footer a{color:var(--ink-2)}
       <div class="col paid">
         <div class="colh"><b data-i18n="cmp.paid.h">Done for you</b><span class="soon" data-i18n="price.soon">Opens in November</span></div>
         <dl class="rows">
-          <div><dt data-i18n="cmp.k2">What Burrow does</dt><dd data-i18n="cmp.paid.v2">Server, domain, install, certificates, monitoring, panel, your first device and QR, plain-English notes to pass on. Then it walks you through removing its access yourself.</dd></div>
-          <div><dt data-i18n="cmp.k3">Time</dt><dd data-i18n="cmp.paid.v3">Your part is a few minutes. The rest happens without you.</dd></div>
+          <div><dt data-i18n="cmp.k2">What Burrow does</dt><dd data-i18n="cmp.paid.v2">Server, domain and DNS records, keys, install, certificates, monitoring, panel, checks, your first device and QR, plain-English notes to pass on. Then it walks you through removing the invite yourself.</dd></div>
+          <div><dt data-i18n="cmp.k3">Time</dt><dd data-i18n="cmp.paid.v3">Your part: the account and the card, one invite, a QR per device, then removing the invite. The rest happens without you. The same waits for a new domain and a new hosting account apply.</dd></div>
           <div><dt data-i18n="cmp.k4">Guarantee</dt><dd data-i18n="price.guar">It is not finished until it has been tested working.</dd></div>
         </dl>
       </div>

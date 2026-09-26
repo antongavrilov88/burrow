@@ -203,6 +203,15 @@ html{scroll-padding-top:84px}
 .panel{margin:0;display:flex;flex-direction:column;gap:10px}
 .panel picture{display:block;border-radius:16px;overflow:hidden;box-shadow:0 0 0 1px var(--line-2),var(--shadow)}
 .panel img{display:block;width:100%;height:auto}
+/* two renders, one per theme; they switch on the same rule as the tokens above (system, unless the toggle set data-theme).
+   The hidden one is display:none, so it stays out of the accessibility tree and, being lazy, is never fetched. */
+.panel .pic-dark{display:none}
+:root[data-theme="dark"] .panel .pic-light{display:none}
+:root[data-theme="dark"] .panel .pic-dark{display:block}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .panel .pic-light{display:none}
+  :root:not([data-theme="light"]) .panel .pic-dark{display:block}
+}
 /* captions that say what a picture is: the panel render, the illustrated agent chat */
 .cap{margin:0;font-size:13.5px;line-height:1.5;color:var(--ink-2)}
 
@@ -421,9 +430,13 @@ footer a{color:var(--ink-2)}
   </div>
 
   <figure class="panel">
-    <picture>
+    <picture class="pic-light">
       <source type="image/webp" srcset="panel.webp 2x">
       <img src="panel.png" width="1080" height="675" loading="lazy" decoding="async" alt="The Burrow panel: clients, traffic per device, a New client button">
+    </picture>
+    <picture class="pic-dark">
+      <source type="image/webp" srcset="panel-dark.webp 2x">
+      <img src="panel-dark.png" width="1080" height="675" loading="lazy" decoding="async" alt="The Burrow panel: clients, traffic per device, a New client button">
     </picture>
     <figcaption class="cap" data-i18n="panel.cap">The real panel. Its buttons are in Russian for now; the handout translates every one.</figcaption>
   </figure>

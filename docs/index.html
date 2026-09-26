@@ -210,7 +210,10 @@ html{scroll-padding-top:84px}
 .card p{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.55}
 .card .self{margin-top:auto;padding-top:12px;border-top:1px dashed var(--line-2);font-size:13.5px;color:var(--you);line-height:1.5}
 
+/* section dividers span the content box, not the .wrap padding, so the line starts where the text starts.
+   A border-image keeps the same 1px border (spacing unchanged) and goes away with it where border-top is 0 */
 section{padding-block:56px;border-top:1px solid var(--line)}
+section,footer{border-image:linear-gradient(90deg,transparent 20px,var(--line) 20px calc(100% - 20px),transparent calc(100% - 20px)) 1 0 0 0}
 
 /* why */
 .why{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:start}
@@ -262,6 +265,8 @@ footer a{color:var(--ink-2)}
   .why,.who{gap:32px}
   .how{grid-template-columns:repeat(2,1fr)}
   .nav{display:none}
+  /* comparison: the label sits above its value, so the value gets the full column width */
+  .rows>div{grid-template-columns:1fr;gap:2px}
 }
 /* phone: <=760 */
 @media (max-width:760px){
@@ -302,6 +307,8 @@ footer a{color:var(--ink-2)}
   html{scroll-padding-top:72px}
 }
 </style>
+<!-- saved theme before first paint, so a stored choice never flashes the system theme first -->
+<script>(function(){try{var t=localStorage.getItem('burrow.theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t)}catch(e){}})();</script>
 </head><body>
 
 <div class="bar"><header class="wrap top">
@@ -606,11 +613,20 @@ footer a{color:var(--ink-2)}
   langSel.addEventListener('change', function(){ setLang(langSel.value); });
 
   /* ---------- theme ---------- */
+  /* the saved choice is applied by the small script in <head>; a choice that matches the system is not stored,
+     so the page follows the system again */
   var root = document.documentElement, themeBtn = document.getElementById('theme');
-  function isDark(){ var t = root.getAttribute('data-theme'); if(t) return t==='dark'; return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; }
+  var sysMq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+  function sysDark(){ return !!(sysMq && sysMq.matches); }
+  function isDark(){ var t = root.getAttribute('data-theme'); if(t) return t==='dark'; return sysDark(); }
   function syncTheme(){ themeBtn.setAttribute('aria-pressed', String(isDark())); }
-  themeBtn.addEventListener('click', function(){ var next = isDark() ? 'light' : 'dark'; root.setAttribute('data-theme', next); syncTheme(); try{ localStorage.setItem('burrow.theme', next); }catch(e){} });
-  try{ var st = localStorage.getItem('burrow.theme'); if(st==='dark'||st==='light') root.setAttribute('data-theme', st); }catch(e){}
+  themeBtn.addEventListener('click', function(){
+    var next = isDark() ? 'light' : 'dark';
+    if((next==='dark') === sysDark()){ root.removeAttribute('data-theme'); try{ localStorage.removeItem('burrow.theme'); }catch(e){} }
+    else { root.setAttribute('data-theme', next); try{ localStorage.setItem('burrow.theme', next); }catch(e){} }
+    syncTheme();
+  });
+  if(sysMq){ if(sysMq.addEventListener) sysMq.addEventListener('change', syncTheme); else if(sysMq.addListener) sysMq.addListener(syncTheme); }
   syncTheme();
 
   /* ---------- copy buttons: local clipboard only, nothing is sent anywhere ---------- */

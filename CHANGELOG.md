@@ -6,6 +6,7 @@
 
 ## Unreleased
 
+- feat(landing): the panel picture follows the page theme — a dark render of the real panel in dark mode, including when the theme is picked with the toggle.
 - fix(landing): the panel picture is re-rendered from the fixed panel (burrow-skill 0.4.0), so it no longer shows a route column the one-server layout doesn't have. Same made-up devices, addresses and size; no markup change. (burrow-skill#15)
 - feat(landing): below 1041 px, where the full nav is hidden, the sticky header gets a second row of three in-page links: Free · $29 · Card?. A phone visitor can jump to either offer or to "Card declined?" from anywhere on the page. The anchor and focus offset grows with the taller header, so nothing lands under it. (#9)
 - fix(landing): layout polish. Below 1040 px the comparison puts each label above its value, so values use the full column (the tablet comparison is 170–340 px shorter). Section and footer dividers start where the content starts instead of at the page padding. A saved theme is applied in `<head>`, so a stored choice no longer flashes the system theme first; choosing the theme the system already uses clears the stored value, so the page follows the system again, live. (#64)

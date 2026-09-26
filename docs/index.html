@@ -148,6 +148,10 @@ html{scroll-padding-top:84px}
 .path .more summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
 .path .more p{margin:10px 0 6px;font-size:13px;color:var(--ink-2)}
 .path .more .cmdrow+.cmdrow{margin-top:6px}
+/* send this page to yourself: phones only (shown in the <=760 block), since the commands above need a computer */
+.sendself{display:none}
+.sendself p{margin:0;font-size:14.5px;line-height:1.5;color:var(--ink)}
+.sendself .btn{width:100%}
 .sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .soon{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.04em;text-transform:none;padding:2px 8px;border-radius:999px;border:1px solid var(--line-2);color:var(--ink-2)}
 
@@ -281,6 +285,7 @@ footer a{color:var(--ink-2)}
   .path,.path.free,.path.paid{grid-row:auto;grid-column:auto;display:flex;flex-direction:column;gap:10px;padding:18px}
   .path.free{padding:17px}
   .path .amt{font-size:32px}
+  .sendself{display:flex;flex-direction:column;gap:10px;padding:16px 18px;border:1px dashed var(--line-2);border-radius:16px}
   .cmp{grid-template-rows:none;gap:14px}
   .col{grid-row:auto;display:flex;flex-direction:column}
   .rows{display:flex;flex-direction:column}
@@ -389,6 +394,12 @@ footer a{color:var(--ink-2)}
         <span class="sr" id="copy-status" role="status" aria-live="polite"></span>
       </div>
       <a class="btn primary" href="https://github.com/antongavrilov88/burrow-skill" target="_blank" rel="noopener"><span data-i18n="hero.btn1">Get the free skill</span> <small>GitHub</small></a>
+    </div>
+    <!-- phones only: the commands above cannot run here, so offer to send the page on to a computer -->
+    <div class="sendself" id="sendself">
+      <p data-i18n="send.p">Claude Code runs on a computer.</p>
+      <button class="btn ghost" type="button" id="send-btn"><span data-i18n="send.btn">Send this page to yourself</span></button>
+      <code class="cmd" id="send-url" hidden></code>
     </div>
   </div>
 
@@ -621,6 +632,39 @@ footer a{color:var(--ink-2)}
       else fallback();
     });
   });
+
+  /* ---------- send this page to yourself (phones): the share sheet, else copy the link.
+     Only the page address leaves the page, and only where the visitor sends it ---------- */
+  var sendBtn = document.getElementById('send-btn'), sendUrl = document.getElementById('send-url');
+  if(sendBtn){
+    var sendLabel = sendBtn.querySelector('span');
+    var announce = function(msg){ copyStatus.textContent = ''; setTimeout(function(){ copyStatus.textContent = msg; }, 50); };
+    var linkCopied = function(){
+      announce('Link copied');
+      if(!sendBtn._t) sendLabel.dataset.label = sendLabel.textContent;
+      sendLabel.textContent = 'Link copied';
+      clearTimeout(sendBtn._t);
+      sendBtn._t = setTimeout(function(){ sendLabel.textContent = sendLabel.dataset.label; sendBtn._t = null; }, 2000);
+    };
+    var copyLink = function(url){
+      var fallback = function(){
+        sendUrl.textContent = url; sendUrl.hidden = false; selectText(sendUrl);
+        var ok = false; try{ ok = document.execCommand('copy'); }catch(e){}
+        if(ok){ sendUrl.hidden = true; linkCopied(); }
+        else announce('Select and copy the link: ' + url);
+      };
+      if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(url).then(linkCopied, fallback); }
+      else fallback();
+    };
+    sendBtn.addEventListener('click', function(){
+      var url = location.protocol + '//' + location.host + location.pathname + '#free';
+      if(!navigator.share) return copyLink(url);
+      var shared;
+      try{ shared = navigator.share({ title: document.title, text: 'Burrow — set it up from a computer', url: url }); }catch(e){ return copyLink(url); }
+      /* cancelling the share sheet is an AbortError: say nothing */
+      Promise.resolve(shared).catch(function(err){ if(!err || err.name !== 'AbortError') copyLink(url); });
+    });
+  }
 
   /* ---------- photo: drop docs/anton.jpg in and it replaces the initials ---------- */
   var photo = document.getElementById('photo');

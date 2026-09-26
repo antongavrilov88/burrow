@@ -188,19 +188,13 @@ html{scroll-padding-top:84px}
 .rows dt{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);padding-top:3px}
 .rows dd{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.5}
 .back{margin:14px 0 0;font-size:14px;font-weight:600}
-/* the panel picture sits under the cards: header and new-device row across, the devices in two columns */
-.panel{border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:12px;box-shadow:var(--shadow)}
-.panel .ph,.panel .qr{grid-column:1/-1}
-.panel .ph{display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:14px}
-.panel .ph span:last-child{font-family:var(--mono);font-size:12px;color:var(--good);font-weight:500}
-.dev{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;font-weight:600;font-size:14px}
-.dev span:last-child{font-family:var(--mono);font-size:12px;color:var(--ink-2);font-weight:400}
-.qr{display:flex;align-items:center;gap:14px;padding:14px;border:1px dashed var(--line-2);border-radius:10px}
-.qr i{opacity:.45;width:60px;height:60px;border-radius:6px;flex:none;background:
-  repeating-linear-gradient(0deg,var(--ink) 0 4px,var(--surface) 4px 8px),
-  repeating-linear-gradient(90deg,var(--ink) 0 4px,var(--surface) 4px 8px);background-blend-mode:multiply}
-.qr b{display:block;font-size:14px}
-.qr span{font-size:12px;color:var(--ink-2)}
+/* the panel picture sits under the cards: a render of the real panel (sample data), framed so it sits on either theme.
+   The frame is a ring, not a border, so the 1080px render shows 1:1 at desktop width. */
+.panel{margin:0;display:flex;flex-direction:column;gap:10px}
+.panel picture{display:block;border-radius:16px;overflow:hidden;box-shadow:0 0 0 1px var(--line-2),var(--shadow)}
+.panel img{display:block;width:100%;height:auto}
+/* captions that say what a picture is: the panel render, the illustrated agent chat */
+.cap{margin:0;font-size:13.5px;line-height:1.5;color:var(--ink-2)}
 
 /* how — four steps */
 .how{padding-block:8px 56px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
@@ -229,6 +223,8 @@ section{padding-block:56px;border-top:1px solid var(--line)}
 .dfm{margin-top:24px;padding:40px;border-radius:20px;background:var(--surface);border:1px solid var(--line)}
 .dfm .grid{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:start}
 .chat{margin-top:18px;border:1px solid var(--line);border-radius:14px;background:var(--surface-2);padding:16px;display:flex;flex-direction:column;gap:10px}
+/* the label stays readable to everyone; only the made-up conversation under it is hidden from screen readers */
+.chat .convo{display:flex;flex-direction:column;gap:10px}
 .chat .ch{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin-bottom:2px}
 .chat .ch i{width:7px;height:7px;border-radius:50%;background:var(--accent)}
 .bub{max-width:80%;padding:11px 14px;border-radius:14px;font-size:14.5px;line-height:1.5}
@@ -392,14 +388,13 @@ footer a{color:var(--ink-2)}
     </div>
   </div>
 
-  <div class="panel" aria-hidden="true">
-    <div class="ph"><span data-i18n="panel.h">Devices</span><span data-i18n="panel.ok">● tunnel healthy</span></div>
-    <div class="dev"><span data-i18n="panel.d1">Mom · iPhone</span><span data-i18n="panel.d1s">online · 1.8 GB today</span></div>
-    <div class="dev"><span data-i18n="panel.d2">Dad · TV</span><span data-i18n="panel.d2s">online · 6.2 GB today</span></div>
-    <div class="dev"><span data-i18n="panel.d3">Laptop</span><span data-i18n="panel.d3s">last seen 2 h ago</span></div>
-    <div class="dev"><span data-i18n="panel.d4">Kitchen tablet</span><span data-i18n="panel.d4s">online · 240 MB today</span></div>
-    <div class="qr"><i></i><div><b data-i18n="panel.new">+ New device</b><span data-i18n="panel.news">Scan with the WireGuard app</span></div></div>
-  </div>
+  <figure class="panel">
+    <picture>
+      <source type="image/webp" srcset="panel.webp 2x">
+      <img src="panel.png" width="1080" height="675" loading="lazy" decoding="async" alt="The Burrow panel: clients, traffic per device, a New client button">
+    </picture>
+    <figcaption class="cap" data-i18n="panel.cap">The real panel. Its buttons are in Russian for now; the handout translates every one.</figcaption>
+  </figure>
 </section>
 
 <!-- 2 · how it works -->
@@ -502,11 +497,14 @@ footer a{color:var(--ink-2)}
     <p class="back" data-i18n="cmp.back">Prices, what's included and the buttons: <a href="#paths">see the two cards at the top</a></p>
 
     <div class="detail">
-      <div class="chat" aria-hidden="true">
-        <div class="ch"><i></i><span data-i18n="ag.chat.h">Burrow · agent</span></div>
-        <div class="bub a" data-i18n="ag.chat.b1">Which provider did you pick? I'll take it from there.</div>
-        <div class="bub u" data-i18n="ag.chat.b2">DigitalOcean</div>
-        <div class="bub a" data-i18n="ag.chat.b3">Good. Invite me to your team (I'll point at the exact button), then say done.</div>
+      <div class="chat">
+        <p class="cap" data-i18n="ag.chat.illus">Illustration — the agent opens in November</p>
+        <div class="convo" aria-hidden="true">
+          <div class="ch"><i></i><span data-i18n="ag.chat.h">Burrow · agent</span></div>
+          <div class="bub a" data-i18n="ag.chat.b1">Which provider did you pick? I'll take it from there.</div>
+          <div class="bub u" data-i18n="ag.chat.b2">DigitalOcean</div>
+          <div class="bub a" data-i18n="ag.chat.b3">Good. Invite me to your team (I'll point at the exact button), then say done.</div>
+        </div>
       </div>
       <div class="notes">
         <p class="sub" id="check" data-i18n="price.verify">Verification runs on the server and from outside it: services up, the config valid, a real certificate on your domain, the panel, and on the two-server layout traffic through the tunnel — <a href="https://github.com/antongavrilov88/burrow-skill/blob/main/scripts/payload/common/verify.sh" target="_blank" rel="noopener">this is the script, and you can re-run it yourself any time</a>.</p>

@@ -2,16 +2,16 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26"><path d="M2 20c0-7 5-13 11-13s11 6 11 13H2z" fill="none" stroke="%23F2B84B" stroke-width="2"/><path d="M8 20c0-3.5 2.2-6.5 5-6.5s5 3 5 6.5" fill="%23F2B84B"/><path d="M1 20h24" stroke="%23F2B84B" stroke-width="2" stroke-linecap="round"/></svg>'>
 <title>Burrow — your own VPN, on your own server</title>
-<meta name="description" content="Burrow — a free Claude skill that turns a $6 server you rent into a personal VPN. Your server, your keys, no company in the middle. Your own IP, not a shared one.">
+<meta name="description" content="Burrow — a free Claude skill that turns a $6 server you rent into a personal VPN. Your server, your keys, no VPN company in the middle. Your own IP, not a shared one.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://antongavrilov88.github.io/burrow/">
 <meta property="og:title" content="Your own VPN. On a $6 server that is yours, not a company's.">
-<meta property="og:description" content="Burrow — a free Claude skill that turns a $6 server you rent into a personal VPN. Your server, your keys, no company in the middle. Your own IP, not a shared one.">
+<meta property="og:description" content="Burrow — a free Claude skill that turns a $6 server you rent into a personal VPN. Your server, your keys, no VPN company in the middle. Your own IP, not a shared one.">
 <meta property="og:image" content="https://antongavrilov88.github.io/burrow/og.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Your own VPN. On a $6 server that is yours, not a company's.">
-<meta name="twitter:description" content="Burrow — a free Claude skill that turns a $6 server you rent into a personal VPN. Your server, your keys, no company in the middle. Your own IP, not a shared one.">
+<meta name="twitter:description" content="Burrow — a free Claude skill that turns a $6 server you rent into a personal VPN. Your server, your keys, no VPN company in the middle. Your own IP, not a shared one.">
 <meta name="twitter:image" content="https://antongavrilov88.github.io/burrow/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -148,6 +148,10 @@ html{scroll-padding-top:84px}
 .path .more summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
 .path .more p{margin:10px 0 6px;font-size:13px;color:var(--ink-2)}
 .path .more .cmdrow+.cmdrow{margin-top:6px}
+/* send this page to yourself: phones only (shown in the <=760 block), since the commands above need a computer */
+.sendself{display:none}
+.sendself p{margin:0;font-size:14.5px;line-height:1.5;color:var(--ink)}
+.sendself .btn{width:100%}
 .sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .soon{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.04em;text-transform:none;padding:2px 8px;border-radius:999px;border:1px solid var(--line-2);color:var(--ink-2)}
 
@@ -277,6 +281,7 @@ footer a{color:var(--ink-2)}
   .path,.path.free,.path.paid{grid-row:auto;grid-column:auto;display:flex;flex-direction:column;gap:10px;padding:18px}
   .path.free{padding:17px}
   .path .amt{font-size:32px}
+  .sendself{display:flex;flex-direction:column;gap:10px;padding:16px 18px;border:1px dashed var(--line-2);border-radius:16px}
   .cmp{grid-template-rows:none;gap:14px}
   .col{grid-row:auto;display:flex;flex-direction:column}
   .rows{display:flex;flex-direction:column}
@@ -386,6 +391,12 @@ footer a{color:var(--ink-2)}
       </div>
       <a class="btn primary" href="https://github.com/antongavrilov88/burrow-skill" target="_blank" rel="noopener"><span data-i18n="hero.btn1">Get the free skill</span> <small>GitHub</small></a>
     </div>
+    <!-- phones only: the commands above cannot run here, so offer to send the page on to a computer -->
+    <div class="sendself" id="sendself">
+      <p data-i18n="send.p">Claude Code runs on a computer.</p>
+      <button class="btn ghost" type="button" id="send-btn"><span data-i18n="send.btn">Send this page to yourself</span></button>
+      <code class="cmd" id="send-url" hidden></code>
+    </div>
   </div>
 
   <figure class="panel">
@@ -450,16 +461,16 @@ footer a{color:var(--ink-2)}
       <div class="eyebrow" data-i18n="why.eyebrow">Why your own server</div>
       <h2 data-i18n="why.h2">Every VPN you've been sold is someone else's server. This one is yours.</h2>
       <div class="prose">
-        <p data-i18n="why.p1">Commercial VPNs share an IP among thousands of strangers, so you inherit their reputation: banks, shops and streaming services flag the address as "VPN" and you get captchas, refused logins and toggling the app on and off. That's the shape of the business. Your own server gets rid of the strangers, but it still sits in a data centre, and some services flag that too.</p>
-        <p data-i18n="why.p2">A server of your own is one IP, used by the people you know. Nobody in the middle sees your traffic, nobody can sell it, and nobody can change the terms. And it costs what a server costs — about $6 a month — not $6 a month per person.</p>
+        <p data-i18n="why.p1">Most commercial VPNs put many customers on one address, so you inherit their reputation: banks, shops and streaming services flag the address as "VPN" and you get captchas, refused logins and toggling the app on and off. That's the shape of the business. Your own server gets rid of the strangers, but it still sits in a data centre, and some services flag that too.</p>
+        <p data-i18n="why.p2">A server of your own is one IP, used by the people you know. No VPN company sits in the middle, and Burrow logs nothing about what you open. And it costs what a server costs — about $6 a month — not $6 a month per person.</p>
         <p id="limit" data-i18n="why.p3">One honest limit: some carrier and corporate networks restrict VPN traffic altogether, and no setup on your side changes that. Burrow tells you when the network, not the setup, is the problem.</p>
       </div>
     </div>
     <div class="claims">
       <div class="claim"><b data-i18n="why.k1">Your own address</b><span data-i18n="why.v1">Used by the people you added, not by thousands of strangers. On the default one-server layout everything leaves from it, and it is a data-centre address: some banks still challenge those. <i>On the two-server layout, apps that refuse VPN connections leave from the home-country relay and keep working.</i></span></div>
-      <div class="claim"><b data-i18n="why.k2">Private</b><span data-i18n="why.v2">Your own server, so nobody sees your traffic. Access logs and DNS logging are off. What is kept is bytes and last-seen per device, plus a 14-day history so the panel can draw a graph — all of it on your server. You will see that a phone used 2 GB; nobody sees what it opened, because that is never recorded. <a href="https://github.com/antongavrilov88/burrow-skill/blob/main/README.md#privacy-stated-plainly" target="_blank" rel="noopener">Privacy, stated plainly</a>.</span></div>
-      <div class="claim"><b data-i18n="why.k3">Fast</b><span data-i18n="why.v3">No shared bandwidth and no queue of strangers on the same address: the server's whole pipe belongs to the handful of devices you added.</span></div>
-      <div class="claim"><b data-i18n="why.k4">Whose machine</b><span data-i18n="why.v4">Nothing of yours runs on my machines. The server is rented in your name, billed to your card, at a host you pick — and Burrow runs no servers at all, so there is no account to close.</span></div>
+      <div class="claim"><b data-i18n="why.k2">Private</b><span data-i18n="why.v2">Burrow records nothing about what you open: no access logs, no DNS log. Your server keeps bytes per device for 14 days and when each was last seen. You will see that a phone used 2&nbsp;GB, not what it opened. Your host sees your server talk to the internet, like any server; look-ups go to Cloudflare's public DNS. <a href="https://github.com/antongavrilov88/burrow-skill/blob/main/README.md#privacy-stated-plainly" target="_blank" rel="noopener">Privacy, stated plainly</a>.</span></div>
+      <div class="claim"><b data-i18n="why.k3">Room to spare</b><span data-i18n="why.v3">No strangers on your address. A $6 server moves about a gigabit per second and 1 TB a month: 10–15 everyday devices, or 4–5 people streaming HD. The $12 one doubles the traffic.</span></div>
+      <div class="claim"><b data-i18n="why.k4">Whose machine</b><span data-i18n="why.v4">Nothing of yours runs on my machines. The server is rented in your name, billed to your card, at a host you pick. Burrow runs no VPN servers, so your traffic never touches mine. The paid agent has access only during setup, until you remove the invite.</span></div>
     </div>
   </div>
 </section>
@@ -619,6 +630,39 @@ footer a{color:var(--ink-2)}
       else fallback();
     });
   });
+
+  /* ---------- send this page to yourself (phones): the share sheet, else copy the link.
+     Only the page address leaves the page, and only where the visitor sends it ---------- */
+  var sendBtn = document.getElementById('send-btn'), sendUrl = document.getElementById('send-url');
+  if(sendBtn){
+    var sendLabel = sendBtn.querySelector('span');
+    var announce = function(msg){ copyStatus.textContent = ''; setTimeout(function(){ copyStatus.textContent = msg; }, 50); };
+    var linkCopied = function(){
+      announce('Link copied');
+      if(!sendBtn._t) sendLabel.dataset.label = sendLabel.textContent;
+      sendLabel.textContent = 'Link copied';
+      clearTimeout(sendBtn._t);
+      sendBtn._t = setTimeout(function(){ sendLabel.textContent = sendLabel.dataset.label; sendBtn._t = null; }, 2000);
+    };
+    var copyLink = function(url){
+      var fallback = function(){
+        sendUrl.textContent = url; sendUrl.hidden = false; selectText(sendUrl);
+        var ok = false; try{ ok = document.execCommand('copy'); }catch(e){}
+        if(ok){ sendUrl.hidden = true; linkCopied(); }
+        else announce('Select and copy the link: ' + url);
+      };
+      if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(url).then(linkCopied, fallback); }
+      else fallback();
+    };
+    sendBtn.addEventListener('click', function(){
+      var url = location.protocol + '//' + location.host + location.pathname + '#free';
+      if(!navigator.share) return copyLink(url);
+      var shared;
+      try{ shared = navigator.share({ title: document.title, text: 'Burrow — set it up from a computer', url: url }); }catch(e){ return copyLink(url); }
+      /* cancelling the share sheet is an AbortError: say nothing */
+      Promise.resolve(shared).catch(function(err){ if(!err || err.name !== 'AbortError') copyLink(url); });
+    });
+  }
 
   /* ---------- photo: drop docs/anton.jpg in and it replaces the initials ---------- */
   var photo = document.getElementById('photo');

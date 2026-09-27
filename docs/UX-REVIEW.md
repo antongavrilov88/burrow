@@ -11,7 +11,7 @@ from axe-core 4.10 (WCAG 2 A + AA) run against both themes; contrast ratios were
 computed directly from the token values.
 
 `product-discovery` is a PRD-authoring skill and its own guidance warns against
-"PRD theater" — Burrow is already specified, so its **method** was used as the
+"PRD theater" — Homeport is already specified, so its **method** was used as the
 persona lens rather than its output format. No PRD was generated.
 
 ---
@@ -98,7 +98,7 @@ section that asks for a card, and the comparison's "add your card" row links int
 it. No change.
 
 **Finding UX-5 (M, accepted not fixed).** How-it-works step 2 and the comparison's
-"What Burrow does" row now describe the same work twice, ~1.5 screens apart. This
+"What Homeport does" row now describe the same work twice, ~1.5 screens apart. This
 is deliberate — the brief asks for the split to be repeated at the decision point,
 and repetition at a decision point is not redundancy. Flagged so it is a choice,
 not an accident. If the page is ever trimmed, step 2 is the one to cut.
@@ -170,7 +170,7 @@ Read aloud, flagging anything a non-native reader would stumble over.
   first explanation: *WireGuard* (first seen in the panel mockup, which is
   `aria-hidden` decoration), *DNS* (hero fine print, in a context that explains
   itself — "a DNS wait"), *watchdog* and *certificates* (step 2, see UX-5).
-- **"Burrow runs no servers at all"** — deliberately absolute, and true. Kept.
+- **"Homeport runs no servers at all"** — deliberately absolute, and true. Kept.
 - **"None to give — you paid nothing"** in the free column's Guarantee row reads
   as a shrug rather than a gap, which is the intent.
 - No sentence exceeds two clauses in the hero or the comparison headers.
@@ -293,7 +293,7 @@ deployed URL, mobile, simulated throttling:
 | Render-blocking resources | none |
 | Console errors | none |
 
-Taken against `https://antongavrilov88.github.io/burrow/` on 24 Sep 2026, after
+Taken against `https://antongavrilov88.github.io/homeport/` on 24 Sep 2026, after
 deploy. Re-take on the deployed URL after any change to `docs/`; localhost numbers
 are for tuning, not for the budget.
 

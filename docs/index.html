@@ -77,6 +77,12 @@ html{scroll-padding-top:84px}
 .nav{display:flex;gap:22px;font-size:14px;font-weight:600;color:var(--ink-2);margin-right:14px}
 .nav a{color:inherit;text-decoration:none}
 .nav a:hover{color:var(--ink)}
+/* below 1040 px the full nav is hidden; this compact row inside the sticky bar keeps the three key jumps reachable */
+.jump{display:none}
+.jump a{display:inline-flex;align-items:center;min-height:44px;padding-inline:12px;font-size:14px;font-weight:600;color:var(--ink-2);text-decoration:none}
+.jump a:hover{color:var(--ink)}
+.jump a:focus-visible{outline-offset:-2px}
+.jump span{color:var(--mute)}
 .langwrap{position:relative;display:flex;align-items:center}
 .langwrap svg{position:absolute;left:10px;width:16px;height:16px;color:var(--mute);pointer-events:none}
 .lang{appearance:none;-webkit-appearance:none;font:600 13px var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line-2);border-radius:8px;padding:8px 30px 8px 32px;cursor:pointer;min-height:44px}
@@ -197,6 +203,15 @@ html{scroll-padding-top:84px}
 .panel{margin:0;display:flex;flex-direction:column;gap:10px}
 .panel picture{display:block;border-radius:16px;overflow:hidden;box-shadow:0 0 0 1px var(--line-2),var(--shadow)}
 .panel img{display:block;width:100%;height:auto}
+/* two renders, one per theme; they switch on the same rule as the tokens above (system, unless the toggle set data-theme).
+   The hidden one is display:none, so it stays out of the accessibility tree and, being lazy, is never fetched. */
+.panel .pic-dark{display:none}
+:root[data-theme="dark"] .panel .pic-light{display:none}
+:root[data-theme="dark"] .panel .pic-dark{display:block}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .panel .pic-light{display:none}
+  :root:not([data-theme="light"]) .panel .pic-dark{display:block}
+}
 /* captions that say what a picture is: the panel render, the illustrated agent chat */
 .cap{margin:0;font-size:13.5px;line-height:1.5;color:var(--ink-2)}
 
@@ -265,6 +280,9 @@ footer a{color:var(--ink-2)}
   .why,.who{gap:32px}
   .how{grid-template-columns:repeat(2,1fr)}
   .nav{display:none}
+  .jump{display:flex;align-items:center;padding-inline:8px;margin-top:-6px}
+  /* the jump row makes the bar 38 px taller here, so anchor jumps and focus still clear it */
+  html{scroll-padding-top:128px}
   /* comparison: the label sits above its value, so the value gets the full column width */
   .rows>div{grid-template-columns:1fr;gap:2px}
 }
@@ -304,7 +322,7 @@ footer a{color:var(--ink-2)}
   section{padding-block:40px}
   h1{font-size:clamp(34px,9vw,44px)}
   .top{padding-block:10px}
-  html{scroll-padding-top:72px}
+  html{scroll-padding-top:116px}
 }
 </style>
 <!-- saved theme before first paint, so a stored choice never flashes the system theme first -->
@@ -335,7 +353,12 @@ footer a{color:var(--ink-2)}
       <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
     </button>
   </div>
-</header></div>
+</header>
+<nav class="wrap jump" aria-label="Jump to">
+  <a href="#free" data-i18n="jump.free">Free</a><span aria-hidden="true">·</span>
+  <a href="#paid" data-i18n="jump.paid">$29</a><span aria-hidden="true">·</span>
+  <a href="#card" data-i18n="jump.card">Card?</a>
+</nav></div>
 
 <main id="top">
 
@@ -407,9 +430,13 @@ footer a{color:var(--ink-2)}
   </div>
 
   <figure class="panel">
-    <picture>
+    <picture class="pic-light">
       <source type="image/webp" srcset="panel.webp 2x">
       <img src="panel.png" width="1080" height="675" loading="lazy" decoding="async" alt="The Burrow panel: clients, traffic per device, a New client button">
+    </picture>
+    <picture class="pic-dark">
+      <source type="image/webp" srcset="panel-dark.webp 2x">
+      <img src="panel-dark.png" width="1080" height="675" loading="lazy" decoding="async" alt="The Burrow panel: clients, traffic per device, a New client button">
     </picture>
     <figcaption class="cap" data-i18n="panel.cap">The real panel. Its buttons are in Russian for now; the handout translates every one.</figcaption>
   </figure>

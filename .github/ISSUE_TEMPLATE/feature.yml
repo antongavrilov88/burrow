@@ -1,12 +1,12 @@
 name: Feature / improvement
-description: Something the skill should do or do better
+description: Something the website should do or do better. Ideas for the skill go to homeport-skill.
 labels: [enhancement]
 body:
   - type: textarea
     id: problem
     attributes:
       label: The situation
-      description: Who gets stuck, where, and what they'd need instead.
+      description: Who gets stuck on the page, where, and what they'd need instead.
     validations: { required: true }
   - type: textarea
     id: proposal

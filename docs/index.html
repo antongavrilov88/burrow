@@ -2,16 +2,16 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26"><path d="M2 20c0-7 5-13 11-13s11 6 11 13H2z" fill="none" stroke="%23F2B84B" stroke-width="2"/><path d="M8 20c0-3.5 2.2-6.5 5-6.5s5 3 5 6.5" fill="%23F2B84B"/><path d="M1 20h24" stroke="%23F2B84B" stroke-width="2" stroke-linecap="round"/></svg>'>
 <title>Homeport — your own VPN, on your own server</title>
-<meta name="description" content="Homeport — a free Claude skill that turns a $6 server you rent into a personal VPN. Your server, your keys, no VPN company in the middle. Your own IP, not a shared one.">
+<meta name="description" content="Homeport — a free Claude skill that turns a small server you rent into a personal VPN. Your server, your keys, no VPN company in the middle. Your own IP, not a shared one.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://antongavrilov88.github.io/homeport/">
-<meta property="og:title" content="Your own VPN. On a $6 server that is yours, not a company's.">
-<meta property="og:description" content="Homeport — a free Claude skill that turns a $6 server you rent into a personal VPN. Your server, your keys, no VPN company in the middle. Your own IP, not a shared one.">
+<meta property="og:title" content="Your own VPN. On a server that is yours, not a company's.">
+<meta property="og:description" content="Homeport — a free Claude skill that turns a small server you rent into a personal VPN. Your server, your keys, no VPN company in the middle. Your own IP, not a shared one.">
 <meta property="og:image" content="https://antongavrilov88.github.io/homeport/og.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Your own VPN. On a $6 server that is yours, not a company's.">
-<meta name="twitter:description" content="Homeport — a free Claude skill that turns a $6 server you rent into a personal VPN. Your server, your keys, no VPN company in the middle. Your own IP, not a shared one.">
+<meta name="twitter:title" content="Your own VPN. On a server that is yours, not a company's.">
+<meta name="twitter:description" content="Homeport — a free Claude skill that turns a small server you rent into a personal VPN. Your server, your keys, no VPN company in the middle. Your own IP, not a shared one.">
 <meta name="twitter:image" content="https://antongavrilov88.github.io/homeport/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -97,7 +97,7 @@ html{scroll-padding-top:84px}
   :root:not([data-theme="light"]) .theme .moon{display:block}
 }
 
-/* hero: a short intro, then the two decision cards, then the panel picture */
+/* hero: a short intro, then the two decision cards */
 .hero{padding-block:16px 26px;display:flex;flex-direction:column;gap:16px}
 .intro{display:grid;grid-template-columns:1.15fr .85fr;gap:12px 44px;align-items:end}
 .hero h1{font-size:clamp(34px,3.6vw,46px)}
@@ -198,21 +198,7 @@ html{scroll-padding-top:84px}
 .rows dt{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);padding-top:3px}
 .rows dd{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.5}
 .back{margin:14px 0 0;font-size:14px;font-weight:600}
-/* the panel picture sits under the cards: a render of the real panel (sample data), framed so it sits on either theme.
-   The frame is a ring, not a border, so the 1080px render shows 1:1 at desktop width. */
-.panel{margin:0;display:flex;flex-direction:column;gap:10px}
-.panel picture{display:block;border-radius:16px;overflow:hidden;box-shadow:0 0 0 1px var(--line-2),var(--shadow)}
-.panel img{display:block;width:100%;height:auto}
-/* two renders, one per theme; they switch on the same rule as the tokens above (system, unless the toggle set data-theme).
-   The hidden one is display:none, so it stays out of the accessibility tree and, being lazy, is never fetched. */
-.panel .pic-dark{display:none}
-:root[data-theme="dark"] .panel .pic-light{display:none}
-:root[data-theme="dark"] .panel .pic-dark{display:block}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]) .panel .pic-light{display:none}
-  :root:not([data-theme="light"]) .panel .pic-dark{display:block}
-}
-/* captions that say what a picture is: the panel render, the illustrated agent chat */
+/* captions that say what a picture is: the illustrated agent chat */
 .cap{margin:0;font-size:13.5px;line-height:1.5;color:var(--ink-2)}
 
 /* how — four steps */
@@ -295,7 +281,7 @@ footer a{color:var(--ink-2)}
   .claim{grid-template-columns:1fr;gap:4px}
   .dfm{padding:22px 16px}
   .bub{max-width:92%}
-  .panel,.chat{display:none}
+  .chat{display:none}
   .top{padding-block:10px}
   .copy{min-height:44px}
   /* stacked cards share no rows, so they go back to a plain column */
@@ -367,10 +353,10 @@ footer a{color:var(--ink-2)}
   <div class="intro">
     <div>
       <span class="pill"><i></i><span data-i18n="hero.pill">Free &amp; open source · MIT</span></span>
-      <h1 data-i18n="hero.h1">Your own VPN. On a $6 server that is yours, not a company's.</h1>
+      <h1 data-i18n="hero.h1">Your own VPN. On a server that is yours, not a company's.</h1>
     </div>
     <div>
-      <p class="lede" data-i18n="hero.lede">A Claude skill turns a $6 server you rent into a VPN only your people use — your own address, not one shared with thousands of strangers.</p>
+      <p class="lede" data-i18n="hero.lede">A Claude skill turns a server you rent into a VPN only your people use — your own address, not one shared with thousands of strangers.</p>
       <p class="fine" data-i18n="hero.fine">Your clicks + ~10 min of install · new domain: 15 min to a few hours · account review, if any: a few hours</p>
     </div>
   </div>
@@ -398,7 +384,7 @@ footer a{color:var(--ink-2)}
         <div class="amt">$0 <small data-i18n="path.free.amts">for the skill</small></div>
       </div>
       <div class="terms">
-        <p class="cost" data-i18n="path.free.cost">You'll pay your host (~$6/month) and a registrar (~$10/year), and you need a Claude plan that includes Claude Code. No Claude Code? <a href="#paid">The other path is for you.</a> No Homeport account.</p>
+        <p class="cost" data-i18n="path.free.cost">Host: $6/month before tax (DigitalOcean, 27 Sep 2026). Domain: from about $10/year; renewals can cost more. Claude plan with Claude Code. No Claude Code? <a href="#paid">The other path is for you.</a> No Homeport account.</p>
         <dl class="facts">
           <div><dt data-i18n="path.k.you">You</dt><dd data-i18n="path.free.you">a hosting account and card, an access key (revoked later), a domain you buy and point, the WireGuard app per device</dd></div>
         </dl>
@@ -429,17 +415,6 @@ footer a{color:var(--ink-2)}
     </div>
   </div>
 
-  <figure class="panel">
-    <picture class="pic-light">
-      <source type="image/webp" srcset="panel.webp 2x">
-      <img src="panel.png" width="1080" height="675" loading="lazy" decoding="async" alt="The Homeport panel: clients, traffic per device, a New client button">
-    </picture>
-    <picture class="pic-dark">
-      <source type="image/webp" srcset="panel-dark.webp 2x">
-      <img src="panel-dark.png" width="1080" height="675" loading="lazy" decoding="async" alt="The Homeport panel: clients, traffic per device, a New client button">
-    </picture>
-    <figcaption class="cap" data-i18n="panel.cap">The real panel. Its buttons are in Russian for now; the handout translates every one.</figcaption>
-  </figure>
 </section>
 
 <!-- 2 · how it works -->
@@ -447,7 +422,7 @@ footer a{color:var(--ink-2)}
   <div class="card">
     <span class="k" data-i18n="how.k1">You</span>
     <b data-i18n="how.h1">You open an account and buy a domain</b>
-    <p data-i18n="how.p1">A hosting account with your card, an access key for Claude, and a domain (~$10/year) that you point where Claude says. Claude tells you what to click, one step at a time, and why.</p>
+    <p data-i18n="how.p1">A hosting account with your card, an access key for Claude, and a domain (usually from about $10 a year; renewals can cost more) that you point where Claude says. Claude tells you what to click, one step at a time, and why.</p>
     <p class="self" data-i18n="how.note">You revoke the key together at the end. On DigitalOcean, Claude creates the server; on another host, you create it. <a href="https://github.com/antongavrilov88/homeport-skill/blob/main/references/human-steps.md" target="_blank" rel="noopener">Every step you do by hand</a></p>
   </div>
   <div class="card b">
@@ -496,14 +471,14 @@ footer a{color:var(--ink-2)}
       <h2 data-i18n="why.h2">Every VPN you've been sold is someone else's server. This one is yours.</h2>
       <div class="prose">
         <p data-i18n="why.p1">Most commercial VPNs put many customers on one address, so you inherit their reputation: banks, shops and streaming services flag the address as "VPN" and you get captchas, refused logins and toggling the app on and off. That's the shape of the business. Your own server gets rid of the strangers, but it still sits in a data centre, and some services flag that too.</p>
-        <p data-i18n="why.p2">A server of your own is one IP, used by the people you know. No VPN company sits in the middle, and Homeport logs nothing about what you open. And it costs what a server costs — about $6 a month — not $6 a month per person.</p>
+        <p data-i18n="why.p2">A server of your own is one IP, used by the people you know. No VPN company sits in the middle, and Homeport logs nothing about what you open. It costs what one small server costs, shared by everyone you add, not a fee per person.</p>
         <p id="limit" data-i18n="why.p3">One honest limit: some carrier and corporate networks restrict VPN traffic altogether, and no setup on your side changes that. Homeport tells you when the network, not the setup, is the problem.</p>
       </div>
     </div>
     <div class="claims">
       <div class="claim"><b data-i18n="why.k1">Your own address</b><span data-i18n="why.v1">Used by the people you added, not by thousands of strangers. On the default one-server layout everything leaves from it, and it is a data-centre address: some banks still challenge those. <i>On the two-server layout, apps that refuse VPN connections leave from the home-country relay and keep working.</i></span></div>
       <div class="claim"><b data-i18n="why.k2">Private</b><span data-i18n="why.v2">Homeport records nothing about what you open: no access logs, no DNS log. Your server keeps bytes per device for 14 days and when each was last seen. You will see that a phone used 2&nbsp;GB, not what it opened. Your host sees your server talk to the internet, like any server; look-ups go to Cloudflare's public DNS. <a href="https://github.com/antongavrilov88/homeport-skill/blob/main/README.md#privacy-stated-plainly" target="_blank" rel="noopener">Privacy, stated plainly</a>.</span></div>
-      <div class="claim"><b data-i18n="why.k3">Room to spare</b><span data-i18n="why.v3">No strangers on your address. A $6 server moves about a gigabit per second and 1 TB a month: 10–15 everyday devices, or 4–5 people streaming HD. The $12 one doubles the traffic.</span></div>
+      <div class="claim"><b data-i18n="why.k3">Room to spare</b><span data-i18n="why.v3">No strangers on your address. The smallest DigitalOcean size moves about a gigabit per second and 1 TB a month: 10–15 everyday devices, or 4–5 people streaming HD; the next size up doubles the traffic.</span></div>
       <div class="claim"><b data-i18n="why.k4">Whose machine</b><span data-i18n="why.v4">Nothing of yours runs on my machines. The server is rented in your name, billed to your card, at a host you pick. Homeport runs no VPN servers, so your traffic never touches mine. The paid agent has access only during setup, until you remove the invite.</span></div>
     </div>
   </div>
@@ -568,7 +543,7 @@ footer a{color:var(--ink-2)}
     <div class="opt">
       <span class="n">01</span>
       <b data-i18n="card.o1h">Someone else pays for you</b>
-      <p data-i18n="card.o1p">A friend or relative whose card the provider accepts rents the server. About $6 a month. They can keep paying it, or you pay them back.</p>
+      <p data-i18n="card.o1p">A friend or relative whose card the provider accepts rents the server. The host bills them monthly. They can keep paying it, or you pay them back.</p>
     </div>
     <div class="opt">
       <span class="n">02</span>
@@ -598,7 +573,6 @@ footer a{color:var(--ink-2)}
       <p data-i18n="who.p2">The skill is free and stays free; the paid part is only for people who'd rather be walked through it — I don't run servers for anyone, don't hold cards, and don't want your keys.</p>
       <div class="links">
         <a href="https://github.com/antongavrilov88/homeport-skill" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://t.me/bepatientlikeme" target="_blank" rel="noopener" data-i18n="who.tg">Telegram channel (in Russian)</a>
         <a href="https://linkedin.com/in/agavrilov88" target="_blank" rel="noopener">LinkedIn</a>
       </div>
       <div class="sig">— Anton</div>
@@ -612,7 +586,6 @@ footer a{color:var(--ink-2)}
   <span class="fl">
     <a href="https://github.com/antongavrilov88/homeport-skill" target="_blank" rel="noopener">GitHub</a>
     <a href="https://t.me/burrow_vpn_bot" target="_blank" rel="noopener" data-i18n="foot.bot">Telegram — the launch list</a>
-    <a href="https://t.me/bepatientlikeme" target="_blank" rel="noopener" data-i18n="foot.ch">Build notes (Telegram, in Russian)</a>
     <a href="https://linkedin.com/in/agavrilov88" target="_blank" rel="noopener">LinkedIn</a>
   </span>
   <span data-i18n="foot.r">Homeport · MIT · the server is always yours. Not legal advice.</span>

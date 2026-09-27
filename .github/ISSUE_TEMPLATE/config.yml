@@ -1,5 +1,8 @@
 blank_issues_enabled: true
 contact_links:
+  - name: A bug or idea for the skill or an installer
+    url: https://github.com/antongavrilov88/homeport-skill/issues
+    about: The skill, its scripts and installers live in homeport-skill; this repository is only the website.
   - name: Stuck mid-setup? Message me
     url: https://t.me/bepatientlikeme
     about: Faster than an issue for "it broke at step 4" — no logs with secrets in a public tracker.

@@ -1,9 +1,9 @@
-# Burrow — the site
+# Homeport — the site
 
-The landing page for [Burrow](https://github.com/antongavrilov88/burrow-skill), served at
-<https://antongavrilov88.github.io/burrow/> by GitHub Pages from `docs/`.
+The landing page for [Homeport](https://github.com/antongavrilov88/homeport-skill), served at
+<https://antongavrilov88.github.io/homeport/> by GitHub Pages from `docs/`.
 
-**The skill itself lives at [antongavrilov88/burrow-skill](https://github.com/antongavrilov88/burrow-skill).**
+**The skill itself lives at [antongavrilov88/homeport-skill](https://github.com/antongavrilov88/homeport-skill).**
 This repository holds only the website, so that installing the skill does not drag a
 marketing site into `~/.claude/skills/`.
 

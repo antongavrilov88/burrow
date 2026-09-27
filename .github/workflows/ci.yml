@@ -1,4 +1,4 @@
-# Checks for the Burrow site: no secrets, region-neutral wording, no leftover placeholders.
+# Checks for the Homeport site: no secrets, region-neutral wording, no leftover placeholders.
 name: ci
 on:
   pull_request:

@@ -1,7 +1,17 @@
 # Security
 
-Homeport has no backend, no accounts and no telemetry. The only secrets are the ones the skill generates for *your* installation (`params.json`, the WireGuard keys, the REALITY private key), and they live on your machine and your server.
+This repository is the Homeport website: a static page in `docs/`, served by GitHub Pages. It has no backend, no accounts and no analytics; its fonts load from Google Fonts.
 
-**Never commit `params.json` or the `out/` directory** — they are in `.gitignore` for that reason. If you paste a hosting API token into a chat, revoke it when the setup is done; the skill reminds you to.
+## In scope here
 
-To report a vulnerability in the scripts or installers, open a GitHub issue with the label `security`, or message [@bepatientlikeme](https://t.me/bepatientlikeme) if it shouldn't be public yet.
+Anything wrong with the page itself, for example:
+
+- a link that points somewhere broken, hijacked or malicious;
+- a way to inject content or script into the page;
+- anything that leaks visitor data to a third party.
+
+Report these privately: open the **Security** tab of this repository and choose **Report a vulnerability** ([direct link](https://github.com/antongavrilov88/homeport/security/advisories/new)). The report stays between you and the maintainer until an advisory is published. Don't open a public issue for it. Bugs that aren't sensitive go to [issues](https://github.com/antongavrilov88/homeport/issues).
+
+## The skill and the installers
+
+The skill, its scripts and the installers that run on your server live in [homeport-skill](https://github.com/antongavrilov88/homeport-skill). Report their vulnerabilities privately there: [Report a vulnerability in homeport-skill](https://github.com/antongavrilov88/homeport-skill/security/advisories/new). Its [SECURITY.md](https://github.com/antongavrilov88/homeport-skill/blob/main/SECURITY.md) covers the secrets the skill generates and how to keep them out of git.

@@ -1,26 +1,24 @@
 name: Bug
-description: The skill or an installer did something wrong
+description: The website shows something wrong or broken. Bugs in the skill or an installer go to homeport-skill.
 labels: [bug]
 body:
-  - type: dropdown
+  - type: markdown
+    attributes:
+      value: This tracker is for the website only. If the skill or an installer did something wrong, open the issue at https://github.com/antongavrilov88/homeport-skill/issues instead.
+  - type: input
     id: where
     attributes:
-      label: Where
-      options: [Claude Code, Claude desktop app (Cowork), claude.ai web, the installer on the server, the landing page]
+      label: Where on the page
+      placeholder: the free card, the comparison, the header
     validations: { required: true }
-  - type: dropdown
-    id: layout
-    attributes:
-      label: Layout
-      options: [single server, relay + exit, not sure]
   - type: textarea
     id: what
     attributes:
       label: What happened
-      description: What you asked, what Claude or the script did, what you expected. Paste the last ~20 lines of the install log if you have them. Never paste params.json, tokens or keys.
+      description: What you saw and what you expected. A screenshot helps. If a claim about the skill is wrong, say which one and link the code that shows it.
     validations: { required: true }
   - type: input
-    id: provider
+    id: browser
     attributes:
-      label: Hosting provider and OS
-      placeholder: DigitalOcean, Ubuntu 24.04
+      label: Browser, device and theme
+      placeholder: Safari on iPhone, 390 px wide, dark

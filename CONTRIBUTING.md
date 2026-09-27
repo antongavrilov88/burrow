@@ -1,39 +1,47 @@
 # Contributing
 
+This repository is the Homeport website: the landing page in `docs/`, served by GitHub Pages at
+<https://antongavrilov88.github.io/homeport/>. The skill itself — `SKILL.md`, its references, the
+scripts, the installers, the plugin manifests and the releases — lives in
+[antongavrilov88/homeport-skill](https://github.com/antongavrilov88/homeport-skill), with its own
+CONTRIBUTING. Changes to what the skill does, and bugs in it, go there.
+
 ## Branches
 
 | Branch | What it is | Who pushes |
 |---|---|---|
-| `main` | Released code only. Every commit here is a release (or a hotfix that becomes one). Deploys the landing. | merges from `dev` via PR |
-| `dev` | Integration branch. Always installable, may be ahead of the last release. | merges from feature branches via PR |
+| `main` | What the live site shows. A push that touches `docs/` redeploys Pages. Protected: needs a PR and the `check` status. | merges from `dev` via PR |
+| `dev` | Integration branch, may be ahead of `main`. | merges from feature branches via PR |
 | `feat/<name>`, `fix/<name>`, `docs/<name>` | One change each, branched from `dev`. | you |
-| `hotfix/<name>` | Urgent fix branched from `main`; merged to `main` **and** back into `dev`. | you |
 
 ## Release flow
 
-1. Work on `feat/...`, open a PR into `dev`. CI runs syntax checks, a secrets scan and the wording guard.
-2. When `dev` is ready for a release, tag a candidate on it: `git tag v0.2.0-rc.1 && git push --tags`. The release workflow publishes a **pre-release** with `homeport-skill.zip` — test-install that zip in Claude.
-3. Fix on `dev`, tag `-rc.2` if needed.
-4. Open a PR `dev → main`, merge (merge commit, not squash — keep history). Tag `v0.2.0` on `main`, push the tag. The workflow publishes the release; Pages redeploys the landing if `docs/` changed.
-5. Add the version to `CHANGELOG.md` before tagging, and bump `version` in `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json` (CI checks they match).
+1. Branch from `dev` (`feat/…`, `fix/…` or `docs/…`), open a PR into `dev`. CI (`.github/workflows/ci.yml`) runs the secrets scan and the wording guard.
+2. Add a line to `CHANGELOG.md` under `## Unreleased` in the same PR.
+3. To release, open a PR `dev → main`. On a PR into `main` CI also runs the placeholder check (no `{{…}}` left in `README.md`, `SECURITY.md`, `docs/` or the issue templates). Merge it with a merge commit, not a squash — keep history.
+4. The push to `main` runs `.github/workflows/pages.yml`, which deploys `docs/` to <https://antongavrilov88.github.io/homeport/> when `docs/**` changed. Open the live page and check it.
 
-`rc` is a tag, not a branch: with one maintainer a long-lived `release/*` branch adds ceremony without safety. If a second maintainer joins, add `release/x.y` branches then.
+There are no tags, release assets or version numbers in this repository; the changelog stays under `## Unreleased`.
 
-## Versioning
+## Checks on every page change
 
-Semantic. The skill's user-facing behaviour is the API: a change to what the installers put on a server, or to the manual steps a person has to do, is at least a minor bump.
+CI can't see the page, so before you ask for review, check `docs/index.html` in a browser (`cd docs && python3 -m http.server 8765`):
+
+- widths 390, 820 and 1280 px, each in light and dark;
+- the fold: both decision-card buttons above the fold at 1280×800, the paid button at 390×844;
+- axe: 0 violations;
+- no horizontal scroll at any of those widths;
+- every claim the page makes about the skill, and every deep link into it, checked against `antongavrilov88/homeport-skill` on `main`. No CI check spans the two repositories.
+
+`docs/UX-REVIEW.md` records the personas (§1) and the performance budget (§8) the page is held to.
 
 ## Commit messages
 
-`type(scope): summary` — types `feat`, `fix`, `docs`, `chore`, `refactor`, `ci`. Scope is `skill`, `installer`, `landing`, `repo`.
-
-## Language and wording
-
-`SKILL.md` and `references/*.md` are English instructions. Everything said to the person lives in `references/lang/<xx>.md`; the Russian file and the Russian handout are wording tested with real families — change them only after testing the new wording on a real person, and say so in the PR. New languages: translate `lang/en.md` and `lang/handout-en.md`, keep the section numbers. `skills/homeport/SKILL.md` is generated from the root `SKILL.md` frontmatter; if you change the description, regenerate it (CI fails otherwise).
+`type(scope): summary` — types `feat`, `fix`, `docs`, `chore`, `refactor`, `ci`. Scope is `landing` (the page in `docs/`) or `repo` (everything else: docs, templates, CI).
 
 ## Wording rules
 
-Homeport is a world-wide product. The public surface — `SKILL.md`, `references/`, `scripts/` comments and printed strings, `README.md`, `CHANGELOG.md`, this file, `SECURITY.md`, `.github/`, `docs/` — names no country as the reason the product exists. CI runs `.github/wording-guard.sh` on every PR and fails on any of the terms below, case-insensitive, in Latin and Cyrillic.
+Homeport is a world-wide product. The public surface of this repository — `docs/`, `README.md`, `CHANGELOG.md`, this file, `SECURITY.md`, `.github/` — names no country as the reason the product exists. CI runs `.github/wording-guard.sh` on every PR and fails on any of the terms below, case-insensitive, in Latin and Cyrillic.
 
 **Banned:** `RKN`, `Roskomnadzor` / `Роскомнадзор`, `Sberbank` / `Сбер` / `Сбербанк`, `обход блокировок`, `белые списки` / `белый список`, `whitelist` / `whitelists` (when it means a carrier's allow-list in one country), `Russian sites`, `works in Russia`, `in Russia`, `VPN for Russians`, `Russian` + exit / bank / IP / address / card / hosting / provider / law / carrier / network / user / household, `Россия` / `в России` / `российский` / `РФ`.
 
@@ -52,7 +60,3 @@ Homeport is a world-wide product. The public surface — `SKILL.md`, `references
 The Telegram bot link `t.me/burrow_vpn_bot` is allowed until #85 decides the bot; the allowed strings are listed in `.github/wording-guard.sh`.
 
 What stays allowed: the *language* sense — "the panel is in Russian", `lang/ru.md`, `handout-ru.md` — because the server-side UI has a language and it has to be named. Provider files describe signup facts neutrally ("cards issued in some sanctioned countries are refused"), never by naming the country the user is in. Script logic and server paths (`/opt/vpn-kit`) are out of scope of the guard and of this section.
-
-## Rules the skill itself follows (keep them when you change it)
-
-The list under "Hard rules" in `README.md`. A PR that weakens one of them needs a written reason.

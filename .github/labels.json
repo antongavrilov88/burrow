@@ -1,9 +1,7 @@
 [
   {"name": "bug",          "color": "d73a4a", "description": "Something is broken"},
   {"name": "enhancement",  "color": "a2eeef", "description": "New behaviour or an improvement"},
-  {"name": "docs",         "color": "0075ca", "description": "README, references, handout"},
-  {"name": "area:skill",   "color": "5319e7", "description": "SKILL.md and references — how Claude runs the setup"},
-  {"name": "area:installer","color": "1d76db", "description": "setup-*.sh and the payload on the server"},
+  {"name": "docs",         "color": "0075ca", "description": "README, CONTRIBUTING, SECURITY and other repo docs"},
   {"name": "area:landing", "color": "0e8a16", "description": "The website"},
   {"name": "area:provider","color": "fbca04", "description": "Hosting providers (DigitalOcean, Hetzner, …)"},
   {"name": "area:i18n",    "color": "c5def5", "description": "Translations"},

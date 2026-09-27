@@ -1,7 +1,8 @@
 # Spec: rename Burrow → Homeport (repos, site URL, skill, plugin)
 
 - **Issues:** #83 (repos and site URL), #84 (skill name, install paths, plugin, upgrade note). Part of epic #88.
-- **Status:** draft for Anton's approval. Written by the team lead from Anton's decisions of 26 Sep 2026 (#88 comment) plus the facts below.
+- **Status:** approved by Anton on 27 Sep 2026, with §3 decided as "no redirect" (see §3). The name gate is lifted: Anton confirmed the name is clear.
+- **Original status:** draft for Anton's approval. Written by the team lead from Anton's decisions of 26 Sep 2026 (#88 comment) plus the facts below.
 - **Gate (from #88):** nothing in this spec runs until Anton confirms the name is clear to use. Before that, only this spec and branches.
 
 ## 1. Decisions already made (Anton, 26 Sep 2026)
@@ -24,6 +25,9 @@ Source: [Renaming a repository](https://docs.github.com/en/repositories/creating
 The last point rules out the obvious stub: a new repo called `burrow` would keep the old *site* alive, but it would break every `github.com/antongavrilov88/burrow…` link. That includes issue links, cross-references in the other repo, and the git remote of every existing clone.
 
 ## 3. Keeping `…github.io/burrow/` alive without reusing the name
+
+> **Decision (Anton, 27 Sep 2026): no redirect.** `…github.io/burrow/` was only a temporary address, so it is allowed to stop working. No user site and no stub repo. The one hard rule stays: **never create a new repo named `burrow` or `burrow-skill`**, because that would break GitHub's rename redirects. The analysis below is kept for the record.
+
 
 **Proposed (needs approval): a user site that serves `/burrow/`.**
 
@@ -116,8 +120,8 @@ The last point rules out the obvious stub: a new repo called `burrow` would keep
 
 | Step | Action | Who | Check |
 |---|---|---|---|
-| R1 | Create `antongavrilov88.github.io` with a throwaway `probe/index.html`; confirm `https://antongavrilov88.github.io/probe/` serves it | lead | `curl -I` → 200 |
-| R2 | Add `burrow/` (redirect `index.html`, `og.png`) and the root `404.html` to the user site; push | lead | While the project still exists, `/burrow/` still shows the project: confirms the project wins |
+| R1 | ~~Create `antongavrilov88.github.io`~~ *(dropped: no redirect)* with a throwaway `probe/index.html`; confirm `https://antongavrilov88.github.io/probe/` serves it | lead | `curl -I` → 200 |
+| R2 | ~~Add `burrow/`~~ *(dropped: no redirect)* (redirect `index.html`, `og.png`) and the root `404.html` to the user site; push | lead | While the project still exists, `/burrow/` still shows the project: confirms the project wins |
 | R3 | Merge the #84 PR (skill rename inside the repo) to `homeport-skill`'s `dev`. Build and verify it on a branch first | lead | burrow-skill CI green under the new names |
 | R4 | **Rename repos**: `burrow-skill` → `homeport-skill`, then `burrow` → `homeport` (Settings → Rename, or `gh repo rename`) | Anton, or the lead with Anton's go | `git ls-remote` on both old URLs still works |
 | R5 | Re-run the Pages deploy on `homeport` | lead | `…/homeport/` → 200; `…/burrow/` → redirect; `…/burrow/og.png` → 200; `…/burrow/#free` → `…/homeport/#free` |
@@ -136,6 +140,6 @@ The last point rules out the obvious stub: a new repo called `burrow` would keep
 
 ## 8. Approval
 
-- [ ] Anton approves §3 (user-site redirect instead of a stub repo named `burrow`), or picks fallback (i) or (ii).
-- [ ] Anton approves §4 names, paths and the upgrade note.
-- [ ] Anton confirms the name is clear, which lifts the gate. Until then, only R1 (harmless probe) may run.
+- [x] §3: no redirect. The old URL is temporary (Anton, 27 Sep).
+- [x] §4 approved (Anton, 27 Sep: "do the rest").
+- [x] Name is clear (Anton, 27 Sep): gate lifted.

@@ -56,6 +56,10 @@ Homeport is a world-wide product. The public surface of this repository — `doc
 | local sites stay reachable, foreign sites are unavailable | internet works without обход блокировок |
 | your network restricts direct foreign connections or only allows listed IP ranges | the one and only reason to choose the `relay` profile |
 
+The Cyrillic terms are matched as stems: every case form fails, not only the dictionary form (`обхода блокировок`, `белых списков`, `Сбером`, `Россией`), while unrelated words such as `сбережения` pass.
+
+**Circumvention framing** is banned as well, case-insensitive, by the guard's second check: `bypass(es|ing)? (the )?(block|censor|filter)`, `evad(e|es|ing) (block|censor|detect|filter)`, `circumvent`, `get around (the )?block`, `when (it'?s |you'?re )?blocked`, `unblock`, `keeps? working when`. The patterns are narrow on purpose, so "bypassing the relay" and "apps that refuse VPN connections keep working" pass. Say instead: "carrier-restricted networks", "local sites stay reachable, foreign sites are unavailable", "networks that detect or slow down plain WireGuard", "the tunnel is down".
+
 **The name is Homeport**, one word, only the H capitalised. The old name `Burrow` fails the same guard, as a whole word in any case, everywhere except `CHANGELOG.md` (history), the rename record `docs/superpowers/specs/2026-09-26-homeport-rename.md` and the guard itself.
 The Telegram bot link `t.me/burrow_vpn_bot` is allowed until #85 decides the bot; the allowed strings are listed in `.github/wording-guard.sh`.
 

@@ -2,16 +2,16 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26"><path d="M2 20c0-7 5-13 11-13s11 6 11 13H2z" fill="none" stroke="%23F2B84B" stroke-width="2"/><path d="M8 20c0-3.5 2.2-6.5 5-6.5s5 3 5 6.5" fill="%23F2B84B"/><path d="M1 20h24" stroke="%23F2B84B" stroke-width="2" stroke-linecap="round"/></svg>'>
 <title>Homeport — your own VPN, on your own server</title>
-<meta name="description" content="Homeport — a free Claude skill that turns a small server you rent into a personal VPN. Your server, your keys, no VPN company in the middle. Your own IP, not a shared one.">
+<meta name="description" content="Homeport — a free, open-source skill for AI coding agents that turns a small server you rent into a personal VPN. Your server, your keys, no VPN company in the middle. Your own IP, not a shared one.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://antongavrilov88.github.io/homeport/">
 <meta property="og:title" content="Your own VPN. On a server that is yours, not a company's.">
-<meta property="og:description" content="Homeport — a free Claude skill that turns a small server you rent into a personal VPN. Your server, your keys, no VPN company in the middle. Your own IP, not a shared one.">
+<meta property="og:description" content="Homeport — a free, open-source skill for AI coding agents that turns a small server you rent into a personal VPN. Your server, your keys, no VPN company in the middle. Your own IP, not a shared one.">
 <meta property="og:image" content="https://antongavrilov88.github.io/homeport/og.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Your own VPN. On a server that is yours, not a company's.">
-<meta name="twitter:description" content="Homeport — a free Claude skill that turns a small server you rent into a personal VPN. Your server, your keys, no VPN company in the middle. Your own IP, not a shared one.">
+<meta name="twitter:description" content="Homeport — a free, open-source skill for AI coding agents that turns a small server you rent into a personal VPN. Your server, your keys, no VPN company in the middle. Your own IP, not a shared one.">
 <meta name="twitter:image" content="https://antongavrilov88.github.io/homeport/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -97,7 +97,7 @@ html{scroll-padding-top:84px}
   :root:not([data-theme="light"]) .theme .moon{display:block}
 }
 
-/* hero: a short intro, then the two decision cards */
+/* hero: a short intro, then the two decision cards, then the panel picture */
 .hero{padding-block:16px 26px;display:flex;flex-direction:column;gap:16px}
 .intro{display:grid;grid-template-columns:1.15fr .85fr;gap:12px 44px;align-items:end}
 .hero h1{font-size:clamp(34px,3.6vw,46px)}
@@ -147,13 +147,25 @@ html{scroll-padding-top:84px}
 @media (hover:hover){.copy:hover{border-color:var(--ink)}}
 .copy.done{color:var(--accent-ink);border-color:var(--accent)}
 .path .more{font-size:13px;color:var(--ink-2);line-height:1.45}
-.path .more summary{cursor:pointer;display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:700;color:var(--accent-ink);list-style:none}
+.path .more summary{cursor:pointer;display:inline-flex;align-items:center;gap:8px;min-height:32px;font-weight:700;color:var(--accent-ink);list-style:none}
 .path .more summary::-webkit-details-marker{display:none}
 .path .more summary::before{content:"";width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg);transition:transform .15s ease;flex:none}
 .path .more[open] summary::before{transform:rotate(45deg)}
 .path .more summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
 .path .more p{margin:10px 0 6px;font-size:13px;color:var(--ink-2)}
 .path .more .cmdrow+.cmdrow{margin-top:6px}
+/* install tabs: the tested agent first, the untested ones second. One tab is in the Tab order (roving tabindex);
+   the arrows, Home and End move between them (script below). 32 px tall on desktop, 44 px on phones */
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--line-2)}
+.tab{flex:1 1 0;min-width:0;min-height:32px;margin-bottom:-1px;padding:6px 8px;font:700 13px/1.3 var(--body);color:var(--ink-2);background:none;border:0;border-bottom:2px solid transparent;border-radius:6px 6px 0 0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.tab[aria-selected="true"]{color:var(--accent-ink);border-bottom-color:var(--accent)}
+@media (hover:hover){.tab:hover{color:var(--ink)}}
+.tab:focus-visible{outline:2px solid var(--accent);outline-offset:-3px;border-radius:6px}
+.panel{display:flex;flex-direction:column;gap:6px}
+.panel:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:6px}
+.panel .where{margin-top:0}
+/* the free card carries the most rows, so its gap is 6 px, not 8, to keep the buttons as high as they can be */
+.path.free .terms{gap:6px}
 /* send this page to yourself: phones only (shown in the <=760 block), since the commands above need a computer */
 .sendself{display:none}
 .sendself p{margin:0;font-size:14.5px;line-height:1.5;color:var(--ink)}
@@ -198,11 +210,27 @@ html{scroll-padding-top:84px}
 .rows dt{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);padding-top:3px}
 .rows dd{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.5}
 .back{margin:14px 0 0;font-size:14px;font-weight:600}
-/* captions that say what a picture is: the illustrated agent chat */
+/* the panel picture sits under the cards: a render of the real panel (sample data), framed so it sits on either theme.
+   The frame is a ring, not a border, so the 1080px render shows 1:1 at desktop width.
+   figure.panel, not .panel: the free card's tab panels share the class name, and these rules are for the picture only. */
+figure.panel{margin:0;display:flex;flex-direction:column;gap:10px}
+figure.panel picture{display:block;border-radius:16px;overflow:hidden;box-shadow:0 0 0 1px var(--line-2),var(--shadow)}
+figure.panel img{display:block;width:100%;height:auto}
+/* two renders, one per theme; they switch on the same rule as the tokens above (system, unless the toggle set data-theme).
+   The hidden one is display:none, so it stays out of the accessibility tree and, being lazy, is never fetched. */
+figure.panel .pic-dark{display:none}
+:root[data-theme="dark"] figure.panel .pic-light{display:none}
+:root[data-theme="dark"] figure.panel .pic-dark{display:block}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) figure.panel .pic-light{display:none}
+  :root:not([data-theme="light"]) figure.panel .pic-dark{display:block}
+}
+/* captions that say what a picture is: the panel render, the illustrated agent chat */
 .cap{margin:0;font-size:13.5px;line-height:1.5;color:var(--ink-2)}
 
 /* how — four steps */
-.how{padding-block:8px 56px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+/* the cards are not stretched to the tallest one: the two "You" cards carry the why lines below, the Homeport cards end at their text */
+.how{padding-block:8px 56px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:start}
 .card{padding:22px;border:1px solid var(--line);border-radius:14px;background:var(--surface-2);display:flex;flex-direction:column;gap:8px}
 .card.b{background:var(--accent-soft);border-color:var(--accent-line)}
 .card .k{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--you)}
@@ -210,6 +238,12 @@ html{scroll-padding-top:84px}
 .card b{font-size:18px;font-weight:700}
 .card p{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.55}
 .card .self{margin-top:auto;padding-top:12px;border-top:1px dashed var(--line-2);font-size:13.5px;color:var(--you);line-height:1.5}
+/* why these steps are yours and not Homeport's: one reason per step, listed under the step in the .self size, behind the same dashed rule */
+.card .reasons{margin-top:4px;padding-top:12px;border-top:1px dashed var(--line-2);font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--you)}
+.card .whys{margin:0;display:flex;flex-direction:column;gap:8px}
+.card .whys>div{display:flex;flex-direction:column;gap:1px}
+.card .whys dt{font-size:13.5px;font-weight:700;color:var(--ink);line-height:1.5}
+.card .whys dd{margin:0;font-size:13.5px;line-height:1.5;color:var(--ink-2)}
 
 /* section dividers span the content box, not the .wrap padding, so the line starts where the text starts.
    A border-image keeps the same 1px border (spacing unchanged) and goes away with it where border-top is 0 */
@@ -276,14 +310,17 @@ footer a{color:var(--ink-2)}
 @media (max-width:760px){
   .why,.who,.dfm .grid,.opts,.paths,.cmp,.detail{grid-template-columns:1fr}
   .rows>div,.spec dl>div{grid-template-columns:1fr;gap:2px}
-  .hero{padding-block:18px 14px;gap:16px}
+  /* 12 px, so the lede's fourth line keeps the paid button above the fold */
+  .hero{padding-block:18px 14px;gap:12px}
   .how{grid-template-columns:1fr}
   .claim{grid-template-columns:1fr;gap:4px}
   .dfm{padding:22px 16px}
   .bub{max-width:92%}
-  .chat{display:none}
+  figure.panel,.chat{display:none}
   .top{padding-block:10px}
   .copy{min-height:44px}
+  .tab{min-height:44px}
+  .path .more summary{min-height:44px}
   /* stacked cards share no rows, so they go back to a plain column */
   .paths{grid-template-rows:none;gap:14px}
   /* a phone cannot run the install commands, so the paid path leads here: markup order, no reordering, so focus follows what you see */
@@ -356,7 +393,7 @@ footer a{color:var(--ink-2)}
       <h1 data-i18n="hero.h1">Your own VPN. On a server that is yours, not a company's.</h1>
     </div>
     <div>
-      <p class="lede" data-i18n="hero.lede">A Claude skill turns a server you rent into a VPN only your people use — your own address, not one shared with thousands of strangers.</p>
+      <p class="lede" data-i18n="hero.lede">A free skill for your AI coding agent turns a small server you rent into a VPN only your people use — your own address, not one shared with thousands of strangers.</p>
       <p class="fine" data-i18n="hero.fine">Your clicks + ~10 min of install · new domain: 15 min to a few hours · account review, if any: a few hours</p>
     </div>
   </div>
@@ -373,7 +410,7 @@ footer a{color:var(--ink-2)}
           <div><dt data-i18n="path.k.you">You</dt><dd data-i18n="path.paid.you">a hosting account and <a href="#card">card</a>, a domain, invite Homeport to it, scan the QR on each device, remove the invite at the end</dd></div>
           <div><dt data-i18n="path.k.refund">Refund</dt><dd data-i18n="path.paid.refund">automatic if <a href="#check">the check</a> fails; otherwise on request within 14 days</dd></div>
           <div><dt data-i18n="path.k.covers">Covers</dt><dd data-i18n="path.paid.covers">the setup, not <a href="#limit">your network</a></dd></div>
-          <div><dt data-i18n="path.k.launch">At launch</dt><dd data-i18n="path.paid.launch"><a href="https://github.com/antongavrilov88/homeport-skill/blob/main/references/provisioning.md" target="_blank" rel="noopener">DigitalOcean</a> only, panel buttons in Russian</dd></div>
+          <div><dt data-i18n="path.k.launch">At launch</dt><dd data-i18n="path.paid.launch"><a href="https://github.com/antongavrilov88/homeport-skill/blob/main/references/provisioning.md" target="_blank" rel="noopener">DigitalOcean</a> only</dd></div>
         </dl>
       </div>
       <a class="btn ghost" href="https://t.me/burrow_vpn_bot" target="_blank" rel="noopener"><span data-i18n="path.paid.btn">Join the waitlist</span> <small>Telegram</small></a>
@@ -384,11 +421,17 @@ footer a{color:var(--ink-2)}
         <div class="amt">$0 <small data-i18n="path.free.amts">for the skill</small></div>
       </div>
       <div class="terms">
-        <p class="cost" data-i18n="path.free.cost">Host: $6/month before tax (DigitalOcean, 27 Sep 2026). Domain: from about $10/year; renewals can cost more. Claude plan with Claude Code. No Claude Code? <a href="#paid">The other path is for you.</a> No Homeport account.</p>
+        <p class="cost" data-i18n="path.free.cost">Host: $6/month before tax (DigitalOcean, 27 Sep 2026). Domain: from about $10/year; renewals can cost more. Runs in an AI coding agent on your computer. Tested with Claude Code; Codex CLI, Gemini CLI and Cursor read the same skill format but haven't been tested yet. No coding agent? <a href="#paid">The other path is for you.</a> No Homeport account.</p>
         <dl class="facts">
           <div><dt data-i18n="path.k.you">You</dt><dd data-i18n="path.free.you">a hosting account and card, an access key (revoked later), a domain you buy and point, the WireGuard app per device</dd></div>
         </dl>
-        <p class="where" data-i18n="path.free.where">Install it as a plugin. Type these in Claude Code, not in a terminal, one at a time:</p>
+        <!-- install: one tab per kind of agent. The tested one first; the others read the same skill format but are untested -->
+        <div class="tabs" role="tablist" aria-label="Install">
+          <button class="tab" type="button" role="tab" id="tab-claude" aria-controls="panel-claude" aria-selected="true" tabindex="0" data-i18n="path.free.tab.claude">Claude Code (tested)</button>
+          <button class="tab" type="button" role="tab" id="tab-other" aria-controls="panel-other" aria-selected="false" tabindex="-1" data-i18n="path.free.tab.other">Other agents (untested)</button>
+        </div>
+        <div class="panel" role="tabpanel" id="panel-claude" aria-labelledby="tab-claude" tabindex="0">
+        <p class="where" data-i18n="path.free.where">In Claude Code's prompt, not a terminal, one at a time:</p>
         <div class="cmdrow"><code class="cmd" id="cmd-add">/plugin marketplace add antongavrilov88/homeport-skill</code><button class="copy" type="button" data-copy="cmd-add" aria-describedby="cmd-add" data-i18n="copy">Copy</button></div>
         <div class="cmdrow"><code class="cmd" id="cmd-install">/plugin install homeport@homeport</code><button class="copy" type="button" data-copy="cmd-install" aria-describedby="cmd-install" data-i18n="copy">Copy</button></div>
         <p class="start" data-i18n="path.free.start">Then say “set up my own VPN”, or type <code>/homeport:homeport</code>.</p>
@@ -403,18 +446,36 @@ footer a{color:var(--ink-2)}
           <p data-i18n="path.free.clone">Or copy the skill instead of the plugin, in a terminal. Start it with <code>/homeport</code>; update with <code>git -C ~/.claude/skills/homeport pull</code>.</p>
           <div class="cmdrow"><code class="cmd" id="cmd-clone">git clone https://github.com/antongavrilov88/homeport-skill ~/.claude/skills/homeport</code><button class="copy" type="button" data-copy="cmd-clone" aria-describedby="cmd-clone" data-i18n="copy">Copy</button></div>
         </details>
+        </div>
+        <div class="panel" role="tabpanel" id="panel-other" aria-labelledby="tab-other" tabindex="0" hidden>
+        <p class="start" data-i18n="path.free.other">Codex CLI, Gemini CLI and Cursor read the same open Agent Skills format, but are untested with Homeport so far. In a terminal, clone the skill into your agent's skills folder:</p>
+        <div class="cmdrow"><code class="cmd" id="cmd-other-clone">git clone https://github.com/antongavrilov88/homeport-skill &lt;your agent's skills folder&gt;/homeport</code><button class="copy" type="button" data-copy="cmd-other-clone" aria-describedby="cmd-other-clone" data-i18n="copy">Copy</button></div>
+        <p class="start" data-i18n="path.free.codex">For Codex CLI that folder is <code>~/.agents/skills/homeport</code>.</p>
+        <p class="start" data-i18n="path.free.issue">If you try one, <a href="https://github.com/antongavrilov88/homeport-skill/issues" target="_blank" rel="noopener">open an issue</a> and say how it went.</p>
+        </div>
         <span class="sr" id="copy-status" role="status" aria-live="polite"></span>
       </div>
       <a class="btn primary" href="https://github.com/antongavrilov88/homeport-skill" target="_blank" rel="noopener"><span data-i18n="hero.btn1">Get the free skill</span> <small>GitHub</small></a>
     </div>
     <!-- phones only: the commands above cannot run here, so offer to send the page on to a computer -->
     <div class="sendself" id="sendself">
-      <p data-i18n="send.p">Claude Code runs on a computer.</p>
+      <p data-i18n="send.p">A coding agent runs on a computer.</p>
       <button class="btn ghost" type="button" id="send-btn"><span data-i18n="send.btn">Send this page to yourself</span></button>
       <code class="cmd" id="send-url" hidden></code>
     </div>
   </div>
 
+  <figure class="panel">
+    <picture class="pic-light">
+      <source type="image/webp" srcset="panel.webp 2x">
+      <img src="panel.png" width="1080" height="675" loading="lazy" decoding="async" alt="The Homeport panel: clients, traffic per device, a New client button">
+    </picture>
+    <picture class="pic-dark">
+      <source type="image/webp" srcset="panel-dark.webp 2x">
+      <img src="panel-dark.png" width="1080" height="675" loading="lazy" decoding="async" alt="The Homeport panel: clients, traffic per device, a New client button">
+    </picture>
+    <figcaption class="cap" data-i18n="panel.cap">The real panel.</figcaption>
+  </figure>
 </section>
 
 <!-- 2 · how it works -->
@@ -422,8 +483,16 @@ footer a{color:var(--ink-2)}
   <div class="card">
     <span class="k" data-i18n="how.k1">You</span>
     <b data-i18n="how.h1">You open an account and buy a domain</b>
-    <p data-i18n="how.p1">A hosting account with your card, an access key for Claude, and a domain (usually from about $10 a year; renewals can cost more) that you point where Claude says. Claude tells you what to click, one step at a time, and why.</p>
-    <p class="self" data-i18n="how.note">You revoke the key together at the end. On DigitalOcean, Claude creates the server; on another host, you create it. <a href="https://github.com/antongavrilov88/homeport-skill/blob/main/references/human-steps.md" target="_blank" rel="noopener">Every step you do by hand</a></p>
+    <p data-i18n="how.p1">A hosting account with your card, an access key for your agent, and a domain (usually from about $10 a year; renewals can cost more) that you point where your agent says. Your agent tells you what to click, one step at a time, and why.</p>
+    <div class="reasons" data-i18n="how.reasons1">Why you, not Homeport</div>
+    <dl class="whys">
+      <div data-i18n="how.why.account"><dt>Account</dt><dd>The server is yours: Homeport can't switch it off or look inside it, and if Homeport vanished tomorrow it would keep running.</dd></div>
+      <div data-i18n="how.why.card"><dt>Card</dt><dd>Your card goes to your host, which bills you at its listed price: no middleman, no markup, and Homeport never holds your card.</dd></div>
+      <div data-i18n="how.why.key"><dt>Access key</dt><dd>It lets your agent rent one server for you; revoked at the end, nothing from this chat can touch your account later.</dd></div>
+      <div data-i18n="how.why.domain"><dt>Domain</dt><dd>Registered to you, so only you can renew or move it. Keep it apart from anything personal: it's the disguise.</dd></div>
+      <div data-i18n="how.why.name"><dt>In your name</dt><dd>Hosts check the card and sometimes an ID. Homeport never suggests an account in someone else's name.</dd></div>
+    </dl>
+    <p class="self" data-i18n="how.note">You revoke the key together at the end. On DigitalOcean, your agent creates the server; on another host, you create it. <a href="https://github.com/antongavrilov88/homeport-skill/blob/main/references/human-steps.md" target="_blank" rel="noopener">Every step you do by hand</a></p>
   </div>
   <div class="card b">
     <span class="k" data-i18n="how.k2">Homeport · about 10 min</span>
@@ -433,7 +502,11 @@ footer a{color:var(--ink-2)}
   <div class="card">
     <span class="k" data-i18n="how.k3">You · per device</span>
     <b data-i18n="how.h3">You scan a QR</b>
-    <p data-i18n="how.p3">Install the official WireGuard app and scan the first QR, which Claude sends you with a short handout to pass on. Later devices come from your panel. Family devices work the same way — they scan, you don't have to be in the room.</p>
+    <p data-i18n="how.p3">Install the official WireGuard app and scan the first QR, which your agent sends you with a short handout to pass on. Later devices come from your panel. Family devices work the same way — they scan, you don't have to be in the room.</p>
+    <div class="reasons" data-i18n="how.reasons3">Why you, not Homeport</div>
+    <dl class="whys">
+      <div data-i18n="how.why.device"><dt>Each device</dt><dd>Its own key, made on your server. Lose a phone? Delete that one device in the panel; the others keep working.</dd></div>
+    </dl>
   </div>
   <div class="card b">
     <span class="k" data-i18n="how.k4">Homeport · last step</span>
@@ -449,7 +522,7 @@ footer a{color:var(--ink-2)}
       <dl>
         <div><dt data-i18n="spec.k1">Cover</dt><dd data-i18n="spec.v1">Xray serving VLESS + XHTTP + REALITY on 443/tcp, behind a real site on your own domain with a real certificate. A prober that knocks gets the site — because it is the site. It protects the two-server link and phones using a VLESS app. On one server, WireGuard devices connect as plain WireGuard.</dd></div>
         <div><dt data-i18n="spec.k2">Devices</dt><dd data-i18n="spec.v2">Plain WireGuard, official apps. Nothing custom to install on a phone or a laptop.</dd></div>
-        <div><dt data-i18n="spec.k3">Panel</dt><dd data-i18n="spec.v3">A small web panel on the server: add a device, get a QR, see bytes and last-seen. The panel and push alerts are in Russian in this version; everything Claude says to you, and the handout you pass on, are in your language.</dd></div>
+        <div><dt data-i18n="spec.k3">Panel</dt><dd data-i18n="spec.v3">A small web panel on the server: add a device, get a QR, see bytes and last-seen. The panel and push alerts are in English; everything your agent says to you, and the handout you pass on, are in your language.</dd></div>
         <div><dt data-i18n="spec.k4">Watchdog</dt><dd data-i18n="spec.v4">A service that checks the tunnel every 30 seconds, restarts what it can and alerts your phone. On two servers it also moves everyone to a spare route.</dd></div>
         <div><dt data-i18n="spec.k5">Split routing</dt><dd data-i18n="spec.v5">Two-server layout only: an nftables set decides who goes through the tunnel, and a domain list you edit leaves directly from the relay. Seeded with the payment networks that usually object — add your own bank.</dd></div>
         <div><dt data-i18n="spec.k6">Layouts</dt><dd data-i18n="spec.v6">One server abroad by default, or a two-machine relay when devices sit behind heavy filtering. Same installers either way.</dd></div>
@@ -644,6 +717,28 @@ footer a{color:var(--ink-2)}
       function fallback(){ selectText(el); var ok = false; try{ ok = document.execCommand('copy'); }catch(e){} copied(btn, ok); }
       if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(function(){ copied(btn, true); }, fallback); }
       else fallback();
+    });
+  });
+
+  /* ---------- install tabs: click selects; ArrowLeft / ArrowRight / Home / End move focus and select.
+     Only the selected tab is in the Tab order; the panels themselves are focusable ---------- */
+  document.querySelectorAll('[role="tablist"]').forEach(function(list){
+    var tabs = Array.prototype.slice.call(list.querySelectorAll('[role="tab"]'));
+    function select(tab, focus){
+      tabs.forEach(function(t){
+        var on = t === tab, panel = document.getElementById(t.getAttribute('aria-controls'));
+        t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1;
+        if(panel) panel.hidden = !on;
+      });
+      if(focus) tab.focus();
+    }
+    tabs.forEach(function(tab, i){
+      tab.addEventListener('click', function(){ select(tab, false); });
+      tab.addEventListener('keydown', function(e){
+        var n = e.key === 'ArrowRight' ? (i + 1) % tabs.length : e.key === 'ArrowLeft' ? (i - 1 + tabs.length) % tabs.length : e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : -1;
+        if(n < 0) return;
+        e.preventDefault(); select(tabs[n], true);
+      });
     });
   });
 

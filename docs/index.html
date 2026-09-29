@@ -202,7 +202,8 @@ html{scroll-padding-top:84px}
 .notes .sub{margin:0;font-size:14px;color:var(--ink-2);line-height:1.55}
 .col{grid-row:span 4;display:grid;grid-template-rows:subgrid;row-gap:0;padding:24px;border:1px solid var(--line);border-radius:16px;background:var(--surface-2)}
 .col.free{border:2px solid var(--accent);padding:23px;box-shadow:var(--shadow)}
-.colh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-bottom:12px}
+/* where the paid header wraps (its badge drops under the title), both titles stay at the top of the shared row */
+.colh{display:flex;align-items:center;align-content:flex-start;gap:10px;flex-wrap:wrap;padding-bottom:12px}
 .colh b{font-size:21px;font-weight:800;letter-spacing:-.02em}
 .rows{margin:0;grid-row:span 3;display:grid;grid-template-rows:subgrid;row-gap:0;border-top:1px solid var(--line)}
 .rows>div{display:grid;grid-template-columns:118px 1fr;gap:14px;align-content:start;padding:11px 0;border-bottom:1px solid var(--line)}
@@ -402,7 +403,7 @@ footer a{color:var(--ink-2)}
     <div class="path paid" id="paid">
       <div class="ph1">
         <span class="pk" data-i18n="path.paid.k">Have it done</span>
-        <div class="amt">$29 <small data-i18n="path.paid.amts">once, to Homeport</small> <span class="soon" data-i18n="path.paid.soon">Opens in November</span></div>
+        <div class="amt">$29 <small data-i18n="path.paid.amts">once, to Homeport</small> <span class="soon" data-i18n="path.paid.soon">Opens in January 2027</span></div>
       </div>
       <div class="terms">
         <p class="cost" data-i18n="path.paid.cost"><strong>Not included:</strong> the server and the domain, billed by your providers.</p>
@@ -533,7 +534,7 @@ footer a{color:var(--ink-2)}
 </div>
 
 <div class="bridge">
-  <p data-i18n="bridge">Rather not do these steps yourself? <a href="#agent">From November, Homeport's agent does the rest once you've done your part: the account and the card, a domain you buy and point at DigitalOcean, and one invite.</a></p>
+  <p data-i18n="bridge">Rather not do these steps yourself? <a href="#agent">From January 2027, Homeport's agent does the rest once you've done your part: the account and the card, a domain you buy and point at DigitalOcean, and one invite.</a></p>
 </div>
 
 <!-- 3 · why your own server -->
@@ -578,7 +579,7 @@ footer a{color:var(--ink-2)}
       </div>
 
       <div class="col paid">
-        <div class="colh"><b data-i18n="cmp.paid.h">Done for you</b><span class="soon" data-i18n="price.soon">Opens in November</span></div>
+        <div class="colh"><b data-i18n="cmp.paid.h">Done for you</b><span class="soon" data-i18n="price.soon">Opens in January 2027</span></div>
         <dl class="rows">
           <div><dt data-i18n="cmp.k2">What Homeport does</dt><dd data-i18n="cmp.paid.v2">Server, DNS records, keys, install, certificates, monitoring, panel, checks, your first device and QR, plain-English notes to pass on. Then it walks you through removing the invite yourself.</dd></div>
           <div><dt data-i18n="cmp.k3">Time</dt><dd data-i18n="cmp.paid.v3">Your part: the account and the card, a domain you buy (usually from about $10 a year; renewals can cost more) and point at DigitalOcean, one invite, a QR per device, then removing the invite. The rest happens without you. The same waits for a new domain and a new hosting account apply.</dd></div>
@@ -591,7 +592,7 @@ footer a{color:var(--ink-2)}
 
     <div class="detail">
       <div class="chat">
-        <p class="cap" data-i18n="ag.chat.illus">Illustration — the agent opens in November</p>
+        <p class="cap" data-i18n="ag.chat.illus">Illustration — the agent opens in January 2027</p>
         <div class="convo" aria-hidden="true">
           <div class="ch"><i></i><span data-i18n="ag.chat.h">Homeport · agent</span></div>
           <div class="bub a" data-i18n="ag.chat.b1">Which provider did you pick? I'll take it from there.</div>

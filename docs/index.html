@@ -97,7 +97,7 @@ html{scroll-padding-top:84px}
   :root:not([data-theme="light"]) .theme .moon{display:block}
 }
 
-/* hero: a short intro, then the two decision cards */
+/* hero: a short intro, then the two decision cards, then the panel picture */
 .hero{padding-block:16px 26px;display:flex;flex-direction:column;gap:16px}
 .intro{display:grid;grid-template-columns:1.15fr .85fr;gap:12px 44px;align-items:end}
 .hero h1{font-size:clamp(34px,3.6vw,46px)}
@@ -210,7 +210,22 @@ html{scroll-padding-top:84px}
 .rows dt{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);padding-top:3px}
 .rows dd{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.5}
 .back{margin:14px 0 0;font-size:14px;font-weight:600}
-/* captions that say what a picture is: the illustrated agent chat */
+/* the panel picture sits under the cards: a render of the real panel (sample data), framed so it sits on either theme.
+   The frame is a ring, not a border, so the 1080px render shows 1:1 at desktop width.
+   figure.panel, not .panel: the free card's tab panels share the class name, and these rules are for the picture only. */
+figure.panel{margin:0;display:flex;flex-direction:column;gap:10px}
+figure.panel picture{display:block;border-radius:16px;overflow:hidden;box-shadow:0 0 0 1px var(--line-2),var(--shadow)}
+figure.panel img{display:block;width:100%;height:auto}
+/* two renders, one per theme; they switch on the same rule as the tokens above (system, unless the toggle set data-theme).
+   The hidden one is display:none, so it stays out of the accessibility tree and, being lazy, is never fetched. */
+figure.panel .pic-dark{display:none}
+:root[data-theme="dark"] figure.panel .pic-light{display:none}
+:root[data-theme="dark"] figure.panel .pic-dark{display:block}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) figure.panel .pic-light{display:none}
+  :root:not([data-theme="light"]) figure.panel .pic-dark{display:block}
+}
+/* captions that say what a picture is: the panel render, the illustrated agent chat */
 .cap{margin:0;font-size:13.5px;line-height:1.5;color:var(--ink-2)}
 
 /* how — four steps */
@@ -294,7 +309,7 @@ footer a{color:var(--ink-2)}
   .claim{grid-template-columns:1fr;gap:4px}
   .dfm{padding:22px 16px}
   .bub{max-width:92%}
-  .chat{display:none}
+  figure.panel,.chat{display:none}
   .top{padding-block:10px}
   .copy{min-height:44px}
   .tab{min-height:44px}
@@ -388,7 +403,7 @@ footer a{color:var(--ink-2)}
           <div><dt data-i18n="path.k.you">You</dt><dd data-i18n="path.paid.you">a hosting account and <a href="#card">card</a>, a domain, invite Homeport to it, scan the QR on each device, remove the invite at the end</dd></div>
           <div><dt data-i18n="path.k.refund">Refund</dt><dd data-i18n="path.paid.refund">automatic if <a href="#check">the check</a> fails; otherwise on request within 14 days</dd></div>
           <div><dt data-i18n="path.k.covers">Covers</dt><dd data-i18n="path.paid.covers">the setup, not <a href="#limit">your network</a></dd></div>
-          <div><dt data-i18n="path.k.launch">At launch</dt><dd data-i18n="path.paid.launch"><a href="https://github.com/antongavrilov88/homeport-skill/blob/main/references/provisioning.md" target="_blank" rel="noopener">DigitalOcean</a> only, panel buttons in Russian</dd></div>
+          <div><dt data-i18n="path.k.launch">At launch</dt><dd data-i18n="path.paid.launch"><a href="https://github.com/antongavrilov88/homeport-skill/blob/main/references/provisioning.md" target="_blank" rel="noopener">DigitalOcean</a> only</dd></div>
         </dl>
       </div>
       <a class="btn ghost" href="https://t.me/burrow_vpn_bot" target="_blank" rel="noopener"><span data-i18n="path.paid.btn">Join the waitlist</span> <small>Telegram</small></a>
@@ -443,6 +458,17 @@ footer a{color:var(--ink-2)}
     </div>
   </div>
 
+  <figure class="panel">
+    <picture class="pic-light">
+      <source type="image/webp" srcset="panel.webp 2x">
+      <img src="panel.png" width="1080" height="675" loading="lazy" decoding="async" alt="The Homeport panel: clients, traffic per device, a New client button">
+    </picture>
+    <picture class="pic-dark">
+      <source type="image/webp" srcset="panel-dark.webp 2x">
+      <img src="panel-dark.png" width="1080" height="675" loading="lazy" decoding="async" alt="The Homeport panel: clients, traffic per device, a New client button">
+    </picture>
+    <figcaption class="cap" data-i18n="panel.cap">The real panel.</figcaption>
+  </figure>
 </section>
 
 <!-- 2 · how it works -->
@@ -477,7 +503,7 @@ footer a{color:var(--ink-2)}
       <dl>
         <div><dt data-i18n="spec.k1">Cover</dt><dd data-i18n="spec.v1">Xray serving VLESS + XHTTP + REALITY on 443/tcp, behind a real site on your own domain with a real certificate. A prober that knocks gets the site — because it is the site. It protects the two-server link and phones using a VLESS app. On one server, WireGuard devices connect as plain WireGuard.</dd></div>
         <div><dt data-i18n="spec.k2">Devices</dt><dd data-i18n="spec.v2">Plain WireGuard, official apps. Nothing custom to install on a phone or a laptop.</dd></div>
-        <div><dt data-i18n="spec.k3">Panel</dt><dd data-i18n="spec.v3">A small web panel on the server: add a device, get a QR, see bytes and last-seen. The panel and push alerts are in Russian in this version; everything Claude says to you, and the handout you pass on, are in your language.</dd></div>
+        <div><dt data-i18n="spec.k3">Panel</dt><dd data-i18n="spec.v3">A small web panel on the server: add a device, get a QR, see bytes and last-seen. The panel and push alerts are in English; everything your agent says to you, and the handout you pass on, are in your language.</dd></div>
         <div><dt data-i18n="spec.k4">Watchdog</dt><dd data-i18n="spec.v4">A service that checks the tunnel every 30 seconds, restarts what it can and alerts your phone. On two servers it also moves everyone to a spare route.</dd></div>
         <div><dt data-i18n="spec.k5">Split routing</dt><dd data-i18n="spec.v5">Two-server layout only: an nftables set decides who goes through the tunnel, and a domain list you edit leaves directly from the relay. Seeded with the payment networks that usually object — add your own bank.</dd></div>
         <div><dt data-i18n="spec.k6">Layouts</dt><dd data-i18n="spec.v6">One server abroad by default, or a two-machine relay when devices sit behind heavy filtering. Same installers either way.</dd></div>

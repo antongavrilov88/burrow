@@ -28,7 +28,7 @@ There are no tags, release assets or version numbers in this repository; the cha
 CI can't see the page, so before you ask for review, check `docs/index.html` in a browser (`cd docs && python3 -m http.server 8765`):
 
 - widths 390, 820 and 1280 px, each in light and dark;
-- the fold: both decision-card buttons above the fold at 1280×800, the paid button at 390×844;
+- the fold: after `document.fonts.ready`, at 1280×800 the offer is above it — both cards' kicker and price, and the free card's cost line with its tested/untested sentence (the card buttons may sit just below, about 830 px since #105); at 390×844 the paid button;
 - axe: 0 violations;
 - no horizontal scroll at any of those widths;
 - every claim the page makes about the skill, and every deep link into it, checked against `antongavrilov88/homeport-skill` on `main`. No CI check spans the two repositories.

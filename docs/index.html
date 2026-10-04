@@ -19,6 +19,21 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"></noscript>
 <style>
+/* fallback faces with the web fonts' metrics, so text takes about the same room before Manrope and JetBrains Mono swap in as after.
+   Manrope: Arial (Apple, Windows) or Roboto (Android), regular and bold, plus $ and 0-9 on their own (their widths differ most).
+   size-adjust is Manrope's average width over the fallback's (this page's text; "$0123456789" for the figures); the overrides are
+   Manrope's ascent, descent and line gap at that size (capsize); the bold descent is rounded up, because Chrome truncates the adjusted
+   size to 0.01 px and 15 px buttons would otherwise lose a pixel. JetBrains Mono: Menlo (Apple) or Courier New (Windows). */
+@font-face{font-family:'Manrope Fallback: Arial';src:local('Arial'),local('ArialMT');font-weight:400;size-adjust:102.24%;ascent-override:104.2645%;descent-override:29.3427%;line-gap-override:0%}
+@font-face{font-family:'Manrope Fallback: Arial';src:local('Arial'),local('ArialMT');font-weight:400;unicode-range:U+24,U+30-39;size-adjust:101.39%;ascent-override:105.1386%;descent-override:29.5887%;line-gap-override:0%}
+@font-face{font-family:'Manrope Fallback: Arial';src:local('Arial Bold'),local('Arial-BoldMT');font-weight:600 800;size-adjust:100.87%;ascent-override:105.6806%;descent-override:29.75%;line-gap-override:0%}
+@font-face{font-family:'Manrope Fallback: Arial';src:local('Arial Bold'),local('Arial-BoldMT');font-weight:600 800;unicode-range:U+24,U+30-39;size-adjust:107.54%;ascent-override:99.1259%;descent-override:27.8966%;line-gap-override:0%}
+@font-face{font-family:'Manrope Fallback: Roboto';src:local('Roboto'),local('Roboto Regular'),local('Roboto-Regular');font-weight:400;size-adjust:103.04%;ascent-override:103.455%;descent-override:29.1149%;line-gap-override:0%}
+@font-face{font-family:'Manrope Fallback: Roboto';src:local('Roboto'),local('Roboto Regular'),local('Roboto-Regular');font-weight:400;unicode-range:U+24,U+30-39;size-adjust:100.33%;ascent-override:106.2494%;descent-override:29.9013%;line-gap-override:0%}
+@font-face{font-family:'Manrope Fallback: Roboto';src:local('Roboto Bold'),local('Roboto-Bold');font-weight:600 800;size-adjust:107.88%;ascent-override:98.8135%;descent-override:27.82%;line-gap-override:0%}
+@font-face{font-family:'Manrope Fallback: Roboto';src:local('Roboto Bold'),local('Roboto-Bold');font-weight:600 800;unicode-range:U+24,U+30-39;size-adjust:104.25%;ascent-override:102.2542%;descent-override:28.777%;line-gap-override:0%}
+@font-face{font-family:'JetBrains Mono Fallback: Menlo';src:local('Menlo Regular'),local('Menlo-Regular');size-adjust:99.6594%;ascent-override:102.3486%;descent-override:30.1025%;line-gap-override:0%}
+@font-face{font-family:'JetBrains Mono Fallback: Courier New';src:local('Courier New'),local('CourierNewPSMT');size-adjust:99.9837%;ascent-override:102.0166%;descent-override:30.0049%;line-gap-override:0%}
 :root{
   color-scheme:light;
   --bg:#FFFFFF; --surface:#F9FAFB; --surface-2:#FFFFFF; --ink:#101828; --ink-2:#475467; --mute:#667085;
@@ -26,8 +41,8 @@
   --accent:#0F6E7A; --accent-ink:#0B535C; --accent-soft:#E6F4F1; --accent-line:#B9DFD9; --on-accent:#FFFFFF;
   --you:#B54708; --good:#087443;
   --shadow:0 12px 32px -20px rgba(16,24,40,.25);
-  --body:'Manrope','Helvetica Neue',Arial,sans-serif;
-  --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  --body:'Manrope','Manrope Fallback: Arial','Manrope Fallback: Roboto','Helvetica Neue',Arial,sans-serif;
+  --mono:'JetBrains Mono','JetBrains Mono Fallback: Menlo','JetBrains Mono Fallback: Courier New',ui-monospace,Menlo,Consolas,monospace;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
@@ -202,7 +217,8 @@ html{scroll-padding-top:84px}
 .notes .sub{margin:0;font-size:14px;color:var(--ink-2);line-height:1.55}
 .col{grid-row:span 4;display:grid;grid-template-rows:subgrid;row-gap:0;padding:24px;border:1px solid var(--line);border-radius:16px;background:var(--surface-2)}
 .col.free{border:2px solid var(--accent);padding:23px;box-shadow:var(--shadow)}
-.colh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-bottom:12px}
+/* where the paid header wraps (its badge drops under the title), both titles stay at the top of the shared row */
+.colh{display:flex;align-items:center;align-content:flex-start;gap:10px;flex-wrap:wrap;padding-bottom:12px}
 .colh b{font-size:21px;font-weight:800;letter-spacing:-.02em}
 .rows{margin:0;grid-row:span 3;display:grid;grid-template-rows:subgrid;row-gap:0;border-top:1px solid var(--line)}
 .rows>div{display:grid;grid-template-columns:118px 1fr;gap:14px;align-content:start;padding:11px 0;border-bottom:1px solid var(--line)}
@@ -402,7 +418,7 @@ footer a{color:var(--ink-2)}
     <div class="path paid" id="paid">
       <div class="ph1">
         <span class="pk" data-i18n="path.paid.k">Have it done</span>
-        <div class="amt">$29 <small data-i18n="path.paid.amts">once, to Homeport</small> <span class="soon" data-i18n="path.paid.soon">Opens in November</span></div>
+        <div class="amt">$29 <small data-i18n="path.paid.amts">once, to Homeport</small> <span class="soon" data-i18n="path.paid.soon">Opens in January 2027</span></div>
       </div>
       <div class="terms">
         <p class="cost" data-i18n="path.paid.cost"><strong>Not included:</strong> the server and the domain, billed by your providers.</p>
@@ -497,7 +513,7 @@ footer a{color:var(--ink-2)}
   <div class="card b">
     <span class="k" data-i18n="how.k2">Homeport · about 10 min</span>
     <b data-i18n="how.h2">Homeport sets it up</b>
-    <p data-i18n="how.p2">Keys are generated on your machine; the installer, real certificates and watchdog are handled for you, and the DNS records too once your domain points at DigitalOcean. The server installs itself; your agent finishes the checks when you're back.</p>
+    <p data-i18n="how.p2">The REALITY keys are made on your machine and the WireGuard keys on your server; they never pass through Homeport. The installer, real certificates and watchdog are handled for you, and the DNS records too once your domain points at DigitalOcean. The server installs itself; your agent finishes the checks when you're back.</p>
   </div>
   <div class="card">
     <span class="k" data-i18n="how.k3">You · per device</span>
@@ -533,7 +549,7 @@ footer a{color:var(--ink-2)}
 </div>
 
 <div class="bridge">
-  <p data-i18n="bridge">Rather not do these steps yourself? <a href="#agent">From November, Homeport's agent does the rest once you've done your part: the account and the card, a domain you buy and point at DigitalOcean, and one invite.</a></p>
+  <p data-i18n="bridge">Rather not do these steps yourself? <a href="#agent">From January 2027, Homeport's agent does the rest once you've done your part: the account and the card, a domain you buy and point at DigitalOcean, and one invite.</a></p>
 </div>
 
 <!-- 3 · why your own server -->
@@ -578,7 +594,7 @@ footer a{color:var(--ink-2)}
       </div>
 
       <div class="col paid">
-        <div class="colh"><b data-i18n="cmp.paid.h">Done for you</b><span class="soon" data-i18n="price.soon">Opens in November</span></div>
+        <div class="colh"><b data-i18n="cmp.paid.h">Done for you</b><span class="soon" data-i18n="price.soon">Opens in January 2027</span></div>
         <dl class="rows">
           <div><dt data-i18n="cmp.k2">What Homeport does</dt><dd data-i18n="cmp.paid.v2">Server, DNS records, keys, install, certificates, monitoring, panel, checks, your first device and QR, plain-English notes to pass on. Then it walks you through removing the invite yourself.</dd></div>
           <div><dt data-i18n="cmp.k3">Time</dt><dd data-i18n="cmp.paid.v3">Your part: the account and the card, a domain you buy (usually from about $10 a year; renewals can cost more) and point at DigitalOcean, one invite, a QR per device, then removing the invite. The rest happens without you. The same waits for a new domain and a new hosting account apply.</dd></div>
@@ -591,7 +607,7 @@ footer a{color:var(--ink-2)}
 
     <div class="detail">
       <div class="chat">
-        <p class="cap" data-i18n="ag.chat.illus">Illustration — the agent opens in November</p>
+        <p class="cap" data-i18n="ag.chat.illus">Illustration — the agent opens in January 2027</p>
         <div class="convo" aria-hidden="true">
           <div class="ch"><i></i><span data-i18n="ag.chat.h">Homeport · agent</span></div>
           <div class="bub a" data-i18n="ag.chat.b1">Which provider did you pick? I'll take it from there.</div>

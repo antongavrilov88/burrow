@@ -16,7 +16,7 @@ CONTRIBUTING. Changes to what the skill does, and bugs in it, go there.
 
 ## Release flow
 
-1. Branch from `dev` (`feat/…`, `fix/…` or `docs/…`), open a PR into `dev`. CI (`.github/workflows/ci.yml`) runs the secrets scan and the wording guard.
+1. Branch from `dev` (`feat/…`, `fix/…` or `docs/…`), open a PR into `dev`. CI runs the secrets scan and the wording guard (`.github/workflows/ci.yml`) and a link check (`.github/workflows/links.yml`; every exclusion, with its reason, in `lychee.toml`).
 2. Add a line to `CHANGELOG.md` under `## Unreleased` in the same PR.
 3. To release, open a PR `dev → main`. On a PR into `main` CI also runs the placeholder check (no `{{…}}` left in `README.md`, `SECURITY.md`, `docs/` or the issue templates). Merge it with a merge commit, not a squash — keep history.
 4. The push to `main` runs `.github/workflows/pages.yml`, which deploys `docs/` to <https://antongavrilov88.github.io/homeport/> when `docs/**` changed. Open the live page and check it.
@@ -28,10 +28,10 @@ There are no tags, release assets or version numbers in this repository; the cha
 CI can't see the page, so before you ask for review, check `docs/index.html` in a browser (`cd docs && python3 -m http.server 8765`):
 
 - widths 390, 820 and 1280 px, each in light and dark;
-- the fold: both decision-card buttons above the fold at 1280×800, the paid button at 390×844;
+- the fold: after `document.fonts.ready`, at 1280×800 the offer is above it — both cards' kicker and price, and the free card's cost line with its tested/untested sentence (the card buttons may sit just below, about 830 px since #105); at 390×844 the paid button;
 - axe: 0 violations;
 - no horizontal scroll at any of those widths;
-- every claim the page makes about the skill, and every deep link into it, checked against `antongavrilov88/homeport-skill` on `main`. No CI check spans the two repositories.
+- every claim the page makes about the skill, and every deep link into it, checked against `antongavrilov88/homeport-skill` on `main`. The link check fails on a dead deep link into homeport-skill's `main`, but nothing checks that a claim still matches the code.
 
 `docs/UX-REVIEW.md` records the personas (§1) and the performance budget (§8) the page is held to.
 

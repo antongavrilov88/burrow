@@ -19,6 +19,21 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"></noscript>
 <style>
+/* fallback faces with the web fonts' metrics, so text takes about the same room before Manrope and JetBrains Mono swap in as after.
+   Manrope: Arial (Apple, Windows) or Roboto (Android), regular and bold, plus $ and 0-9 on their own (their widths differ most).
+   size-adjust is Manrope's average width over the fallback's (this page's text; "$0123456789" for the figures); the overrides are
+   Manrope's ascent, descent and line gap at that size (capsize); the bold descent is rounded up, because Chrome truncates the adjusted
+   size to 0.01 px and 15 px buttons would otherwise lose a pixel. JetBrains Mono: Menlo (Apple) or Courier New (Windows). */
+@font-face{font-family:'Manrope Fallback: Arial';src:local('Arial'),local('ArialMT');font-weight:400;size-adjust:102.24%;ascent-override:104.2645%;descent-override:29.3427%;line-gap-override:0%}
+@font-face{font-family:'Manrope Fallback: Arial';src:local('Arial'),local('ArialMT');font-weight:400;unicode-range:U+24,U+30-39;size-adjust:101.39%;ascent-override:105.1386%;descent-override:29.5887%;line-gap-override:0%}
+@font-face{font-family:'Manrope Fallback: Arial';src:local('Arial Bold'),local('Arial-BoldMT');font-weight:600 800;size-adjust:100.87%;ascent-override:105.6806%;descent-override:29.75%;line-gap-override:0%}
+@font-face{font-family:'Manrope Fallback: Arial';src:local('Arial Bold'),local('Arial-BoldMT');font-weight:600 800;unicode-range:U+24,U+30-39;size-adjust:107.54%;ascent-override:99.1259%;descent-override:27.8966%;line-gap-override:0%}
+@font-face{font-family:'Manrope Fallback: Roboto';src:local('Roboto'),local('Roboto Regular'),local('Roboto-Regular');font-weight:400;size-adjust:103.04%;ascent-override:103.455%;descent-override:29.1149%;line-gap-override:0%}
+@font-face{font-family:'Manrope Fallback: Roboto';src:local('Roboto'),local('Roboto Regular'),local('Roboto-Regular');font-weight:400;unicode-range:U+24,U+30-39;size-adjust:100.33%;ascent-override:106.2494%;descent-override:29.9013%;line-gap-override:0%}
+@font-face{font-family:'Manrope Fallback: Roboto';src:local('Roboto Bold'),local('Roboto-Bold');font-weight:600 800;size-adjust:107.88%;ascent-override:98.8135%;descent-override:27.82%;line-gap-override:0%}
+@font-face{font-family:'Manrope Fallback: Roboto';src:local('Roboto Bold'),local('Roboto-Bold');font-weight:600 800;unicode-range:U+24,U+30-39;size-adjust:104.25%;ascent-override:102.2542%;descent-override:28.777%;line-gap-override:0%}
+@font-face{font-family:'JetBrains Mono Fallback: Menlo';src:local('Menlo Regular'),local('Menlo-Regular');size-adjust:99.6594%;ascent-override:102.3486%;descent-override:30.1025%;line-gap-override:0%}
+@font-face{font-family:'JetBrains Mono Fallback: Courier New';src:local('Courier New'),local('CourierNewPSMT');size-adjust:99.9837%;ascent-override:102.0166%;descent-override:30.0049%;line-gap-override:0%}
 :root{
   color-scheme:light;
   --bg:#FFFFFF; --surface:#F9FAFB; --surface-2:#FFFFFF; --ink:#101828; --ink-2:#475467; --mute:#667085;
@@ -26,8 +41,8 @@
   --accent:#0F6E7A; --accent-ink:#0B535C; --accent-soft:#E6F4F1; --accent-line:#B9DFD9; --on-accent:#FFFFFF;
   --you:#B54708; --good:#087443;
   --shadow:0 12px 32px -20px rgba(16,24,40,.25);
-  --body:'Manrope','Helvetica Neue',Arial,sans-serif;
-  --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  --body:'Manrope','Manrope Fallback: Arial','Manrope Fallback: Roboto','Helvetica Neue',Arial,sans-serif;
+  --mono:'JetBrains Mono','JetBrains Mono Fallback: Menlo','JetBrains Mono Fallback: Courier New',ui-monospace,Menlo,Consolas,monospace;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){

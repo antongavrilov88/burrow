@@ -30,8 +30,10 @@ hides itself.
 
 ## Checks
 
-CI runs three: no secrets, no country-specific wording (`.github/wording-guard.sh`, rules
-in `CONTRIBUTING.md`), and no leftover `{{placeholders}}` reaching `main`.
+CI runs four: no secrets, no country-specific wording (`.github/wording-guard.sh`, rules
+in `CONTRIBUTING.md`), no leftover `{{placeholders}}` reaching `main`, and a link check
+that fails on a dead link in `docs/index.html` or this README (`.github/workflows/links.yml`,
+also weekly; settings and every exclusion with its reason in `lychee.toml`).
 
 Before changing the page, read `docs/UX-REVIEW.md` §8 — it records the performance budget
 the page is held to, and §1 the personas it is written for.

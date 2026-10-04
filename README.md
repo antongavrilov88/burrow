@@ -47,3 +47,5 @@ there first. A round of false claims once shipped because nobody did.
 ## License
 
 MIT, same as the skill.
+
+Scratch for #133: [a page that does not exist](https://github.com/antongavrilov88/homeport/blob/main/does-not-exist-133.md)

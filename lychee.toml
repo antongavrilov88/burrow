@@ -1,0 +1,31 @@
+# Link check settings, used by .github/workflows/links.yml (lychee 0.24.2).
+# Run it locally the same way:
+#   lychee --no-progress --config lychee.toml docs/index.html README.md
+# Every exclusion below names the host, what it does to bots, and whether and when
+# its pages were checked by hand. Exclude a host only when it refuses bots: a dead
+# page gets fixed, not excluded.
+
+# Retries and timeouts: a slow or briefly unreachable host is retried before its
+# link counts as dead. lychee retries server errors (5xx), 408 and timeouts.
+max_retries = 3       # retries per link after the first attempt
+retry_wait_time = 2   # seconds before the first retry; the wait doubles on each one
+timeout = 30          # seconds per request, from connect to the last byte
+
+# Accepted status codes: lychee's default (1xx and 2xx) plus 429.
+# 429 Too Many Requests: rate limited, not dead. The host answered; it only asked us
+# to slow down.
+accept = ["100..=103", "200..=299", "429"]
+
+# Links inside code blocks are not checked (lychee's default, kept on purpose): there
+# they are commands and local addresses such as http://localhost:8765/.
+include_verbatim = false
+
+exclude = [
+  # linkedin.com and www.linkedin.com (docs/index.html: "Who's behind this" and the
+  # footer): refuse bots. linkedin.com answers 200 with a "Checking your browser -
+  # reCAPTCHA" page instead of the profile, and www.linkedin.com answers 999; a made-up
+  # profile gets the same answers (measured 2026-10-04), so lychee can't tell a live
+  # profile from a dead one. Not opened in a browser for this file: check the profile
+  # by hand when the link changes.
+  '^https://(www\.)?linkedin\.com/',
+]

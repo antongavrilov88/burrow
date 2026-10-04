@@ -240,6 +240,8 @@ Measured with Lighthouse 12.8.2, mobile form factor, simulated throttling.
 | Localhost, before perf fixes | 91 | **100** | 96 | 100 | 2.8 s | 2.8 s | 0.002 |
 | Localhost, after perf fixes | 100 | **100** | **100** | **100** | 0.9 s | 0.9 s | 0.004 |
 | **Deployed, after** | **99** | **100** | **100** | **100** | **1.3 s** | **1.3 s** | 0.002 |
+| Localhost, 4 Oct 2026, before #146 | 98–100 | 100 | 100 | 100 | 1.0–1.1 s | 1.0–1.1 s | 0.002–0.005 |
+| Localhost, 4 Oct 2026, after #146 | 99–100 | 100 | 100 | 100 | 1.0–1.1 s | 1.0–1.1 s | 0.0003–0.003 |
 
 The deployed row is the one that counts; the localhost rows are kept because they
 are what the fixes were tuned against. Deployed FCP (1.3 s) is slower than
@@ -273,6 +275,22 @@ discovered after the CSS parsed. Second preconnect added with `crossorigin`.
 **Finding PERF-4 (S, fixed).** The portrait is below the fold, had no intrinsic
 size, and loaded eagerly. Now `width`/`height` + `loading="lazy"`
 + `decoding="async"`.
+
+**Finding PERF-5 (M, fixed) — the font swap moved the page.** Text paints in a
+fallback face until Manrope arrives (`display=swap`), and the fallbacks were
+narrower on this page's text (Helvetica Neue by 1–1.5 %, Android's Roboto by
+3–8 %), so lines re-broke on the swap and everything under them moved.
+Lighthouse put CLS at 0.116–0.122 on `dev` before #144, all of it the paid card's
+terms block; #144's longer badge moved that off Lighthouse's 412 px viewport, but
+with the font files held back 1.2 s the swap still shifted the page by more than
+0.05 at 7 of 73 widths from 320 to 1440 px. The fallbacks are now `@font-face`
+faces with the web fonts' metrics: Arial (Roboto on Android) for Manrope, regular,
+bold and a face for `$` and figures, sized to Manrope's width on this page's text,
+with capsize's ascent, descent and line-gap overrides; Menlo or Courier New for
+JetBrains Mono. **Over 0.05 at 2 of 73 widths now** (an Android simulation: 1,
+was 12); in Lighthouse the font-caused shift is 0.0003, from 0.002. Not zero: one
+size-adjust can't match every glyph, so a line within about 1 % of its box can
+still re-break; at 390 px the paid card's Refund row still does.
 
 **Not a real finding:** Lighthouse's "enable text compression" is an artifact of
 `python -m http.server`, which does not gzip. GitHub Pages does.

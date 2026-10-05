@@ -1,0 +1,17 @@
+{
+  "name": "homeport-landing-check",
+  "private": true,
+  "description": "Checks docs/index.html in Chromium: axe, horizontal scroll, the fold rule and a web-fonts-loaded guard",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "check": "node landing-check.mjs",
+    "swap-shift": "node swap-shift.mjs"
+  },
+  "dependencies": {
+    "axe-core": "4.13.0",
+    "playwright": "1.63.0"
+  }
+}

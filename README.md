@@ -30,10 +30,14 @@ hides itself.
 
 ## Checks
 
-CI runs four: no secrets, no country-specific wording (`.github/wording-guard.sh`, rules
-in `CONTRIBUTING.md`), no leftover `{{placeholders}}` reaching `main`, and a link check
+CI runs five: no secrets, no country-specific wording (`.github/wording-guard.sh`, rules
+in `CONTRIBUTING.md`), no leftover `{{placeholders}}` reaching `main`, a link check
 that fails on a dead link in `docs/index.html` or this README (`.github/workflows/links.yml`,
-also weekly; settings and every exclusion with its reason in `lychee.toml`).
+also weekly; settings and every exclusion with its reason in `lychee.toml`), and a landing
+check on every PR that touches `docs/` (`.github/workflows/landing.yml`): in Chromium at 390,
+820 and 1280 px, light and dark, it fails on an axe violation, horizontal scroll, the fold
+rule in `CONTRIBUTING.md`, or web fonts that did not load. To run it locally, see
+`tools/landing-check/README.md`.
 
 Before changing the page, read `docs/UX-REVIEW.md` §8 — it records the performance budget
 the page is held to, and §1 the personas it is written for.

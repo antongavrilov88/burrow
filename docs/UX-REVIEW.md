@@ -179,22 +179,40 @@ Read aloud, flagging anything a non-native reader would stumble over.
 
 ## 6. Mobile (390 px)
 
-Walked the page at 390×844.
+Walked the page at 390×844 on 24 Sep; re-measured on 5 Oct 2026 (#172), in
+Chromium 153 after `document.fonts.ready`. Numbers marked **5 Oct** are from that
+pass; the 24 Sep ones stay where they tell the history.
 
-- No horizontal scroll anywhere; `scrollWidth === innerWidth` at 390, 820, 1280.
+- No horizontal scroll anywhere; `scrollWidth === clientWidth` at 390, 820 and
+  1280, light and dark (**5 Oct**).
 - The comparison stacks to one column and its label/value rows collapse to a
-  single column with the price moving under the heading. **It never becomes a
-  horizontal scroll** — verified on the `.cmp` element itself, not just the page.
-- Sticky header is 61 px at phone width; anchors carry `scroll-margin-top: 72px`,
-  so headings land below it.
-- Both paths, the word "free" and "$29" are above the fold: the paid card's
-  heading bottom sits at 775 px of an 844 px viewport, and at 772 px of 800 px at
-  1280. Tight at both. Any further growth in the H1 or lede pushes the price under
-  the fold — this is the constraint to protect in future copy edits, and it caught
-  a regression during this very review: the first rewrite of the hero lede added a
-  line and dropped "$29" below 800 px at 1280. The lede was shortened rather than
-  the constraint relaxed.
-- Tap targets: all buttons ≥ 44 px tall.
+  single column, with the "Opens in January 2027" badge dropping under "Done for
+  you" (on 24 Sep it was the price, under the heading). **It never becomes a
+  horizontal scroll** — verified on the `.cmp` element itself, not just the page
+  (**5 Oct**: 316 px wide, `scrollWidth` 316).
+- The sticky bar is 103 px tall at phone width (**5 Oct**; 61 px on 24 Sep, and #9
+  has since added the Free · $29 · Card? row). Anchors and focus scroll to
+  `scroll-padding-top: 116px`, which replaced `scroll-margin-top: 72px`, so a jump
+  from the bar to either card or to "Card declined?" lands 13 px below the bar.
+- The fold on 24 Sep. Both paths, the word "free" and "$29" were above it: the paid
+  card's heading bottom sat at 775 px of an 844 px viewport, and at 772 px of
+  800 px at 1280. Tight at both. Any further growth in the H1 or lede pushes the
+  price under the fold — this is the constraint to protect in future copy edits,
+  and it caught a regression during this very review: the first rewrite of the
+  hero lede added a line and dropped "$29" below 800 px at 1280. The lede was
+  shortened rather than the constraint relaxed.
+- The fold since #105 and #149 (the rule in `CONTRIBUTING.md`): after
+  `document.fonts.ready`, at 1280×800 the offer is above it — both cards' kicker
+  and price, and the free card's cost line with its tested/untested sentence; the
+  card buttons may sit just below. At 390×844 the paid button is above it.
+  **5 Oct:** at 1280×800 the kickers end at 332 px, the prices at 372 px and the
+  free card's cost line at 491 px (the tested/untested sentence at 467 px); the
+  card buttons end at 830 px. At 390×844 the paid button ends at 818 px, and
+  since #172 it is there before the web fonts arrive too: it used to sit at
+  797 px and drop 21 px on the swap, when the Refund row went from two lines to
+  three.
+- Tap targets: all buttons ≥ 44 px tall (**5 Oct**: the smallest, the theme
+  toggle and the free card's "From a terminal" disclosure, are 44 px).
 
 ---
 
@@ -242,6 +260,7 @@ Measured with Lighthouse 12.8.2, mobile form factor, simulated throttling.
 | **Deployed, after** | **99** | **100** | **100** | **100** | **1.3 s** | **1.3 s** | 0.002 |
 | Localhost, 4 Oct 2026, before #146 | 98–100 | 100 | 100 | 100 | 1.0–1.1 s | 1.0–1.1 s | 0.002–0.005 |
 | Localhost, 4 Oct 2026, after #146 | 99–100 | 100 | 100 | 100 | 1.0–1.1 s | 1.0–1.1 s | 0.0003–0.003 |
+| Localhost, 5 Oct 2026, after #172 | 98–100 | 100 | 100 | 100 | 1.0 s | 1.0 s | 0.0003 |
 
 The deployed row is the one that counts; the localhost rows are kept because they
 are what the fixes were tuned against. Deployed FCP (1.3 s) is slower than
@@ -291,6 +310,10 @@ JetBrains Mono. **Over 0.05 at 2 of 73 widths now** (an Android simulation: 1,
 was 12); in Lighthouse the font-caused shift is 0.0003, from 0.002. Not zero: one
 size-adjust can't match every glyph, so a line within about 1 % of its box can
 still re-break; at 390 px the paid card's Refund row still does.
+**Since #172 (5 Oct)** that row has an Arial face of its own, sized on its own
+words, and keeps its lines; and the language menu, which showed at first paint
+until the script hid it, is gone, and with it the `div.tools` shift (0.0031 in
+two of three Lighthouse runs). CLS is now 0.0003 in each of three runs.
 
 **Not a real finding:** Lighthouse's "enable text compression" is an artifact of
 `python -m http.server`, which does not gzip. GitHub Pages does.

@@ -24,3 +24,7 @@ KICKOFF.md
 # session handoff files, never committed
 .claude-handoff/
 .pr-body.md
+
+# landing check: installed packages and screenshots
+tools/landing-check/node_modules/
+tools/landing-check/shots/

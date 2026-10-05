@@ -1,0 +1,50 @@
+# Landing check: axe, horizontal scroll, the fold rule and a web-fonts-loaded guard for docs/index.html,
+# at 390, 820 and 1280 px in light and dark (tools/landing-check/README.md). Runs on PRs to dev and main
+# that touch the page, the check or this file, and by hand; a manual run can block the web fonts to show
+# the check failing without them.
+name: landing
+on:
+  pull_request:
+    branches: [dev, main]
+    paths:
+      - "docs/**"
+      - "tools/landing-check/**"
+      - ".github/workflows/landing.yml"
+  workflow_dispatch:
+    inputs:
+      block_web_fonts:
+        description: "Block fonts.googleapis.com and fonts.gstatic.com (the check must then fail)"
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  landing:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+      - name: Install the check (Playwright, axe-core)
+        working-directory: tools/landing-check
+        run: npm ci --no-audit --no-fund
+      - name: Install Chromium
+        working-directory: tools/landing-check
+        run: npx playwright install --with-deps --only-shell chromium
+      - name: Landing check
+        working-directory: tools/landing-check
+        env:
+          BLOCK_WEB_FONTS: ${{ inputs.block_web_fonts && '1' || '0' }}
+        run: node landing-check.mjs
+      - name: Upload the screenshots
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: landing-shots
+          path: tools/landing-check/shots/
+          retention-days: 14
+          if-no-files-found: ignore

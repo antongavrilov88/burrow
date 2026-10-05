@@ -25,7 +25,7 @@ There are no tags, release assets or version numbers in this repository; the cha
 
 ## Checks on every page change
 
-CI can't see the page, so before you ask for review, check `docs/index.html` in a browser (`cd docs && python3 -m http.server 8765`):
+On every PR into `dev` or `main` that touches `docs/`, CI runs the first four checks below in Chromium (`.github/workflows/landing.yml`), and fails if the web fonts didn't load. Run the same check before you ask for review: `cd tools/landing-check && npm ci && npx playwright install chromium && npm run check` (details in `tools/landing-check/README.md`; delete its `node_modules/` before you run the wording guard, which scans untracked files too). The last check is yours, and CI can't judge how the page looks, so also open it in a browser (`cd docs && python3 -m http.server 8765`):
 
 - widths 390, 820 and 1280 px, each in light and dark;
 - the fold: after `document.fonts.ready`, at 1280×800 the offer is above it — both cards' kicker and price, and the free card's cost line with its tested/untested sentence (the card buttons may sit just below, about 830 px since #105); at 390×844 the paid button;

@@ -38,7 +38,7 @@ jobs:
       - name: Landing check
         working-directory: tools/landing-check
         env:
-          BLOCK_WEB_FONTS: "1"
+          BLOCK_WEB_FONTS: ${{ inputs.block_web_fonts && '1' || '0' }}
         run: node landing-check.mjs
       - name: Upload the screenshots
         if: failure()

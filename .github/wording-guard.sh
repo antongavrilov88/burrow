@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Three checks on the public surface. Fails when a country-specific term is back,
-# when a line frames the product as circumvention (second check), or when the old
-# product name "Burrow" is used (third check).
+# Four checks on the public surface. Fails when a country-specific term is back,
+# when a line frames the product as circumvention (second check), when the old
+# product name "Burrow" is used (third check), or on the word "bypass" (fourth check).
 # The lists and the approved vocabulary live in CONTRIBUTING.md ("Wording rules").
 # Case-insensitive, Latin and Cyrillic; the Cyrillic terms are stems, so every case
 # ending matches. Language labels ("the panel is in Russian", lang/ru.md) are
@@ -27,9 +27,10 @@ if [ -n "$HITS" ]; then
   FAIL=1
 fi
 
-# Circumvention framing. Narrow patterns on purpose: "bypassing the relay" and
-# "apps that refuse VPN connections keep working" pass; the seven phrasings below fail.
-CIRCUMVENTION="bypass(es|ing)? (the )?(block|censor|filter)|evad(e|es|ing) (block|censor|detect|filter)|circumvent|get around (the )?block|when (it'?s |you'?re )?blocked|unblock|keeps? working when"
+# Circumvention framing. Narrow patterns on purpose: "apps that refuse VPN connections
+# keep working" passes; the six phrasings below fail. The word "bypass" fails in any
+# form on its own, in the fourth check.
+CIRCUMVENTION="evad(e|es|ing) (block|censor|detect|filter)|circumvent|get around (the )?block|when (it'?s |you'?re )?blocked|unblock|keeps? working when"
 FRAMING_HITS=$(grep -rniE "$CIRCUMVENTION" \
   --exclude-dir=.git --exclude='.git' --exclude='*.png' --exclude='*.jpg' --exclude='*.pyc' \
   --exclude='wording-guard.sh' --exclude='CONTRIBUTING.md' \
@@ -53,6 +54,22 @@ OLD=$(grep -rniEI '\bburrow\b' \
 if [ -n "$OLD" ]; then
   echo "old name found: the product is Homeport (see CONTRIBUTING.md, Wording rules):"
   echo "$OLD"
+  FAIL=1
+fi
+
+# Fourth check: the word "bypass" (bypasses, bypassed, bypassing), whole word, any case.
+# The skill's panel has a word for each thing the skill's docs used it for: a device's
+# route goes "through the tunnel" or "direct", and the domains that skip the tunnel are
+# the "exceptions". Nothing is allowed here. (homeport-skill's guard allows one name, the
+# relay's nftables set `bypass`, which this site has no reason to mention.)
+BYPASS='\bbypass(es|ed|ing)?\b'
+BYPASS_HITS=$(grep -rniEI "$BYPASS" \
+  --exclude-dir=.git --exclude='.git' --exclude='*.png' --exclude='*.jpg' --exclude='*.webp' --exclude='*.pyc' \
+  --exclude='wording-guard.sh' --exclude='CONTRIBUTING.md' \
+  "$ROOT" || true)
+if [ -n "$BYPASS_HITS" ]; then
+  echo '"bypass" found: say "through the tunnel" or "exceptions" (see CONTRIBUTING.md, Wording rules):'
+  echo "$BYPASS_HITS"
   FAIL=1
 fi
 
